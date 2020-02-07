@@ -78,14 +78,14 @@ button.filled {
   max-width: 1200px;
   margin: 0 auto;
 }
-.hero {
+.hero-section {
   text-align: center;
 }
 .hero-header {
-  font-size: var(--s5);
+  font-size: var(--s4);
 }
 .hero-tagline {
-  font-size: var(--s1);
+  font-size: 1.3rem;
   max-width: 750px;
   margin: 0 auto;
 }
