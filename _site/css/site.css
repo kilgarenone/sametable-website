@@ -89,3 +89,8 @@ button.filled {
   max-width: 750px;
   margin: 0 auto;
 }
+.hero-screenshot {
+  max-width: 960px;
+  margin: 6.25rem auto;
+  display: block;
+}
