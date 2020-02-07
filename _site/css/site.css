@@ -51,7 +51,19 @@
   color: var(--black-100);
 }
 
+html,
+body {
+  height: 100%;
+}
+
 .header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.nav {
   display: flex;
 }
 
@@ -79,6 +91,11 @@ button.filled {
   margin: 0 auto;
 }
 .hero-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
   text-align: center;
 }
 .hero-header {
@@ -93,4 +110,6 @@ button.filled {
   max-width: 960px;
   margin: 6.25rem auto;
   display: block;
+  box-shadow: 0 0 20px 0 rgba(0, 123, 255, 0.25);
+  border-radius: 10px;
 }
