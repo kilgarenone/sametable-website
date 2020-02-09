@@ -1,14 +1,15 @@
-@import "./reset.css";
-@import "./spacing.css";
+@import './reset.css';
+@import './spacing.css';
 
 :root {
   --black-100: #17181a;
   --black-60: #555759;
   --black-50: #797c80;
   --black-20: #e1e3e5;
-  --font-plain: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial,
+  --font-plain: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial,
     sans-serif;
+  --font-special: 'Times New Roman', Times, serif;
   --font-small: 0.8rem;
   --font-medium: 0.95rem;
   --ratio: 1.4;
@@ -56,6 +57,16 @@ body {
   height: 100%;
 }
 
+h1,
+h2,
+h3,
+h4 {
+  line-height: var(--line-height-small);
+  font-family: var(--font-special);
+  font-weight: 400;
+  hyphens: auto;
+}
+
 .header {
   position: absolute;
   top: 0;
@@ -99,6 +110,10 @@ button.filled {
   text-align: center;
 }
 .hero-header {
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: var(--s2);
+  line-height: 1.2;
   font-size: var(--s4);
 }
 .hero-tagline {
@@ -108,8 +123,31 @@ button.filled {
 }
 .hero-screenshot {
   max-width: 960px;
-  margin: 6.25rem auto;
+  margin: 0 auto;
   display: block;
   box-shadow: 0 0 20px 0 rgba(0, 123, 255, 0.25);
   border-radius: 10px;
+}
+.hero-screenshot-section {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.personal-tasks-section {
+  display: flex;
+  padding: 140px 0;
+}
+.personal-tasks-desc {
+  flex: 2;
+  font-size: 1.3rem;
+  padding: 60px;
+  padding-right: 30px;
+}
+.personal-tasks-screenshot {
+  flex: 3;
+  box-shadow: 0 0 20px 0 rgba(0, 123, 255, 0.25);
+  border-radius: 10px;
+  object-fit: cover;
+}
+.personal-tasks-desc-header {
+  font-size: 2.3rem;
 }
