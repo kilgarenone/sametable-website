@@ -91,10 +91,27 @@ button:disabled {
   color: grey;
   background-color: #ddd;
 }
-button.filled {
+
+.filled {
   padding: var(--s-3) var(--s-1);
   background-color: var(--black-100);
   color: #fff;
+}
+.hero-cta {
+  display: inline-block;
+  padding: var(--s-1) var(--s5);
+  border-radius: 40px;
+  font-size: 1.3rem;
+}
+
+.outline {
+  border: 1px solid;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: var(--s-1) var(--s2);
+  border-radius: 40px;
 }
 
 .container {
@@ -112,14 +129,17 @@ button.filled {
 .hero-header {
   max-width: 600px;
   margin: 0 auto;
-  margin-bottom: var(--s2);
-  line-height: 1.2;
-  font-size: var(--s4);
+  font-weight: 600;
+  margin-bottom: var(--s3);
+  font-size: 4.6rem;
 }
 .hero-tagline {
   font-size: 1.3rem;
-  max-width: 750px;
+  font-family: var(--font-plain);
+  max-width: 600px;
   margin: 0 auto;
+  color: rgba(0, 0, 0, 0.7);
+  margin-bottom: var(--s2);
 }
 .hero-screenshot {
   max-width: 960px;
@@ -131,23 +151,37 @@ button.filled {
 .hero-screenshot-section {
   max-width: 900px;
   margin: 0 auto;
+  margin-bottom: var(--s5);
 }
-.personal-tasks-section {
+.feature-section {
   display: flex;
-  padding: 140px 0;
+  /* padding:  0; */
 }
-.personal-tasks-desc {
+.feature-desc {
   flex: 2;
   font-size: 1.3rem;
   padding: 60px;
-  padding-right: 30px;
+  padding-top: 0;
 }
-.personal-tasks-screenshot {
+.feature-desc p {
+  color: rgba(0, 0, 0, 0.7);
+}
+.feature-screenshot {
+  height: 22rem;
   flex: 3;
   box-shadow: 0 0 20px 0 rgba(0, 123, 255, 0.25);
   border-radius: 10px;
   object-fit: cover;
 }
-.personal-tasks-desc-header {
-  font-size: 2.3rem;
+.feature-header {
+  font-size: 2.75rem;
+  padding-left: 60px;
+}
+.friends {
+  text-align: right;
+  padding-right: 60px;
+}
+
+strong {
+  font-weight: 600;
 }
