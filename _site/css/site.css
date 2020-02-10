@@ -1,15 +1,15 @@
-@import "./reset.css";
-@import "./spacing.css";
+@import './reset.css';
+@import './spacing.css';
 
 :root {
   --black-100: #17181a;
   --black-60: #555759;
   --black-50: #797c80;
   --black-20: #e1e3e5;
-  --font-plain: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial,
+  --font-plain: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial,
     sans-serif;
-  --font-special: "Times New Roman", Times, serif;
+  --font-special: 'Times New Roman', Times, serif;
   --font-small: 0.8rem;
   --font-medium: 0.95rem;
   --ratio: 1.4;
@@ -143,6 +143,7 @@ button:disabled {
   height: 100%;
   text-align: center;
 }
+
 .hero-header {
   max-width: 600px;
   margin: 0 auto var(--s3);
@@ -269,4 +270,33 @@ strong {
 
 .package p {
   font-size: 1.2rem;
+}
+
+@media (max-width: 580px) {
+  .hero-screenshot {
+    max-width: 100%;
+    /* padding-top: 220px; */
+  }
+  .hero-screenshot-section {
+    margin-bottom: var(--s6);
+  }
+  .feature-header {
+    text-align: center;
+    padding: 20px;
+  }
+  .feature-desc {
+    padding: 20px;
+  }
+  .feature-section {
+    flex-wrap: wrap;
+  }
+  .nav {
+    flex-direction: column;
+  }
+  .header {
+    position: relative;
+  }
+  .pricing {
+    flex-wrap: wrap;
+  }
 }
