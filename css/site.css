@@ -1,15 +1,15 @@
-@import './reset.css';
-@import './spacing.css';
+@import "./reset.css";
+@import "./spacing.css";
 
 :root {
   --black-100: #17181a;
   --black-60: #555759;
   --black-50: #797c80;
   --black-20: #e1e3e5;
-  --font-plain: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial,
+  --font-plain: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial,
     sans-serif;
-  --font-special: 'Times New Roman', Times, serif;
+  --font-special: "Times New Roman", Times, serif;
   --font-small: 0.8rem;
   --font-medium: 0.95rem;
   --ratio: 1.4;
@@ -80,10 +80,18 @@ h4 {
   top: 0;
   left: 0;
   width: 100%;
+  padding: var(--s-1) var(--s3);
+}
+
+.brand {
+  font-size: 1.7rem;
+  font-weight: 600;
+  font-family: var(--font-special);
 }
 
 .nav {
   display: flex;
+  align-items: center;
 }
 
 button {
@@ -118,7 +126,7 @@ button:disabled {
 
 .cta-btn {
   display: inline-block;
-  padding: var(--s-1) var(--s2);
+  padding: var(--s-2) var(--s2);
   border-radius: 40px;
 }
 
@@ -190,15 +198,17 @@ button:disabled {
 
 .final-cta-section {
   text-align: center;
-  font-size: 2rem;
-  max-width: 630px;
   line-height: 1.2;
   margin: 0 auto var(--s3);
 }
 
-.final-cta-section p {
+.final-cta-headline {
+  max-width: 630px;
+  margin: 0 auto var(--s4);
+  font-size: 2rem;
   font-family: var(--font-special);
 }
+
 .final-cta-section img {
   width: 800px;
   margin-bottom: var(--s6);
@@ -214,4 +224,41 @@ footer {
 }
 strong {
   font-weight: 600;
+}
+
+.pricing {
+  display: flex;
+  max-width: 800px;
+  margin: 0 auto;
+  justify-content: space-around;
+}
+
+.pricing h1 {
+  font-size: 3.8rem;
+  font-weight: 600;
+  margin: var(--s1) 0;
+  text-align: center;
+}
+
+.cost {
+  font-size: 2.6rem;
+  margin: var(--s2) 0;
+}
+
+.cost-cont {
+  padding: var(--s2);
+}
+
+.plan {
+  flex: 1;
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.16), 0px 1px 4px rgba(0, 0, 0, 0.16);
+}
+
+.package {
+  padding: var(--s-1);
+  margin-bottom: var(--s3);
+}
+.package p {
+  font-size: 1.2rem;
 }
