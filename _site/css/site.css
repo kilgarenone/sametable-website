@@ -58,6 +58,7 @@
   font-size: calc(0.18vw + 1rem);
   font-family: var(--font-plain);
   color: var(--black-100);
+  background-color: #fffde7;
 }
 
 html,
@@ -80,7 +81,7 @@ h4 {
   top: 0;
   left: 0;
   width: 100%;
-  padding: var(--s-1) var(--s3);
+  padding: var(--s1) var(--s3);
 }
 
 .brand {
@@ -153,7 +154,6 @@ button:disabled {
   font-family: var(--font-plain);
   max-width: 600px;
   margin: 0 auto;
-  color: rgba(0, 0, 0, 0.7);
   margin-bottom: var(--s2);
 }
 .hero-screenshot {
@@ -176,9 +176,6 @@ button:disabled {
   font-size: 1.3rem;
   padding: 60px;
   padding-top: 0;
-}
-.feature-desc p {
-  color: rgba(0, 0, 0, 0.7);
 }
 .feature-screenshot {
   height: 22rem;
@@ -215,7 +212,7 @@ button:disabled {
 }
 
 footer {
-  color: #999;
+  /* color: #999; */
   max-width: 800px;
   margin: 0 auto;
   padding: var(--s2) var(--s-1) var(--s4);
@@ -229,12 +226,12 @@ strong {
 .pricing {
   display: flex;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 0 auto var(--s7);
   justify-content: space-around;
 }
 
 .pricing h1 {
-  font-size: 3.8rem;
+  font-size: 3.2rem;
   font-weight: 600;
   margin: var(--s1) 0;
   text-align: center;
@@ -245,20 +242,31 @@ strong {
   margin: var(--s2) 0;
 }
 
-.cost-cont {
-  padding: var(--s2);
+.plan-cta {
+  margin: var(--s1);
+  padding: var(--s-1) var(--s5);
 }
 
 .plan {
   flex: 1;
+  margin: var(--s1);
   border-radius: 10px;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.16), 0px 1px 4px rgba(0, 0, 0, 0.16);
+  background-color: #fff;
 }
 
 .package {
   padding: var(--s-1);
   margin-bottom: var(--s3);
 }
+
+.package.free {
+  background-color: #f4f4f4;
+}
+.package.pro {
+  background-color: #ffe0b2;
+}
+
 .package p {
   font-size: 1.2rem;
 }
