@@ -1,14 +1,14 @@
-@import './reset.css';
+@import "./reset.css";
 
 :root {
   --black-100: #17181a;
   --black-60: #555759;
   --black-50: #797c80;
   --black-20: #e1e3e5;
-  --font-plain: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial,
+  --font-plain: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial,
     sans-serif;
-  --font-special: 'Times New Roman', Times, serif;
+  --font-special: "Times New Roman", Times, serif;
   --ratio: 1.4;
   --s-5: calc(
     var(--s0) / var(--ratio) / var(--ratio) / var(--ratio) / var(--ratio) /
@@ -136,7 +136,7 @@ h2 {
 }
 
 .hero-header::after {
-  content: '';
+  content: "";
   position: absolute;
   top: -20px;
   right: 0;
@@ -212,8 +212,8 @@ h2 {
   font-family: var(--font-special);
 }
 
-.final-cta-section img {
-  max-width: 37.5rem;
+.final-cta-art {
+  max-width: 30.5rem;
   margin-bottom: var(--s6);
 }
 
@@ -334,6 +334,12 @@ strong {
   }
   .brand {
     margin-bottom: var(--s-3);
+  }
+  .feature-screenshot {
+    max-width: 100%;
+  }
+  .final-cta-art {
+    max-width: calc(100% - 40px);
   }
   footer {
     text-align: center;
