@@ -44,7 +44,8 @@
   --border-radius: 6px;
   --box-shadow: 0 0 20px 0 rgba(0, 123, 255, 0.25);
   --max-width-section: 50rem;
-  --max-width-section-smaller: 37.5rem;
+  --max-width-section--1: 37.5rem;
+  --max-width-section--2: 31.25rem;
 
   line-height: var(--ratio);
   font-size: calc(0.18vw + 1rem);
@@ -130,7 +131,7 @@ h2 {
   align-items: center;
   height: 100%;
   text-align: center;
-  max-width: var(--max-width-section-smaller);
+  max-width: var(--max-width-section--1);
   margin: 0 auto;
 }
 
@@ -157,6 +158,7 @@ h2 {
   font-family: var(--font-plain);
   margin: 0 auto;
   margin-bottom: var(--s2);
+  max-width: var(--max-width-section--2);
 }
 .hero-screenshot {
   margin: 0 auto;
@@ -201,7 +203,7 @@ h2 {
 }
 
 .final-cta-headline {
-  max-width: var(--max-width-section-smaller);
+  max-width: var(--max-width-section--1);
   margin: 0 auto var(--s4);
   font-size: 2rem;
   font-family: var(--font-special);
