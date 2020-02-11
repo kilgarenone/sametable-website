@@ -21,7 +21,7 @@
       href="assets/favicon-16x16.png"
     />
     <link rel="manifest" href="assets/site.webmanifest" />
-    <!-- <meta
+    <meta
       name="description"
       content="A simpler space to work with anyone on anything"
     />
@@ -34,12 +34,12 @@
       content="Sametable - A simpler space to work with anyone on anything"
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://sametable.app" />
+    <meta property="og:url" content="https://www.sametable.app" />
     <meta
       property="og:image"
       content="https://source.unsplash.com/DWGAlCVnDm0/1200x1200"
     />
-    <link rel="canonical" href="https://sametable.app" /> -->
+    <link rel="canonical" href="https://www.sametable.app" />
     <title>Sametable</title>
     <link rel="stylesheet" href="css/site.css" />
   </head>
@@ -48,25 +48,29 @@
       <nav class="nav">
         <div class="brand">Sametable</div>
         <ul>
-          <li class="mr-1">Pricing</li>
-          <li class="mr-1"><a href="#">Login</a></li>
+          <li class="mr-1"><a href="#pricing">Pricing</a></li>
+          <li class="mr-1">
+            <a href="https://web.sametable.app/signin">Login</a>
+          </li>
           <li>
-            <a href="#" class="cta-btn outline">Get started</a>
+            <a href="https://web.sametable.app/signup" class="cta-btn outline"
+              >Get started</a
+            >
           </li>
         </ul>
       </nav>
     </header>
-    <section class="hero-section container">
-      <div>
-        <h1 class="hero-header">A simpler space for works</h1>
-        <h2 class="hero-tagline">
-          Work with anyone, from anywhere, and thrive together on the same page
-          with Sametable
-        </h2>
-        <a href="#" class="filled hero-cta">Get started</a>
-      </div>
+    <section class="hero-section">
+      <h1 class="hero-header">A simpler space for works</h1>
+      <h2 class="hero-tagline">
+        Work with anyone, from anywhere, and thrive together on the same page
+        with Sametable
+      </h2>
+      <a href="https://web.sametable.app/signup" class="filled hero-cta"
+        >Get started</a
+      >
     </section>
-    <section class="hero-screenshot-section mb-7">
+    <section class="hero-screenshot-section">
       <img
         src="assets/home.png"
         alt="Sametable's workspace screenshot"
@@ -74,7 +78,7 @@
       />
     </section>
     <section class="mb-5">
-      <h1 class="feature-header mb-1">
+      <h1 class="feature-header">
         Your tasks, all together now.
       </h1>
       <div class="feature-section">
@@ -87,22 +91,22 @@
         </div>
         <img
           src="assets/mytasks.png"
-          alt="Sametable's workspace screenshot"
+          alt="Personal tasks screenshot"
           class="feature-screenshot"
         />
         <img
           src="assets/mytasks_mobile.png"
-          alt="Sametable's workspace screenshot"
+          alt="Personal tasks mobile screenshot"
           class="mobile-screenshot"
         />
       </div>
     </section>
     <section class="mb-5">
-      <h1 class="feature-header friends mb-1">Projects and friends</h1>
+      <h1 class="feature-header friends">Projects and friends</h1>
       <div class="feature-section">
         <img
           src="assets/friends.png"
-          alt="Sametable's workspace screenshot"
+          alt="Project view screenshot"
           class="feature-screenshot mb-2"
         />
         <div class="feature-desc">
@@ -114,7 +118,7 @@
       </div>
     </section>
     <section class="mb-7">
-      <h1 class="feature-header mb-1">
+      <h1 class="feature-header">
         Write like nobody is reading
       </h1>
       <div class="feature-section">
@@ -126,12 +130,12 @@
         </div>
         <img
           src="assets/editor.png"
-          alt="Sametable's workspace screenshot"
+          alt="Markdown rich text editor screenshot"
           class="feature-screenshot"
         />
       </div>
     </section>
-    <section class="final-cta-section">
+    <section class="final-cta-section" id="pricing">
       <p class="mb-2 final-cta-headline">
         A very simple way to manage tasks and projects on anything with anyone
       </p>
@@ -144,7 +148,11 @@
             <p>Unlimited projects</p>
           </div>
           <h2 class="cost">Free</h2>
-          <a href="#" class="filled cta-btn plan-cta">Sign up</a>
+          <a
+            href="https://web.sametable.app/signup"
+            class="filled cta-btn plan-cta"
+            >Sign up</a
+          >
         </div>
         <div class="plan">
           <h1>Pro</h1>
@@ -154,7 +162,11 @@
             <p>Unlimited projects</p>
           </div>
           <h2 class="cost">$9.99 / month</h2>
-          <a href="#" class="filled cta-btn plan-cta">Sign up</a>
+          <a
+            href="https://web.sametable.app/signup"
+            class="filled cta-btn plan-cta"
+            >Sign up</a
+          >
         </div>
       </div>
       <img role="presentation" src="assets/tradition.png" />
@@ -164,7 +176,7 @@
       <nav>
         <ul>
           <li><a href="/about" class="mr-1">About</a></li>
-          <li><a href="/pricing" class="mr-1">Pricing</a></li>
+          <li><a href="#pricing" class="mr-1">Pricing</a></li>
           <li><a href="/terms">Legal</a></li>
         </ul>
       </nav>
