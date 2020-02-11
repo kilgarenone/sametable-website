@@ -201,7 +201,7 @@ h2 {
 }
 
 .final-cta-headline {
-  max-width: 39.375rem;
+  max-width: var(--max-width-section-smaller);
   margin: 0 auto var(--s4);
   font-size: 2rem;
   font-family: var(--font-special);
