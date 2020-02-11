@@ -1,14 +1,14 @@
-@import "./reset.css";
+@import './reset.css';
 
 :root {
   --black-100: #17181a;
   --black-60: #555759;
   --black-50: #797c80;
   --black-20: #e1e3e5;
-  --font-plain: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial,
+  --font-plain: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial,
     sans-serif;
-  --font-special: "Times New Roman", Times, serif;
+  --font-special: 'Times New Roman', Times, serif;
   --ratio: 1.4;
   --s-5: calc(
     var(--s0) / var(--ratio) / var(--ratio) / var(--ratio) / var(--ratio) /
@@ -136,7 +136,7 @@ h2 {
 }
 
 .hero-header::after {
-  content: "";
+  content: '';
   position: absolute;
   top: -20px;
   right: 0;
@@ -178,14 +178,17 @@ h2 {
 .feature-desc {
   flex: 1 0 10rem;
   font-size: 1.3rem;
-  padding: var(--s4);
+  padding: var(--s3);
+  margin: var(--s1);
   padding-top: 0;
 }
 .feature-screenshot {
-  flex: 1 0 30rem;
+  flex: 1 0 700px;
+  max-width: 800px;
   box-shadow: var(--box-shadow);
   border-radius: var(--border-radius);
   object-fit: cover;
+  min-width: 0;
 }
 .feature-header {
   font-size: 2.75rem;
