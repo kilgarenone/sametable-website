@@ -150,10 +150,10 @@ button:disabled {
 .hero-header::after {
   content: "";
   position: absolute;
-  top: -30px;
+  top: -20px;
   right: 0;
-  width: 140px;
-  height: 140px;
+  width: 120px;
+  height: 110px;
   border-radius: 50%;
   background-color: #ff000026;
   box-shadow: 0 0 50px 10px #f8dbd5;
@@ -189,6 +189,7 @@ button:disabled {
 .feature-section {
   display: flex;
   flex-wrap: wrap;
+  position: relative;
 }
 .feature-desc {
   flex: 1 0 10rem;
@@ -227,6 +228,16 @@ button:disabled {
 .final-cta-section img {
   width: 800px;
   margin-bottom: var(--s6);
+}
+
+.mobile-screenshot {
+  position: absolute;
+  left: 149px;
+  top: 59px;
+  background-color: transparent;
+  margin-top: var(--s1);
+  height: 27rem;
+  object-fit: cover;
 }
 
 footer {
@@ -296,6 +307,11 @@ strong {
   }
 }
 @media (max-width: 580px) {
+  .mobile-screenshot {
+    position: relative;
+    left: 0;
+    top: 0;
+  }
   .hero-screenshot {
     max-width: 100%;
     height: 300px;
@@ -329,5 +345,8 @@ strong {
   }
   .brand {
     margin-bottom: var(--s-3);
+  }
+  .footer {
+    text-align: center;
   }
 }
