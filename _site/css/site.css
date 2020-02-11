@@ -43,9 +43,9 @@
   --line-height-small: calc(0.8 * var(--ratio));
   --border-radius: 6px;
   --box-shadow: 0 0 20px 0 rgba(0, 123, 255, 0.25);
-  --max-width-section: 50rem;
-  --max-width-section--1: 37.5rem;
-  --max-width-section--2: 31.25rem;
+  --max-width-section: 900px;
+  --max-width-section--1: 600px;
+  --max-width-section--2: 500px;
 
   line-height: var(--ratio);
   font-size: calc(0.18vw + 1rem);
@@ -206,9 +206,9 @@ h2 {
 }
 
 .final-cta-headline {
-  max-width: var(--max-width-section--1);
+  max-width: var(--max-width-section);
   margin: 0 auto var(--s4);
-  font-size: 2rem;
+  font-size: 2.3rem;
   font-family: var(--font-special);
 }
 
