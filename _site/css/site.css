@@ -176,12 +176,13 @@ h2 {
   background: url("../assets/ornament.jpg") no-repeat center center fixed;
   background-size: auto;
   height: 100%;
-  width: 50%;
+  width: 70%;
   position: absolute;
   right: -100px;
-  bottom: -180px;
+  bottom: -152px;
   z-index: -1;
   background-size: cover;
+  opacity: 0.7;
 }
 
 .write-section {
