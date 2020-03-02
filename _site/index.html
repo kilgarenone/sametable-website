@@ -35,6 +35,12 @@
     <link rel="stylesheet" href="css/site.css" />
   </head>
   <body>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+      <symbol id="check" viewBox="0 0 24 24">
+        <path d="M0 0h24v24H0z" fill="none" />
+        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+      </symbol>
+    </svg>
     <header class="header">
       <nav class="nav">
         <div class="brand">
@@ -114,11 +120,45 @@
         />
 
         <div class="column-description">
-          <p>
+          <p class="mb--1">
             Manage all the tasks making it all happen in
-            <strong>a humble table</strong> &mdash; Assign owners; Set due date,
-            status, and priority; Sort them by table columns.
+            <strong>a humble table</strong>
           </p>
+          <div class="feature-list">
+            <div class="feature-item">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns-xlink="http://www.w3.org/1999/xlink"
+                width="24"
+                height="24"
+              >
+                <use href="#check" />
+              </svg>
+              <p>Assign owners</p>
+            </div>
+            <div class="feature-item">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns-xlink="http://www.w3.org/1999/xlink"
+                width="24"
+                height="24"
+              >
+                <use href="#check" />
+              </svg>
+              <p>Set due date, status and priority</p>
+            </div>
+            <div class="feature-item">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns-xlink="http://www.w3.org/1999/xlink"
+                width="24"
+                height="24"
+              >
+                <use href="#check" />
+              </svg>
+              <p>Sort them by table columns</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -130,8 +170,32 @@
         <div class="column-description">
           <p>
             Pen the <strong>details</strong> of tasks and projects in Markdown
-            and rich text editor. Now <strong>everybody is happy</strong>.
+            or rich text editor.
           </p>
+          <div class="feature-list">
+            <div class="feature-item">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns-xlink="http://www.w3.org/1999/xlink"
+                width="24"
+                height="24"
+              >
+                <use href="#check" />
+              </svg>
+              <p>Embed CodePen</p>
+            </div>
+            <div class="feature-item">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns-xlink="http://www.w3.org/1999/xlink"
+                width="24"
+                height="24"
+              >
+                <use href="#check" />
+              </svg>
+              <p>Supports Markdown shortcuts</p>
+            </div>
+          </div>
         </div>
         <img
           src="assets/editor1.png"
@@ -191,9 +255,10 @@
       <a href="/about" class="mr-1">© 2020 Sametable</a>
       <nav>
         <ul>
-          <li><a href="https://kheohyeewei.com" class="mr-1">About</a></li>
-          <li><a href="#pricing" class="mr-1">Pricing</a></li>
+          <li><a href="https://kheohyeewei.com">About</a></li>
+          <li><a href="#pricing">Pricing</a></li>
           <li><a href="/terms">Legal</a></li>
+          <li><a href="mailto:oldjoy@protonmail.com">Contact us</a></li>
         </ul>
       </nav>
     </footer>
