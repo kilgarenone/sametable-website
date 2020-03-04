@@ -143,13 +143,13 @@ h2 {
 .hero-header::after {
   content: "";
   position: absolute;
-  top: -20px;
-  right: 0;
-  width: 120px;
-  height: 110px;
+  top: -10%;
+  right: -2%;
+  width: 30%;
+  height: 100%;
   border-radius: 50%;
   background-color: #ff000026;
-  box-shadow: 0 0 50px 10px #f8dbd5;
+  box-shadow: 0 0 50px 10px #f7b5a8;
 }
 
 .hero-header {
@@ -222,7 +222,7 @@ h2 {
   box-shadow: var(--box-shadow);
   border-radius: var(--border-radius);
   width: 60%;
-  height: auto;
+  height: 100%;
   margin: 0 var(--s1);
 }
 .banner-title {
@@ -362,9 +362,12 @@ strong {
     position: relative;
     left: 0;
     top: 0;
+    width: 100%;
   }
   .winter-image {
-    bottom: -112px;
+    bottom: -22%;
+    width: 100%;
+    border-radius: 50%;
   }
   .hero-screenshot {
     max-width: 100%;
@@ -379,6 +382,10 @@ strong {
   .hero-header {
     font-size: 4rem;
   }
+  .hero-header::after {
+    width: 9rem;
+    height: 8rem;
+  }
   .hero-screenshot-section {
     margin-bottom: var(--s6);
   }
@@ -387,7 +394,8 @@ strong {
     margin-bottom: 0;
   }
   .column-description {
-    padding: 10px 20px 30px;
+    padding: 0;
+    width: 100%;
   }
   .nav {
     flex-direction: column;
