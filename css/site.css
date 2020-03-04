@@ -39,6 +39,10 @@
     var(--s0) * var(--ratio) * var(--ratio) * var(--ratio) * var(--ratio) *
       var(--ratio) * var(--ratio) * var(--ratio)
   );
+  --s8: calc(
+    var(--s0) * var(--ratio) * var(--ratio) * var(--ratio) * var(--ratio) *
+      var(--ratio) * var(--ratio) * var(--ratio) * var(--ratio)
+  );
   --line-height: var(--ratio);
   --line-height-small: calc(0.8 * var(--ratio));
   --border-radius: 10px;
@@ -171,7 +175,7 @@ h2 {
 .hero-screenshot-section {
   position: relative;
   max-width: var(--max-width-section);
-  margin: 0 auto var(--s7);
+  margin: 0 auto var(--s8);
   background-color: transparent;
 }
 .hero-screenshot-section::before {
@@ -208,14 +212,14 @@ h2 {
   position: relative;
 }
 .column-description {
-  flex: 1 1;
+  flex: 1 1 8rem;
   font-size: 1.3rem;
-  padding: var(--s3);
+  padding: var(--s2);
   margin: var(--s1);
   padding-top: 0;
 }
 .column-image {
-  flex: 3 1;
+  flex: 3 1 11rem;
   box-shadow: var(--box-shadow);
   border-radius: var(--border-radius);
   object-fit: cover;
@@ -224,7 +228,7 @@ h2 {
 .banner-title {
   font-size: 2.75rem;
   font-weight: 600;
-  padding-left: 3.75rem;
+  padding-left: var(--s3);
   margin-bottom: var(--s1);
 }
 .friends {
@@ -251,8 +255,8 @@ h2 {
 
 .mobile-screenshot {
   position: absolute;
-  left: 9.3125rem;
-  top: 3.6875rem;
+  left: 11.8125rem;
+  top: 3rem;
   background-color: transparent;
   margin-top: var(--s1);
   height: 27rem;
