@@ -48,7 +48,7 @@
   --border-radius: 10px;
   --box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.16),
     0px 1px 4px rgba(0, 0, 0, 0.16);
-  --max-width-section: 60%;
+  --max-width-section: 50rem;
   --max-width-section--1: 37rem;
   --max-width-section--2: 27.25rem;
 
@@ -203,7 +203,7 @@ h2 {
   bottom: -26%;
   width: 44%;
   z-index: -1;
-  border-radius: 50%;
+  border-radius: 37%;
 }
 
 .flex-wrap {
@@ -222,6 +222,7 @@ h2 {
   box-shadow: var(--box-shadow);
   border-radius: var(--border-radius);
   width: 60%;
+  height: auto;
   margin: 0 var(--s1);
 }
 .banner-title {
@@ -254,11 +255,11 @@ h2 {
 
 .mobile-screenshot {
   position: absolute;
-  left: 18%;
-  top: 24%;
+  left: 20%;
+  top: 20%;
   background-color: transparent;
   margin-top: var(--s1);
-  width: 38%;
+  width: 30%;
 }
 
 footer {
