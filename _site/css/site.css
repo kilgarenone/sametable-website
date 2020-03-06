@@ -300,6 +300,10 @@ strong {
   margin: var(--s2) 0;
 }
 
+.cost span {
+  font-size: var(--s2);
+}
+
 .plan-cta {
   margin: var(--s1);
   padding: var(--s-1) var(--s5);
@@ -340,7 +344,7 @@ strong {
 .feature-item svg {
   flex-basis: 2rem;
   margin-right: var(--s-3);
-  margin-top: var(--s-3);
+  margin-top: var(--s-5);
 }
 .feature-item p {
   flex: 1;
