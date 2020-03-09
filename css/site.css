@@ -71,6 +71,9 @@
 .mb-7 {
   margin-bottom: var(--s7);
 }
+.underline {
+  text-decoration: underline;
+}
 
 html,
 body {
