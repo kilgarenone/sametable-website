@@ -78,6 +78,7 @@
 video {
   margin: var(--s2) var(--s1);
   border-radius: 10px;
+  width: 100%;
 }
 html,
 body {
@@ -369,6 +370,10 @@ strong {
   .hero-screenshot-section::before {
     width: 100%;
     right: 0;
+  }
+  video {
+    margin: 0;
+    margin-top: var(--s2);
   }
   .mobile-screenshot {
     position: relative;
