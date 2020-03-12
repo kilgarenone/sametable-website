@@ -75,6 +75,10 @@
   text-decoration: underline;
 }
 
+video {
+  margin: var(--s2) var(--s1);
+  border-radius: 10px;
+}
 html,
 body {
   height: 100%;
@@ -202,11 +206,11 @@ h2 {
 
 .winter-image {
   position: absolute;
-  right: 10%;
-  bottom: -26%;
-  width: 44%;
+  right: 20%;
+  bottom: -3%;
+  width: 50%;
   z-index: -1;
-  border-radius: 37%;
+  border-radius: 27% 73% 38% 62% / 56% 61% 39% 44%;
 }
 
 .flex-wrap {
