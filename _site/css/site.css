@@ -231,6 +231,7 @@ h2 {
   width: 60%;
   height: 100%;
   margin: 0 var(--s1);
+  z-index: 1;
 }
 .banner-title {
   font-size: 3rem;
@@ -240,7 +241,7 @@ h2 {
 }
 .friends {
   text-align: right;
-  padding-right: var(--s8);
+  padding-right: var(--s7);
 }
 
 .final-cta-section {
