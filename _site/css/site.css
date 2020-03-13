@@ -157,7 +157,7 @@ h2 {
   height: 100%;
   border-radius: 50%;
   background-color: #ff000026;
-  box-shadow: 0 0 50px 10px #f7b5a8;
+  box-shadow: 0 0 50px 10px #ffd2c9;
 }
 
 .hero-header {
@@ -269,6 +269,7 @@ h2 {
   background-color: transparent;
   margin-top: var(--s1);
   width: 30%;
+  z-index: 2;
 }
 
 footer {
@@ -367,6 +368,9 @@ strong {
   }
 }
 @media (max-width: 36em) {
+  .write-section {
+    margin-bottom: var(--s8);
+  }
   .hero-screenshot-section::before {
     width: 100%;
     right: 0;
@@ -382,19 +386,18 @@ strong {
     width: 100%;
   }
   .winter-image {
-    bottom: -22%;
+    bottom: -19%;
     width: 100%;
-    border-radius: 50%;
   }
   .hero-screenshot {
-    max-width: 100%;
+    border-radius: 0;
   }
   .final-cta-headline {
     padding: 0 20px;
   }
   .hero-section {
     justify-content: flex-start;
-    padding: 10px;
+    padding: 20px;
   }
   .hero-header {
     font-size: 4rem;
@@ -404,7 +407,7 @@ strong {
     height: 8rem;
   }
   .hero-screenshot-section {
-    margin-bottom: var(--s6);
+    margin-bottom: var(--s8);
   }
   .banner-title {
     padding: 20px;
@@ -425,8 +428,9 @@ strong {
     margin-bottom: var(--s-3);
   }
   .column-image {
-    flex: 1 1 auto;
-    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
   }
   .final-cta-art {
     max-width: calc(100% - 40px);
