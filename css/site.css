@@ -208,7 +208,7 @@ h2 {
 .winter-image {
   position: absolute;
   right: 20%;
-  bottom: -3%;
+  bottom: -11%;
   width: 50%;
   z-index: -1;
   border-radius: 27% 73% 38% 62% / 56% 61% 39% 44%;
@@ -218,21 +218,24 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   position: relative;
+  justify-content: space-around;
 }
 .column-description {
   font-size: 1.3rem;
   padding: var(--s2);
   margin: var(--s1);
   padding-top: 0;
-  width: 30%;
+  flex-basis: 30%;
 }
 .column-image {
   box-shadow: var(--box-shadow);
   border-radius: var(--border-radius);
-  width: 60%;
-  height: 100%;
-  margin: 0 var(--s1);
+  height: auto;
   z-index: 1;
+}
+
+.image-cont {
+  flex-basis: 60%;
 }
 .banner-title {
   font-size: 3rem;
@@ -264,11 +267,11 @@ h2 {
 
 .mobile-screenshot {
   position: absolute;
-  left: 20%;
+  left: 26%;
   top: 20%;
   background-color: transparent;
   margin-top: var(--s1);
-  width: 30%;
+  width: 25%;
   z-index: 2;
 }
 
@@ -415,7 +418,7 @@ strong {
   }
   .column-description {
     padding: 0;
-    width: 100%;
+    flex-basis: 100%;
   }
   .nav {
     flex-direction: column;
@@ -428,7 +431,7 @@ strong {
     margin-bottom: var(--s-3);
   }
   .column-image {
-    width: 100%;
+    flex-basis: 100%;
     margin: 0;
     border-radius: 0;
   }

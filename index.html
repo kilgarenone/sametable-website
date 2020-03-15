@@ -81,11 +81,15 @@
       >
     </section>
     <section class="hero-screenshot-section">
-      <img
-        src="assets/home1.png"
-        alt="Sametable's workspace screenshot"
-        class="hero-screenshot"
-      />
+      <picture>
+        <source srcset="assets/home.webp" type="image/webp" />
+        <source srcset="assets/home.png" type="image/png" />
+        <img
+          class="hero-screenshot"
+          src="assets/home.png"
+          alt="Sametable's workspace screenshot"
+        />
+      </picture>
     </section>
     <section class="mb-5">
       <h1 class="banner-title">
@@ -122,26 +126,38 @@
             </div>
           </div>
         </div>
-        <img
-          src="assets/mytasks1.png"
-          alt="Personal tasks screenshot"
-          class="column-image"
-        />
-        <img
-          src="assets/mytasks_mobile1.png"
-          alt="Personal tasks mobile screenshot"
-          class="mobile-screenshot"
-        />
+        <picture class="image-cont">
+          <source srcset="assets/mytasks.webp" type="image/webp" />
+          <source srcset="assets/mytasks.png" type="image/png" />
+          <img
+            class="column-image"
+            src="assets/mytasks.png"
+            alt="Personal tasks screenshot"
+          />
+        </picture>
+        <picture>
+          <source srcset="assets/mytasks_mobile.webp" type="image/webp" />
+          <source srcset="assets/mytasks_mobile.png" type="image/png" />
+          <img
+            class="mobile-screenshot"
+            src="assets/mytasks_mobile.png"
+            alt="Personal tasks mobile screenshot"
+          />
+        </picture>
       </div>
     </section>
     <section class="mb-5">
       <h1 class="banner-title friends">Projects and friends</h1>
       <div class="flex-wrap">
-        <img
-          src="assets/friends1.png"
-          alt="Project view screenshot"
-          class="column-image mb-2"
-        />
+        <picture class="image-cont">
+          <source srcset="assets/friends.webp" type="image/webp" />
+          <source srcset="assets/friends.png" type="image/png" />
+          <img
+            class="column-image mb-2"
+            src="assets/friends.png"
+            alt="Project view screenshot"
+          />
+        </picture>
         <div class="column-description">
           <p class="mb--1">
             Manage all the tasks making it all happen in
@@ -227,7 +243,7 @@
               >
                 <use href="#check" />
               </svg>
-              <p>Automatically render Markdown shortcuts</p>
+              <p>Automatically render Markdown</p>
             </div>
           </div>
           <video
