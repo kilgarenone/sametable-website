@@ -241,7 +241,7 @@ h2 {
 .banner-title {
   font-size: 3rem;
   font-weight: 600;
-  padding-left: var(--s3);
+  padding: 0 var(--s5);
   margin-bottom: var(--s1);
 }
 .friends {
@@ -374,6 +374,9 @@ strong {
 @media (min-width: 105rem) {
   .hero-screenshot-section {
     max-width: var(--max-width-section-1200);
+  }
+  .winter-image {
+    bottom: -26%;
   }
 }
 @media (max-width: 36em) {
