@@ -188,7 +188,7 @@ h2 {
 }
 .hero-screenshot-section::before {
   content: "";
-  background: url("../assets/ornament1.jpg") no-repeat center center fixed;
+  background: url("../assets/ornament.jpg") no-repeat center center fixed;
   background-size: auto;
   height: 100%;
   width: 70%;
