@@ -48,8 +48,7 @@
   --border-radius: 10px;
   --box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.16),
     0px 1px 4px rgba(0, 0, 0, 0.16);
-  --max-width-section: 60rem;
-  --max-width-section-1200: 75rem;
+  --max-width-section: 50rem;
   --max-width-section--1: 37rem;
   --max-width-section--2: 27.25rem;
 
@@ -192,10 +191,10 @@ h2 {
   background: url("../assets/ornament1.jpg") no-repeat center center fixed;
   background-size: auto;
   height: 100%;
-  width: 60%;
+  width: 70%;
   position: absolute;
-  right: -4%;
-  bottom: -35%;
+  right: -100px;
+  bottom: -152px;
   z-index: -1;
   background-size: cover;
   opacity: 0.7;
@@ -241,12 +240,12 @@ h2 {
 .banner-title {
   font-size: 3rem;
   font-weight: 600;
-  padding: 0 var(--s5);
+  padding-left: var(--s3);
   margin-bottom: var(--s1);
 }
 .friends {
   text-align: right;
-  padding-right: var(--s6);
+  padding-right: var(--s5);
 }
 
 .final-cta-section {
@@ -369,14 +368,6 @@ strong {
   .banner-title {
     text-align: center;
     padding: 10px;
-  }
-}
-@media (min-width: 90rem) {
-  .hero-screenshot-section {
-    max-width: var(--max-width-section-1200);
-  }
-  .winter-image {
-    bottom: -26%;
   }
 }
 @media (max-width: 36em) {
