@@ -371,6 +371,9 @@ strong {
   }
 }
 @media (max-width: 36em) {
+  .image-cont {
+    flex-basis: 100%;
+  }
   .write-section {
     margin-bottom: var(--s8);
   }
@@ -431,7 +434,6 @@ strong {
     margin-bottom: var(--s-3);
   }
   .column-image {
-    flex-basis: 100%;
     margin: 0;
     border-radius: 0;
   }
