@@ -1,0 +1,20 @@
+{
+  "name": "Sametable",
+  "short_name": "Sametable",
+  "description": "Sametable is a simpler async collaboration tool for remote teams. Create workspaces, projects and tasks on anything in the good old tables with anyone from anywhere in the world.",
+  "background_color": "#fcbdaa",
+  "theme_color": "#fcbdaa",
+  "display": "minimal-ui",
+  "icons": [
+    {
+      "src": "assets/favicon/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/favicon/favicon-196x196.png",
+      "sizes": "196x196",
+      "type": "image/png"
+    }
+  ]
+}
