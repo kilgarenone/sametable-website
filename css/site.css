@@ -189,7 +189,6 @@ h2 {
 .hero-screenshot-section::before {
   content: "";
   background: url("../assets/ornament.jpg") no-repeat center center fixed;
-  background-size: auto;
   height: 100%;
   width: 70%;
   position: absolute;
@@ -273,6 +272,10 @@ h2 {
   margin-top: var(--s1);
   width: 25%;
   z-index: 2;
+}
+
+.my-tasks {
+  margin-bottom: var(--s7);
 }
 
 footer {
@@ -371,6 +374,9 @@ strong {
   }
 }
 @media (max-width: 36em) {
+  .my-tasks {
+    margin-bottom: var(--s5);
+  }
   .image-cont {
     flex-basis: 100%;
   }
@@ -392,8 +398,9 @@ strong {
     width: 100%;
   }
   .winter-image {
-    bottom: -19%;
+    bottom: -16%;
     width: 100%;
+    right: 0;
   }
   .hero-screenshot {
     border-radius: 0;
