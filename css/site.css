@@ -50,7 +50,7 @@
     0px 1px 4px rgba(0, 0, 0, 0.16);
   --max-width-section: 50rem;
   --max-width-section--1: 37rem;
-  --max-width-section--2: 27.25rem;
+  --max-width-section--2: 29rem;
 
   line-height: var(--ratio);
   font-size: calc(0.18vw + 1rem);
