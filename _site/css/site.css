@@ -180,8 +180,8 @@ summary {
   position: absolute;
   top: -10%;
   right: -2%;
-  width: 30%;
-  height: 100%;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   background-color: #ff000026;
   box-shadow: 0 0 50px 10px #ffd2c9;
