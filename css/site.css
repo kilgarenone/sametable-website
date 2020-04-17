@@ -269,7 +269,7 @@ summary {
   padding-left: var(--s3);
   margin-bottom: var(--s1);
 }
-.friends {
+.text-right {
   text-align: right;
   padding-right: var(--s5);
 }
@@ -293,7 +293,7 @@ summary {
 
 .mobile-screenshot {
   position: absolute;
-  left: 26%;
+  right: 26%;
   top: 20%;
   background-color: transparent;
   margin-top: var(--s1);
