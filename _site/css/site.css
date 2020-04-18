@@ -2,9 +2,7 @@
 
 :root {
   --black-100: #17181a;
-  --black-60: #555759;
-  --black-50: #797c80;
-  --black-20: #e1e3e5;
+  --black-60: #6c757d;
   --font-plain: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial,
     sans-serif;
@@ -73,6 +71,10 @@
 }
 .underline {
   text-decoration: underline;
+}
+
+.text-muted {
+  color: var(--black-60);
 }
 
 video {
@@ -293,7 +295,7 @@ summary {
 
 .mobile-screenshot {
   position: absolute;
-  right: 26%;
+  right: 28%;
   top: 20%;
   background-color: transparent;
   margin-top: var(--s1);
