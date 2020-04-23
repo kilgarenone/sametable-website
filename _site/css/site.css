@@ -449,6 +449,7 @@ strong {
     padding: 20px;
     height: auto;
     margin-bottom: 3rem;
+    background: url(../assets/mountain-right.png) 50% 111% / auto 20% no-repeat;
   }
   .hero-header {
     font-size: 3rem;
