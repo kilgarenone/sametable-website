@@ -175,6 +175,8 @@ summary {
   height: 100%;
   text-align: center;
   margin: 0 auto;
+
+  background: url(../assets/mountain_left.png) 0 100% / 45% auto no-repeat;
 }
 
 .hero-header::after {
