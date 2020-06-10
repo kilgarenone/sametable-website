@@ -7,15 +7,17 @@ title: How I Built My First SaaS
 
 _From first principles_
 
-I switched my career to web development back in 2013. I did it for two reasons. First, I noticed I could get lost in building customer-facing products amongst all the colors and endless possibilities for interactivity; so while being reminded by the trite "_Find a job you enjoy doing, and you will never have to work a day in your life._", I thought "_Why not make this a job???_". And second, I wanted to make something for myself having spent my teenage years inspired by the Web 2.0(The Digg.com circa 2005 opened the world for me). My plan was to work on the latter while working in the former.
+I switched my career to web development back in 2013. I did it for two reasons. First, I noticed I could get lost in building customer-facing products amongst all the colors and endless possibilities of interactivity; so while being reminded by the trite "_Find a job you enjoy doing, and you will never have to work a day in your life._", I thought "_Hey, why not make this a job, huh???_". And second, I wanted to make something for myself having spent my teenage years inspired by the Web 2.0(The Digg.com circa 2005 opened the world for me). My plan was to work on the latter while working in the former.
 
-Turns out though, the job and the 'Javascript fatigue' ensued to wholly consume me. It also didn't help that I was reckless in my pursue of my ambition having been influenced by my perception of successes from the Silicon Valley. I'd read Paul Graham's _Hackers & Painters_ and Peter Thiel's _Zero to One_. I'm now properly fired up! I'm hustling. I can do this too! But nope, I can't. At least not alone. I always was beat after work. I couldn't gather a team who would buy into dreams. So meanwhile, I rinse and repeat several less than half-baked projects. I start to mellow out as years go by. And I start to cultivate a personal philosophy on entrepreneurship and technology that aligned with my personality and life circumstances- Until September 2019.
+Turns out though, the job and the 'Javascript fatigue' ensued to wholly consume me. It also didn't help that I was reckless in my pursue of my ambition having been influenced by my perception of successes from the 'Silicon Valley'. I read Paul Graham's _Hackers & Painters_ and Peter Thiel's _Zero to One_. I'm properly fired up! I'm hustling. I can do this too! But nope, I can't. At least not alone. I always was beat after work. I couldn't gather a team who would buy into dreams. So meanwhile, I rinse and repeat less than half-baked projects. I start to mellow out as years go by. And I begin to cultivate a personal philosophy on entrepreneurship and technology that align with my personality and life circumstances- Until September 2019.
 
-The fog in the path ahead finally cleared up. I got pretty good at it. The job became less taxing, and I'd reined in on my 'Javascript fatigue'. For the longest time, I had the mental resources, time, and the right mindset that allowed me to see through a side project. And this time, I start simple.
+The fog in the path ahead finally cleared up. I got pretty good at it; the job became less taxing; I'd reined in on my 'Javascript fatigue'. For the longest time, I had the mental resources, time, and the mindset that allowed me to see through a side project. And this time, I start simple.
 
-And yet, I was lost. Having been a front-end developer for my entire career, I could only go as far as naming the things that I imagined I would need&mdash;a 'server', a 'database', an 'authentication' system, a 'host', a 'domain name', but _how_... _where_... and _what_..._I..I don..I don't even_... :sob:
+But, I was totally lost.
 
-Now, I knew my life would have been easier if I'd decided to use those abstract tools like 'create-react-app', 'firebase SDK', 'ORM', and 'one-click-deployment' services. But there were a few things I wanted my decisions to meet:
+Having been a front-end developer for my entire career, I could only go as far as naming the things that I imagined I would need&mdash;a 'server', a 'database', an 'authentication' system, a 'host', a 'domain name', but _how_... _where_... and _what_..._I..I don..I don't even_... :sob:
+
+Now, I knew my life would have been easier if I'd decided to use those abstract tools like 'create-react-app', 'firebase SDK', 'ORM', and 'one-click-deployment' services; the ode of '_Don't reinvent the wheel. Iterate fast_'. But there were a few things I wanted my decisions to meet:
 
 - No vendor lock-in &mdash; This ruled out using the Firebase SDK all over my codebase. Including the 'create-react-app', because ejecting it forces me to inherit and maintain its massive tooling infrastructure.
 - Simplicity & Minimalistic &mdash; Cut having to learn new opinionated syntax and pattern. This ruled out 1) Project generators that output complex architecture and layers of boilerplate codes, 2) Using third-party libraries such as 'knex.js' or 'sequalize' ORM.
@@ -33,10 +35,10 @@ Also keep in mind that:
 - It's a one-man show&mdash;design, development, maintenance, marketing etc.
 - I'm not a 10x rockstar full-stack programmer.
 
-And **most importantly**, I wanted to follow through with a guiding principle: Building things [_responsibly_](https://alistapart.com/article/responsible-javascript-part-1/). Although, unsurprisingly, doing so had had a significant impact on my development speed, it had forced me to delineate my motivations:
+**Most importantly**, I wanted to follow through with a guiding principle: Building things [_responsibly_](https://alistapart.com/article/responsible-javascript-part-1/). Although, unsurprisingly, doing so had had a significant impact on my development speed, it had forced me to delineate my motivations:
 
-- If I had to ship something the soonest possible, unless it's a matter of life and death, then I probably wasn't solving a unique and hard problem, in which case&mdash;assuming I was still on my day job and had zero debt took on&mdash;what is the rush?
-- And evaluating from an ethical perspective: Was it even a problem needs solving? What will be the second-order consequences if I solved it? Could my good intentions have been better directed elsewhere?
+- If I had to ship something the soonest possible, unless it's a matter of life and death, then I probably wasn't solving a unique and hard problem, in which case&mdash;assuming I was still on my day job and had zero debt took on&mdash;What is the rush?
+- And second-guessing from an ethical perspective: Was it even a problem needs solving? What will be the second-order consequences if I solved it? Could my good intentions have been better directed elsewhere?
 
 ## Finding ideas
 
@@ -44,28 +46,28 @@ I used to lose sleep thinking and remixing thoughts, hoping for an eureka - Unti
 
 - Build things that solve problems that you encounter and piss you off frequently.
 - Solving the so-called 'pain points' or 'frictions'. Go outside, don't stop listening to people and learn from them.
-- Be an expert in your own domain. Feel its pain. Seems to me lots of founders founded company related to their domain on which they have built their career and social network.
+- Be an expert in your own domain. Feel its pain. Seems to me lots of founders founded company related to their domain on which they have built their career and social capital.
 
 ## The Stack
 
 How your stack looks like will depend on how you will render your application. Here is a [comprehensive](https://developers.google.com/web/updates/2019/02/rendering-on-the-web#wrapup) discussion about that, but in a nutshell:
 
 - **Client-side rendering(CSR); SPA; APIs with JSON**
-  This is currently the most common approach in the modern web. It's great for building interactive web applications. But [be aware](https://macwright.org/2020/05/10/spa-fatigue.html) of its downsides and steps to mitigate them. This is the approach I took to build my SaaS, so we will talk more about them in details.
+  This is currently the most common approach in the modern web. It's great for building interactive web applications. But [be aware](https://macwright.org/2020/05/10/spa-fatigue.html) of its downsides and steps to mitigate them. This is the approach I took, so we will talk more about this in details.
 
 - **Hybrid CSR; Both client-side and server-side rendering(SSR)**
   With this approach, you still build your SPA. But when a user requests your app, for example, the homepage, you would first render the homepage's component into the corresponding static HTML **in your server** before serving it to the user. Then once the user's browser parse the HTML, [hydration](https://reactjs.org/docs/react-dom.html#hydrate) will happen so the whole thing becomes a SPA.
 
-The main benefits of this approach are that you get good SEO and users can see your stuff sooner(faster 'First Meaningful Paint'). But there are downsides too. Apart from the extra maintainance costs, we have to download the same payload twice- First, the HTML, and second, its Javascript counterpart for 'hydration'.
+  The main benefits of this approach are that you get good SEO and users can see your stuff sooner(faster 'First Meaningful Paint'). But there are downsides too. Apart from the extra maintainance costs, we have to download the same payload twice- First, the HTML, and second, its Javascript counterpart for 'hydration'.
 
-The technologies that are adopted for this approach are [NextJs](https://nextjs.org/), [NuxtJs](https://nuxtjs.org/), and [GatsbyJs](https://www.gatsbyjs.org/).
+  The technologies that are adopted for this approach are [NextJs](https://nextjs.org/), [NuxtJs](https://nuxtjs.org/), and [GatsbyJs](https://www.gatsbyjs.org/).
 
 - **Server-side rendering and sprinkle :sparkles: it with Javascript**
   This was the old-school way of building on the web!- Render your templates in PHP, then bind events handlers with jQuery. This approach might be ill-suited to build the increasingly complex app that businesses have asked for on the web, but some technologies have emerged to elevate this approach:
 
-  - https://stimulusjs.org/
-  - https://github.com/turbolinks/turbolinks
-  - https://github.com/phoenixframework/phoenix_live_view
+  - [https://stimulusjs.org/](https://stimulusjs.org/)
+  - [https://github.com/turbolinks/turbolinks](https://github.com/turbolinks/turbolinks)
+  - [https://github.com/phoenixframework/phoenix_live_view](https://github.com/phoenixframework/phoenix_live_view)
   - For more, check out this [twitter thread](https://mobile.twitter.com/nateberkopec/status/1260602209475198976)
 
   To be honest, if I could have been more patient with myself, I would have gone down this path. This approach is making a comeback in light of the wretched excess of Javascript in this modern web.
@@ -94,11 +96,9 @@ With that, here is my boring stack:
 
 ## Repo
 
-https://github.com/kilgarenone/boileroom
+[https://github.com/kilgarenone/boileroom](https://github.com/kilgarenone/boileroom)
 
-This repo contains the structure I'm using to develop my SaaS.
-
-We have one folder for the **client** stuff, and one folder for the **server** stuff:
+This repo contains the structure I'm using to develop my SaaS. We have one folder for the **client** stuff, and one folder for the **server** stuff:
 
 ```json
 - client
@@ -1778,7 +1778,7 @@ At which stage in your SaaS development should you get a domain name? Well, I wo
 
 ## Deployment
 
-Ugh. This was a stage where I struggled for the longest time :persevere:. It was one hell of a journey where I found myself doubling down on a cloud platform but end up bailing out as I realize their downsides while optimizing for developer experience, costs, quota, and performance(latency).
+Ugh. This was a stage where I struggled for the longest time :persevere:. It was one hell of a journey where I found myself doubling down on a cloud platform but end up bailing out as I realized their downsides while optimizing for developer experience, costs, quota, and performance(latency).
 
 The journey started with me jumping head-first(bad idea) into Digital Ocean, since I saw it recommended a lot in the IndieHackers forum. And sure enough, I managed to get my Nodejs up and running in a VM by following [closely](https://coderrocketfuel.com/article/create-and-deploy-an-express-rest-api-to-a-digitalocean-server#configure-and-deploy-your-node-js-app) the [tutorials](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-18-04). Then I found out that the [DO Space](https://www.digitalocean.com/products/spaces/) wasn't exactly AWS S3-It [can't](https://ideas.digitalocean.com/ideas/DO-I-318) host my SPA. Although I [could have](https://coderrocketfuel.com/article/deploy-a-create-react-app-website-to-digitalocean) hosted it in my droplet and [hook up](https://www.youtube.com/watch?v=2X_Tp_G7aTs) a third-party CDN like CloudFlare to the droplet, I wanted something more seamless and well-trodden setup like the S3+Cloudfront. I was also using a DO's Managed Database(Postgresql) because I didn't want to manage my DB and tweak in the `*.config` files myself. That costs a fixed \$15/month.
 
@@ -1820,7 +1820,7 @@ And that's just for hosting my Nodejs!
 
 So what now?! Do I just say f\*\*\* it and do whatever it takes to 'ship it'?
 
-But I held my ground. I revisit AWS again. I still believed AWS was the answer because everyone else is singing its song. I must be missing something. I considered their higher level tools like AWS AppSync and Amplify. But I couldn't overlook the fact that both of them force me to completely work by their standards. So by now, I'd given up on AWS and turned to another...platform: **Google Cloud Platform(GCP)**.
+But I held my ground. I revisit AWS again. I still believed AWS was the answer because everyone else is singing its song. I must be missing something. I considered their higher level tools like AWS AppSync and Amplify. But I couldn't overlook the fact that both of them force me to completely work by their standards. So at this point, I'd had it with AWS, and turned to another...platform: **Google Cloud Platform(GCP)**.
 
 **Sametable's Nodejs, Redis, and Postgresql are hosted on GCP**. The thing that drew me to GCP was its documentation-It's much more linear; code snippets for Nodejs; step-by-step guides about the common things you would do for a web app. Plus, it's serverless! Which means your cost is proportional to your usage.
 
