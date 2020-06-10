@@ -1,0 +1,21 @@
+---
+layout: base.njk
+---
+
+<div>
+  <h1>Blog</h1>
+  <ul>
+    {% for post in collections.post | reverse %}
+    <li>
+      <a href="{{ post.url | url }}">
+        {{ post.data.title }}
+      </a>
+      <small>
+        <time datetime="{{ post.date | dateIso }}">{{
+          post.date | dateReadable
+        }}</time>
+      </small>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
