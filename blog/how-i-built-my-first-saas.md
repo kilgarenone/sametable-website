@@ -1,6 +1,6 @@
 ---
 layout: post.njk
-title: How I Built My First SaaS
+title: How I built my first SaaS
 ---
 
 # How I Built My First SaaS
@@ -9,13 +9,13 @@ _From first principles_
 
 I switched my career to web development back in 2013. I did it for two reasons. First, I noticed I could get lost in building customer-facing products amongst all the colors and endless possibilities of interactivity; so while being reminded by the trite "_Find a job you enjoy doing, and you will never have to work a day in your life._", I thought "_Hey, why not make this a job, huh???_". And second, I wanted to make something for myself having spent my teenage years inspired by the Web 2.0(The Digg.com circa 2005 opened the world for me). My plan was to work on the latter while working in the former.
 
-Turns out though, the job and the 'Javascript fatigue' ensued to wholly consume me. It also didn't help that I was reckless in my pursue of my ambition having been influenced by my perception of successes from the 'Silicon Valley'. I read Paul Graham's _Hackers & Painters_ and Peter Thiel's _Zero to One_. I'm properly fired up! I'm hustling. I can do this too! But nope, I can't. At least not alone. I always was beat after work. I couldn't gather a team who would buy into dreams. So meanwhile, I rinse and repeat less than half-baked projects. I start to mellow out as years go by. And I begin to cultivate a personal philosophy on entrepreneurship and technology that align with my personality and life circumstances- Until September 2019.
+Turns out, though, the job and the 'Javascript fatigue' ensued to wholly consume me. It also didn't help that I was reckless in my pursue of my ambition having been influenced by my perception of successes from the 'Silicon Valley'. I read Paul Graham's _Hackers & Painters_ and Peter Thiel's _Zero to One_. I'm properly fired up! I'm hustling. I can do this too! But nope, I can't. At least not alone. I always was beat after work. I couldn't gather a team who would buy into dreams. So meanwhile, I rinse and repeat less than half-baked projects. I am chronically anxious and depressed. Then I mellowed out as years go by. And I began to cultivate a personal philosophy on entrepreneurship and technology that align better with my personality and life circumstances&mdash; Until September 2019.
 
-The fog in the path ahead finally cleared up. I got pretty good at it; the job became less taxing; I'd reined in on my 'Javascript fatigue'. For the longest time, I had the mental resources, time, and the mindset that allowed me to see through a side project. And this time, I start simple.
+The fog in the path ahead finally cleared up. I got pretty good at it; the job then became less taxing; I'd reined in on my 'Javascript fatigue'. For the longest time, I had the mental energy, time, and the mindset that allow me to see through a side project. And this time, I start small. I believed I got this.
 
-But, I was totally lost.
+I was wrong.
 
-Having been a front-end developer for my entire career, I could only go as far as naming the things that I imagined I would need&mdash;a 'server', a 'database', an 'authentication' system, a 'host', a 'domain name', but _how_... _where_... and _what_..._I..I don..I don't even_... :sob:
+Having been a front-end developer for my entire career, I could only go as far as naming the things that I imagined I would need&mdash;a 'server', a 'database', an 'authentication' system, a 'host', a 'domain name', but _how_... _where_... and _what_..._I..I don..I don't even_... 😭
 
 Now, I knew my life would have been easier if I'd decided to use those abstract tools like 'create-react-app', 'firebase SDK', 'ORM', and 'one-click-deployment' services; the ode of '_Don't reinvent the wheel. Iterate fast_'. But there were a few things I wanted my decisions to meet:
 
@@ -27,8 +27,8 @@ To be fair though, I got the following things going for me:
 
 - I was building a simple SaaS.
 - I was not anxious to scale, dominate, disrupt etc.
-- I was still [holding](https://aeon.co/essays/dont-quit-your-day-job-the-benefits-of-being-a-bifurcator) my day job.
-- I had accepted my odds of failure. :skull:
+- I was still holding my day job.
+- I had accepted my odds of failure. 💀
 
 Also keep in mind that:
 
@@ -46,7 +46,7 @@ I used to lose sleep thinking and remixing thoughts, hoping for an eureka - Unti
 
 - Build things that solve problems that you encounter and piss you off frequently.
 - Solving the so-called 'pain points' or 'frictions'. Go outside, don't stop listening to people and learn from them.
-- Be an expert in your own domain. Feel its pain. Seems to me lots of founders founded company related to their domain on which they have built their career and social capital.
+- Be an expert in your own domain. Feel its pain. Seems to me lots of founders founded company related to their domain on which they have built their career and social network.
 
 ## The Stack
 
@@ -206,13 +206,15 @@ Webpack is used to bundle all my UI components and its dependencies(npm librarie
 
 Here is roughly how it goes down: When webpack has done its job, it will have generated one(or [several](https://webpack.js.org/concepts/entry-points/#multi-page-application)) `.js` and `.css` files. What commonly happens next is, by [utilizing](https://github.com/kilgarenone/boileroom/blob/master/client/config/webpack.production.js#L189-L202) a webpack plugin called ['html-webpack-plugin'](https://github.com/jantimon/html-webpack-plugin), the Javascript files are _automatically_(default behaviour) injected as [`<script>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script) in your `index.html`. Then when a user requests your app in a browser, the 'index.html' is fetched and parsed. When a browser sees the `<script>`'s `.js` files inside, it will fetch and execute them, and finally your app is [rendered](https://preactjs.com/guide/v10/api-reference/#render)(i.e. client-side rendering) in all its glories to the users.
 
-I have written about minimally configuring Webpack and Babel:
+If you are new to Webpack/Babel, I'd suggest&mdash;instead of copy/paste bits of them from the web&mdash;learn them from their first principles to slowly build up your configuration of them.
+
+I wrote about the basics here:
 
 ##### Webpack
 
 https://medium.com/@kilgarenone/minimal-webpack-setup-a5f32c5f8960
 
-[Here is](https://github.com/nystudio107/annotated-webpack-4-config) an accessible reference about configuring Webpack that I kept going back to in the beginning.
+Once I understood the basics, I started [referring to this resource](https://github.com/nystudio107/annotated-webpack-4-config) for more advanced configuration.
 
 ##### Babel
 
@@ -226,7 +228,7 @@ Although web perf is a huge subject that's been [well documented](https://web.de
 
 #### Critical rendering path
 
-We mentioned before that 'html-webpack-plugin' automatically injects all Webpack-generated `.js` and `.css` files for us in our `index.html`. But we don't want to do that now to have full control over resources ordering, and setting resource hints. So let's disable the auto-injection:
+We mentioned before that 'html-webpack-plugin' automatically injects all Webpack-generated `.js` and `.css` files for us in our `index.html`. But we don't want to do that now to have full control over ordering our assets and setting the resource hints. So let's disable the auto-injection:
 
 ```javascript
 // webpack.production.js
@@ -378,7 +380,7 @@ Here is a [good video tutorial](https://www.youtube.com/watch?v=j9LW94EN7n4) abo
 
 #### Code splitting
 
-Rather than bundle all your app's components, routes and third-party libraries into a single `.js` file, you should 'split' and load them on-demand based on a particular user's action. This will **dramatically** reduce the bundle size of your SPA and reduces initial Javascript processing costs, hence improving metrics like 'First interactive time' and 'First meaningful paint'.
+Rather than bundle all your app's components, routes and third-party libraries into a single `.js` file, you should split and load them on-demand based on a user's action at runtime. This will **dramatically** reduce the bundle size of your SPA and reduces initial Javascript processing costs, hence improving metrics like 'First interactive time' and 'First meaningful paint'.
 
 Do code splitting in Webpack with the ['dynamic imports'](https://webpack.js.org/guides/code-splitting/#dynamic-imports):
 
@@ -403,9 +405,48 @@ checkout = () => {
 }
 ```
 
+Another use case for code splitting is to **conditionally load polyfill** for a Web API in a browser that doesn't support it, sparing others that do support it from paying the cost of the polyfill.
+
+For example, if `IntersectionObserver` isn't supported, we will polyfill it with the ['intersection-observer'](https://www.npmjs.com/package/intersection-observer) lib:
+
+```js
+// InfiniteScroll.jsx
+
+componentDidMount() {
+  (window.IntersectionObserver ? Promise.resolve() : import("intersection-observer")).then(() => {
+    this.io = new window.IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        // do stuff
+      });
+    }, { threshold: 0.5 });
+
+    this.io.observe(/* DOM element */);
+  });
+}
+```
+
 ##### Guide
 
 https://medium.com/@kilgarenone/pragmatic-code-splitting-with-preact-and-webpack-a3d3b19f86a3
+
+#### Differential serving
+
+You probably have configured your Webpack to build your app targeting both modern and legacy browsers like IE11, and serving every user with the same payload, thus effectively forcing those users who are on modern browsers to pay the cost(parse/compile/execute) of unnecessary polyfills and extraneous transformed code that are meant to support users on legacy browsers.
+
+Such an inclusive two-pronged serving of scripts will serve, on one hand, a much leaner code to users on modern browsers, and on the other, a properly polyfilled and transformed code to support users on legacy browsers such as IE11.
+
+So, although this approach makes for an even more complex build setup and not without a [few caveat](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/#double-download-issue), the benefits gained(you can find out in the resources below) certainly _outweigh_ the costs, unless majority of your user base was on IE11, in which case, you probably can skip this. But even so, this approach is future-proof as legacy browsers are being phased out.
+
+##### Repo
+
+[https://github.com/kilgarenone/differential-serving](https://github.com/kilgarenone/differential-serving)
+
+##### Resources
+
+- [https://jasonformat.com/modern-script-loading/#option1loaddynamically](https://jasonformat.com/modern-script-loading/#option1loaddynamically) &mdash; A very good overview of different approaches to differential serving. Sametable is on the 'Option-1'.
+- [https://github.com/firsttris/html-webpack-multi-build-plugin](https://github.com/firsttris/html-webpack-multi-build-plugin) &mdash; A Webpack plugin that let you access the manifest(i.e. assets' name) of your modern & legacy scripts in 'html-webpack-plugin''s 'index.html'
+- [https://calendar.perfplanet.com/2018/doing-differential-serving-in-2019/](https://calendar.perfplanet.com/2018/doing-differential-serving-in-2019/) &mdash; Its 'babel.config.js' method was particularly helpful to me.
+- [https://github.com/nystudio107/annotated-webpack-4-config](https://github.com/nystudio107/annotated-webpack-4-config) - I learned a lot here to structure my Webpack configs.
 
 ### Fonts
 
@@ -556,7 +597,7 @@ https://css-tricks.com/mega-list-svg-information/#svg-icons
 
 ### Favicon
 
-If I hadn't disabled the `inject` option of 'html-webpack-plugin', I would have used a plugin called ['favicons-webpack-plugin'](https://github.com/jantimon/favicons-webpack-plugin) that automatically generates all types of favicons, and inject them in my `index.html`:
+If I hadn't disabled the `inject` option of 'html-webpack-plugin', I would have used a plugin called ['favicons-webpack-plugin'](https://github.com/jantimon/favicons-webpack-plugin) that automatically generates all types of favicons(it's alot!), and inject them in my `index.html`:
 
 ```javascript
 // webpack.config.js
@@ -888,7 +929,7 @@ A client needs to communicate with a server to do the works of 'CRUD'- Create, R
 Here is my hopefully easy to understand `api.js`:
 
 <details>
-  <summary>API wrapper</summary>
+  <summary>API WRAPPER</summary>
 
 ```javascript
 import { route } from "preact-router";
@@ -1014,6 +1055,21 @@ async componentDidMount() {
 ```
 
 But if you preferred to use a library to handle your http calls, I'd recommend ['redaxios'](https://github.com/developit/redaxios) which not only shares API with the popular [axios](https://www.npmjs.com/package/axios), but also it's much more lightweight.
+
+### Test production build locally
+
+I would always build my client app locally to test and measure in my browser before I deploy to the cloud.
+
+I have a npm script(`npm run test-build`) in the client's `package.json` that builds and then serve it with a local web server so I can play with it in my browser at http://localhost:5000:
+
+```
+"scripts": {
+    "test-build": "cross-env NODE_ENV=production TEST_RUN=true node_modules/.bin/webpack && npm run serve",
+    "serve": "ws --spa index.html --directory dist --port 5000 --hostname localhost"
+  }
+```
+
+The app is served using ['local-web-server'](https://www.npmjs.com/package/local-web-server). It's so far the only one I find works perfectly for a SPA.
 
 ## Server
 
@@ -2048,35 +2104,35 @@ I use [**Netlify**](https://www.netlify.com/) to host the landing page. There ar
 
 T&C makes your SaaS legit. As far as I know, here are your options to come up with it:
 
-1. Write your own https://pinboard.in/tos/ .
+1. Write your own [https://pinboard.in/tos/](https://pinboard.in/tos/).
 2. Copy and paste others'. Change accordingly.
 3. Lawyer up.
-4. Generate them https://getterms.io/ .
+4. Generate them [https://getterms.io/](https://getterms.io/).
 
 ## Marketing
 
-There is no shortage of marketing posts saying "_Let the product speaks for itself_" was a bad idea. Well, in my view- Not if you are trying to 'hack growth'.
+There is no shortage of marketing posts saying "_Let the product speaks for itself_" was a bad idea. Well, in my view- Not if you are trying to 'hack growth' to win the game.
 
 The following is the trajectory of existence I have in mind for Sametable:
 
 1. Build something that purportedly solves a problem.
-2. Do your SEO. Write the blog posts. Anyone who has the problem that you solve for will search for it or know about it by word of mouth.
-3. If it still didn't take off, well, chances are you weren't solving a huge real problem, or enough people have solved it. In that case, be grateful for whatever success that comes to you over the long haul. Or, you know, just move on.
+2. Do your SEO. Write the blog posts. Anyone who is affected by the problem that you have solved for will search for it, or know about it by word of mouth.
+3. If it still didn't take off, well, chances are you weren't solving a huge real problem, or enough people have solved it. In that case, be grateful for whatever success that comes your way over the long haul.
 
 ### Resources
 
-- https://stripe.com/en-my/atlas/guides/starting-sales
-- https://github.com/LisaDziuba/Marketing-for-Engineers
-- https://www.coryzue.com/writing/seo-for-developers/
+- [https://stripe.com/en-my/atlas/guides/starting-sales](https://stripe.com/en-my/atlas/guides/starting-sales)
+- [https://github.com/LisaDziuba/Marketing-for-Engineers](https://github.com/LisaDziuba/Marketing-for-Engineers)
+- [https://www.coryzue.com/writing/seo-for-developers/](https://github.com/LisaDziuba/Marketing-for-Engineers)
 
 ## Well-being
 
 It's easy to sit and get lost in our contemporary works. And we do that by accumulating debts from the future. One of the debts, in this case, is our personal **health**.
 
-Here is how I try to stay out of health debt:
+Here is how I try to stay on top of my health debt:
 
 - **Install** [**Workrave**](https://workrave.org/)
   You can set it to lock your screen after an interval has passed. Most importantly, it can show some exercises that you can perform behind your computer!
 - Get an adjustable **standing desk** if you can afford it. I got mine from IKEA.
 - Do [burpees](https://www.youtube.com/watch?v=Kjhl-8yU6hI). Stretch those joints. Maintain good posture. Planking helps.
-- Meditate to stay sane. I'm using https://meditofoundation.org/
+- Meditate to stay sane. I'm using [Medito](https://meditofoundation.org/).
