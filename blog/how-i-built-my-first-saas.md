@@ -176,7 +176,7 @@ The file structure of the 'client' is quite like that of the 'create-react-app'.
 
 <aside>
 <strong>Note</strong>
-<p>I have since restructured my build environment to achieve <a href="#differential-serving">differential serving</a>. Webpack and babel have been organized differently, and npm scripts change a bit. Everything else remains the same.</p>
+<p>I have since restructured my build environment to achieve <a href="#differential-serving">differential serving</a>. Webpack and babel have been organized differently, and npm scripts changed a bit. Everything else remains the same.</p>
 </aside>
 
 ### npm script
@@ -199,7 +199,7 @@ SQL_PASSWORD=admin
 STRIPE_API_KEY=1234567890
 ```
 
-A library called [dotenv](https://www.npmjs.com/package/dotenv) is usually used to load these variables into our application code for consumption. However, in the context of Webpack, we will use [dotenv_webpack](https://www.npmjs.com/package/dotenv-webpack) to do that during compile or build time [as shown here](https://github.com/kilgarenone/boileroom/blob/master/config/webpack.common.js#L33-L37). The variables will then be accessible in `process.env` across your application code:
+A library called [dotenv](https://www.npmjs.com/package/dotenv) is usually used to load these variables into our application code for consumption. However, in the context of Webpack, we will use [dotenv_webpack](https://www.npmjs.com/package/dotenv-webpack) to do that during compile and build time [as shown here](https://github.com/kilgarenone/boileroom/blob/master/config/webpack.common.js#L33-L37). The variables will then be accessible in the `process.env` object in your codebase:
 
 ```js
 // payment.jsx
@@ -438,7 +438,7 @@ componentDidMount() {
 
 https://medium.com/@kilgarenone/pragmatic-code-splitting-with-preact-and-webpack-a3d3b19f86a3
 
-#### Differential serving [#](#differential-serving)
+#### Differential serving <a href="#differential-serving" id="differential-serving">#</a>
 
 You probably have configured your Webpack to build your app targeting both modern and legacy browsers like IE11, and serving every user with the same payload, thus effectively forcing those users who are on modern browsers to pay the cost(parse/compile/execute) of unnecessary polyfills and extraneous transformed code that are meant to support users on legacy browsers.
 
