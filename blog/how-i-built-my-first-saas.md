@@ -1697,11 +1697,11 @@ router.post(
 
 ### Email templates
 
-An email template contains a particular email's contents with some optional dynamic values.
+Each type of email you send could have its own email template whose content can be varied with dynamic values you can provide.
 
 #### Tool
 
-[**mjml**](https://mjml.io/) - The tool I use to build my email templates.
+[**mjml**](https://mjml.io/) is the tool I use to build my email templates.
 
 It's easy to [get started](https://mjml.io/getting-started/1). It's quite similar to React: You compose a template with a bunch of reusable components with props.
 
@@ -1713,7 +1713,7 @@ Here are the places where I would write my templates:
 #### Example template
 
 <details>
-  <summary>Template</summary>
+  <summary>Email Template</summary>
 
 ```html
 <mjml>
@@ -1782,19 +1782,19 @@ Here are the places where I would write my templates:
 
 <img width="400px" src="https://i.imgur.com/JnaSDYJ.png" loading="lazy" />
 
-Notice the placeholder names that are wrapped in double curly brackets: `{{project_title}}`. They will eventually be replaced by their corresponding value.
+Notice the placeholder names that are wrapped in double curly brackets such as `{{project_title}}`. They will be replaced with their corresponding value by, in my case, Mailgun, before sent out.
 
 #### Integration with Mailgun
 
-First, generate HTML from your mjml templates. You are able to do that with the vscode extension and the code editor:
+First, generate HTML from your mjml templates. You are able to do that with the VSCode extension or the web-based editor:
 
 <img src="https://i.imgur.com/O9mnBvN.png" alt="generate html in mjml online code editor" loading="lazy" />
 
-Then create a new template on Mailgun:
+Then create a new template on your Mailgun dashboard:
 
 <img src="https://i.imgur.com/OkvLxiT.png" alt="create message template on mailgun dashboard" loading="lazy" />
 
-#### Send email with a template in Express
+#### Send an email with Mailgun in Nodejs
 
 Inside a route:
 
@@ -1812,11 +1812,11 @@ const data = {
 mailer.send(data);
 ```
 
-Notice that, to associate a dynamic value with a placeholder name in a template: `"v:project_title" : 'Project Mario'`.
+Notice that, to associate a value with a placeholder name in a template: `"v:project_title":'Project Mario'`.
 
 ## Tenancy
 
-When an organization, say, Acme Inc., signs up on your SaaS, it's considered a 'tenant'- They 'occupy' a space on your service.
+When an organization, say, Acme Inc., signs up on your SaaS, it's considered a 'tenant'&mdash;They 'occupy' a space on your service.
 
 While I'd heard of the 'multi-tenancy' term being associated with a SaaS before, I never had the slightest idea about implementing it. I always thought that it'd involve some cryptic computer-sciency maneuvering that I couldn't possibly have figured it all out by myself.
 
@@ -1824,27 +1824,27 @@ Fortunately, there is an easy way to do 'multi-tenancy':
 
 > Single database; all clients share the same tables; each client has a `tenant_id`; queries the database as per an API request by `WHERE tenant_id = $ID`.
 
-So don't worry: If you know basic SQL, you should have a clear picture on the steps required to implement this.
+So don't worry&mdash;If you know basic SQL, you should have a clear picture on the steps required to implement this.
 
-Here are three instrumental resources about 'multi-tenancy' I have bookmarked:
+Here are three instrumental resources about 'multi-tenancy' I bookmarked before:
 
-- https://stackoverflow.com/a/47783180/73323
-- https://stackoverflow.com/a/44530588/73323
-- https://blog.checklyhq.com/building-a-multi-tenant-saas-data-model/
+- [https://stackoverflow.com/a/47783180/73323](https://stackoverflow.com/a/47783180/73323)
+- [https://stackoverflow.com/a/44530588/73323](https://stackoverflow.com/a/44530588/73323)
+- [https://blog.checklyhq.com/building-a-multi-tenant-saas-data-model/](https://blog.checklyhq.com/building-a-multi-tenant-saas-data-model/)
 
 ## Domain name
 
 Sametable.app domain and all its DNS records are hosted in [**NameCheap**](https://www.namecheap.com/). I was on [hover](https://www.hover.com/) before(it still hosts my personal website's domain). But I hit a limitation there when I tried to enter my Mailgun's DKIM value. Namecheap also has more competitive prices in my experience.
 
-At which stage in your SaaS development should you get a domain name? Well, I would say not until when the lack of a DNS registrar is blocking your development. In my case, I deferred it until I had to integrate Mailgun which requires creating DNS records in a domain.
+At which stage in your SaaS development should you get a domain name? Well, I would say not until when the lack of a DNS registrar is blocking your development. In my case, I deferred it until I had to integrate Mailgun which requires creating a bunch of DNS records in a domain.
 
 ## Deployment
 
-Ugh. This was a stage where I struggled for the longest time :persevere:. It was one hell of a journey where I found myself doubling down on a cloud platform but end up bailing out as I realized their downsides while optimizing for developer experience, costs, quota, and performance(latency).
+Ugh. This was a stage where I struggled for the longest time 😣. It was one hell of a journey where I found myself doubling down on a cloud platform but end up bailing out as I found out their downsides to optimize for developer experience, costs, quota, and performance(latency).
 
-The journey started with me jumping head-first(bad idea) into Digital Ocean, since I saw it recommended a lot in the IndieHackers forum. And sure enough, I managed to get my Nodejs up and running in a VM by following [closely](https://coderrocketfuel.com/article/create-and-deploy-an-express-rest-api-to-a-digitalocean-server#configure-and-deploy-your-node-js-app) the [tutorials](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-18-04). Then I found out that the [DO Space](https://www.digitalocean.com/products/spaces/) wasn't exactly AWS S3-It [can't](https://ideas.digitalocean.com/ideas/DO-I-318) host my SPA. Although I [could have](https://coderrocketfuel.com/article/deploy-a-create-react-app-website-to-digitalocean) hosted it in my droplet and [hook up](https://www.youtube.com/watch?v=2X_Tp_G7aTs) a third-party CDN like CloudFlare to the droplet, I wanted something more seamless and well-trodden setup like the S3+Cloudfront. I was also using a DO's Managed Database(Postgresql) because I didn't want to manage my DB and tweak in the `*.config` files myself. That costs a fixed \$15/month.
+The journey started with me jumping head-first(bad idea) into Digital Ocean since I saw it recommended a lot in the IndieHackers forum. And sure enough, I managed to get my Nodejs up and running in a VM by following [closely](https://coderrocketfuel.com/article/create-and-deploy-an-express-rest-api-to-a-digitalocean-server#configure-and-deploy-your-node-js-app) the [tutorials](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-18-04). Then I found out that the [DO Space](https://www.digitalocean.com/products/spaces/) wasn't exactly AWS S3&mdash;It [can't](https://ideas.digitalocean.com/ideas/DO-I-318) host my SPA. Although I [could have](https://coderrocketfuel.com/article/deploy-a-create-react-app-website-to-digitalocean) hosted it in my droplet and [hook up](https://www.youtube.com/watch?v=2X_Tp_G7aTs) a third-party CDN like CloudFlare to the droplet, it seemed to me unnecessarily convoluted compared to the S3+Cloudfront setup. I was also using a DO's Managed Database(Postgresql) because I didn't want to manage my DB and tweak in the `*.config` files myself. That costs a fixed \$15/month.
 
-Then I learnt about [AWS Lightsail](https://aws.amazon.com/lightsail/) which is a mirror image of DO, but, to my surprise, with more competitive [quota](https://aws.amazon.com/lightsail/pricing/) at a given price point:
+Then I learnt about [AWS Lightsail](https://aws.amazon.com/lightsail/) which is a mirror image of DO, but to my surprise, with more competitive [quota](https://aws.amazon.com/lightsail/pricing/) at a given price point:
 
 #### VM at \$5/month
 
@@ -1863,11 +1863,11 @@ Then I learnt about [AWS Lightsail](https://aws.amazon.com/lightsail/) which is 
 | 1 Core Processor   | 1 Core Processor |
 | **40 GB** SSD Disk | 10 GB SSD Disk   |
 
-This was when I started betting on Lightsail instead. But, the \$15/month for a managed database in Lightsail got to me at one point. I didn't want to have to pay that money when I wasn't even sure that I would ever have any paying customers.
+So I started betting on Lightsail instead. But, the \$15/month for a managed database in Lightsail got to me at one point. I didn't want to have to pay that money when I wasn't even sure that I would ever have any paying customers.
 
-At this point, I supposed that I had to get my hands dirty to optimize for the cost factor. So I started looking into wiring AWS EC2, RDS, etc. But it was just too many of AWS-specific things I had to pick up, and the AWS doc wasn't exactly helping either-It's just one rabbit hole after another to do one thing; I just needed something to host my SPA and Nodejs for goodness sake!
+At this point, I supposed that I had to get my hands dirty to optimize for the cost factor. So I started looking into wiring AWS EC2, RDS, etc. But there were just too many of AWS-specific things I had to pick up, and the AWS doc wasn't exactly helping either&mdash;It's one rabbit hole after another just to do one thing because I just needed something to host my SPA and Nodejs for goodness sake!
 
-Then I checked back in IndieHacker for a sanity check, and came across [render.com](https://render.com/). It seemed perfect! It's one of those tools that are on a mission 'so you can focus on building your app'. The tutorials were short and got you up and running in no time. But, it was [expensive](https://render.com/pricing):
+Then I checked back in IndieHacker for a sanity check, and came across [render.com](https://render.com/). It seemed perfect! It's one of those tools that are on a mission '_so you can focus on building your app_'. The tutorials were short and got you up and running in no time. And here is the '_but_'&mdash;It was [expensive](https://render.com/pricing):
 
 #### Comparison of Lightsail and Render at their lowest price point
 
@@ -1880,11 +1880,11 @@ Then I checked back in IndieHacker for a sanity check, and came across [render.c
 
 And that's just for hosting my Nodejs!
 
-So what now?! Do I just say f\*\*\* it and do whatever it takes to 'ship it'?
+So what now?! Do I just say _f\*\*\* it_ and do whatever it takes to 'ship it'?
 
-But I held my ground. I revisit AWS again. I still believed AWS was the answer because everyone else is singing its song. I must be missing something. I considered their higher level tools like AWS AppSync and Amplify. But I couldn't overlook the fact that both of them force me to completely work by their standards. So at this point, I'd had it with AWS, and turned to another...platform: **Google Cloud Platform(GCP)**.
+But I hold my ground. I revisit AWS again. I still believed AWS was the answer because everyone else is singing its song. I must be missing something! This time I considered their higher level tools like AWS AppSync and Amplify. But I couldn't overlook the fact that both of them force me to completely work by their standards and library. So at this point, I'd had it with AWS, and turned to another...platform: **Google Cloud Platform(GCP)**.
 
-**Sametable's Nodejs, Redis, and Postgresql are hosted on GCP**. The thing that drew me to GCP was its documentation-It's much more linear; code snippets for Nodejs; step-by-step guides about the common things you would do for a web app. Plus, it's serverless! Which means your cost is proportional to your usage.
+**Sametable's Nodejs, Redis, and Postgresql are hosted on GCP**. The thing that drew me to GCP was its documentation&mdash;It's much more linear; code snippets everywhere for your specific language; step-by-step guides about the common things you would do for a web app. Plus, it's serverless! Which means your cost is proportional to your usage.
 
 ### NodeJS on GCP
 
@@ -1892,79 +1892,44 @@ The GAE ['standard environment'](https://cloud.google.com/appengine/docs/the-app
 
 #### Cost
 
-GAE's stardard environment has [free quota](https://cloud.google.com/free/docs/gcp-free-tier#always-free-usage-limits) unlike the 'flexible environment'. Beyond that, you will pay only if somebody is using your SaaS :blush:.
+GAE's stardard environment has [free quota](https://cloud.google.com/free/docs/gcp-free-tier#always-free-usage-limits) unlike the 'flexible environment'. Beyond that, you will pay only if somebody is using your SaaS 😊.
 
 #### Guide
 
 This was the _only_ guide I relied on. It was my north star. It covers Nodejs, Postgresql, Redis, file storage, and more:
 
-> https://cloud.google.com/appengine/docs/standard/nodejs
+> [https://cloud.google.com/appengine/docs/standard/nodejs](https://cloud.google.com/appengine/docs/standard/nodejs)
 
-Start with the ['Quick Start'](https://cloud.google.com/appengine/docs/standard/nodejs/quickstart) tutorial because it will set you up with the `gcloud cli` which you are going to need when following the rest of the guides, where you will find commands you can run to follow along. If you aren't comfortable with CLI environment, the guides will provide alternative steps to achieve the same thing on the GCP dashboard too. I love it.
+Start with the ['Quick Start'](https://cloud.google.com/appengine/docs/standard/nodejs/quickstart) tutorial because it will set you up with the `gcloud cli` which you are going to need when following the rest of the guides, where you will find commands you can run to follow along. If you aren't comfortable with CLI environment, the guides will provide alternative steps to achieve the same thing on the GCP dashboard. I love it.
 
-I noticed that while going through GCP doc, I never had to open more than 4 tabs in my browser. It's the complete opposite with AWS doc- My browser would be packed with it.
-
-#### CORS
-
-To stop your browser from complaining about CORS issues, it's [all about](https://medium.com/@kilgarenone/deploy-your-nodejs-app-to-digital-ocean-1de40797666f#4aa4) getting your backend to send those `Access-Control-Allow-*` headers back per request. (Apologies for oversimplification is in order)
-
-But, correct me if I'm wrong, there's [no way](https://stackoverflow.com/a/60502433/73323) to configure CORS in GAE itself. So I had to do it with the [cors](https://www.npmjs.com/package/cors) npm package:
-
-```js
-const express = require("express");
-const app = express();
-const cors = require("cors");
-
-const ALLOWED_ORIGINS = [
-  "http://localhost:8008",
-  "https://web.sametable.app", // your SPA's domain
-];
-
-app.use(
-  cors({
-    credentials: true, // include Access-Control-Allow-Credentials: true. remember set xhr.withCredentials = true;
-    origin(origin, callback) {
-      // allow requests with no origin
-      // (like mobile apps or curl requests)
-      if (!origin) return callback(null, true);
-      if (ALLOWED_ORIGINS.indexOf(origin) === -1) {
-        const msg =
-          "The CORS policy for this site does not " +
-          "allow access from the specified Origin.";
-        return callback(new Error(msg), false);
-      }
-      return callback(null, true);
-    },
-  })
-);
-```
+I noticed that while going through GCP doc, I never had to open more than 4 tabs in my browser. It was the complete opposite with AWS doc- My browser would be _packed_ with it.
 
 ### Postgresql on GCP
 
 #### Guide
 
-https://cloud.google.com/sql/docs/postgres/connect-app-engine-standard
+[https://cloud.google.com/sql/docs/postgres/connect-app-engine-standard](https://cloud.google.com/sql/docs/postgres/connect-app-engine-standard)
+
+Just follow it and you will be fine.
 
 #### Cost
 
-It's pay-as-you-use as opposed to the fixed \$15/mo in Lightsail and DO.
+It's pay-as-you-use as opposed to the fixed \$15/mo you find in Lightsail and DO.
 
-https://cloud.google.com/products/calculator/#id=dd6b78da-1215-4366-b7b4-afefe5472ee6
+Sample cost:
+[https://cloud.google.com/products/calculator/#id=dd6b78da-1215-4366-b7b4-afefe5472ee6](https://cloud.google.com/products/calculator/#id=dd6b78da-1215-4366-b7b4-afefe5472ee6)
 
 ### Redis on GCP
 
-If you were following the main guide about Nodejs, you can't miss [this guide](https://cloud.google.com/appengine/docs/standard/nodejs/using-memorystore) to setting up your Redis in MemoryStore. But I figured it would be more cost effective to **host my Redis in a Google Compute Engine**(GCE) which has, unlike MemoryStore, free quota. ([See this](https://github.com/ripienaar/free-for-dev#major-cloud-providers) for comparison of free quota across different cloud platforms)
+If you were following the main guide about Nodejs, you can't miss [this guide](https://cloud.google.com/appengine/docs/standard/nodejs/using-memorystore) about setting up your Redis in MemoryStore. But I figured it would be more cost effective to **host my Redis in a Google Compute Engine**(GCE) which has, unlike MemoryStore, free quota. (Also [see this](https://github.com/ripienaar/free-for-dev#major-cloud-providers) for comparison of free quota across different cloud platforms)
 
 #### Guide
 
-1. Setup Redis in a VM:
-   https://cloud.google.com/community/tutorials/setting-up-redis
+1. [Setup](https://cloud.google.com/community/tutorials/setting-up-redis) Redis in a VM.
 
-2. Setup VPC:
+2) [Setup](https://cloud.google.com/appengine/docs/standard/python/connecting-vpc) VPC:
 
    > Serverless VPC Access enables you to connect from your App Engine app directly to your VPC network, **allowing access to Compute Engine VM instances**, Memorystore instances, and any other resources with an internal IP address.
-
-   https://cloud.google.com/appengine/docs/standard/python/connecting-vpc
 
 3. In your `app.yaml` file:
 
@@ -2008,7 +1973,7 @@ If you were following the main guide about Nodejs, you can't miss [this guide](h
 
 ### Storing files
 
-[Cloud Storage](https://cloud.google.com/storage/docs) is what you need for your users to upload their files such as images which they will need to retrieve and display later.
+[Cloud Storage](https://cloud.google.com/storage/docs) is what you need for your users to upload their files such as images which they will need to retrieve and possibly display later.
 
 #### Cost
 
@@ -2017,13 +1982,48 @@ There is a [free tier](https://cloud.google.com/free/docs/gcp-free-tier#always-f
 #### Guide
 
 You will be fine:
-https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-storage
+[https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-storage](https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-storage)
+
+### CORS
+
+To stop your browser from complaining about CORS issues, it's [all about](https://medium.com/@kilgarenone/deploy-your-nodejs-app-to-digital-ocean-1de40797666f#4aa4) getting your backend to send those `Access-Control-Allow-*` headers back per request. (Apologies for oversimplification is in order)
+
+But, correct me if I'm wrong, there's [no way](https://stackoverflow.com/a/60502433/73323) to configure CORS in GAE itself. So I had to do it with the [cors](https://www.npmjs.com/package/cors) npm package:
+
+```js
+const express = require("express");
+const app = express();
+const cors = require("cors");
+
+const ALLOWED_ORIGINS = [
+  "http://localhost:8008",
+  "https://web.sametable.app", // your SPA's domain
+];
+
+app.use(
+  cors({
+    credentials: true, // include Access-Control-Allow-Credentials: true. remember set xhr.withCredentials = true;
+    origin(origin, callback) {
+      // allow requests with no origin
+      // (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      if (ALLOWED_ORIGINS.indexOf(origin) === -1) {
+        const msg =
+          "The CORS policy for this site does not " +
+          "allow access from the specified Origin.";
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+  })
+);
+```
 
 ## Hosting your SPA
 
-When I was still on Lightsail, my SPA was [hosted](https://medium.com/@kilgarenone/deploy-spa-to-aws-9302796acd88) on S3+Cloudfront because I assumed it's better to keep them under the same platform for better latency. Then I found GCP. As a beat refugee from AWS landing in GCP, I first explored the 'Cloud Storage' to host my SPA, and turns out it wasn't ideal for SPA. It requires a lot of works too. So you can skip that.
+When I was still on Lightsail, my SPA was [hosted](https://medium.com/@kilgarenone/deploy-spa-to-aws-9302796acd88) on S3+Cloudfront because I assumed it's better to keep them under the same platform for better latency. Then I found GCP. As a beat refugee from AWS landing in GCP, I first explored the 'Cloud Storage' to host my SPA, and turns out it wasn't ideal for SPA. It's rather convoluted. So you can skip that.
 
-Then I tried hosting my SPA in [**Firebase**](https://firebase.google.com/docs/hosting/quickstart), and I was happily ever after.
+Then I tried hosting my SPA in [**Firebase**](https://firebase.google.com/docs/hosting/quickstart). Easily done in minutes even when it was my first time there. I love it.
 
 Another option you can consider is [Netlify](https://netlify.com) which is super easy to get started too.
 
@@ -2037,14 +2037,14 @@ To enable that possibility in Sametable, I use **Stripe** to handle both the pay
 
 There are two ways to implement them:
 
-1. [Very hands-on](https://stripe.com/docs/billing/subscriptions/fixed-price) that's great for customization in UI.
+1. [Very hands-on](https://stripe.com/docs/billing/subscriptions/fixed-price) that's great for customizing your UI.
 2. [**Checkout**](https://stripe.com/docs/payments/checkout/set-up-a-subscription). Fastest to implement. This was what I went for.
 
 #### Webhook
 
-The last key component I needed was a 'webhook' which is just a typical endpoint from your Nodejs that can be called by third-party such as Stripe.
+The last key component I needed for this piece was a 'webhook' which is basically just a typical endpoint in your Nodejs that can be called by a third-party such as Stripe.
 
-In my case, I created a webhook that will be called when a payment has been charged successfully to signify in the user record that corresponds to the payee as a PRO user in Sametable from there onwards:
+I created a webhook that will be called when a payment has been charged successfully to signify in the user record that corresponds to the payee as a PRO user in Sametable from there onwards:
 
 ```javascript
 router.post(
@@ -2081,11 +2081,11 @@ router.post(
 ##### Reference
 
 Here is a code snippet of a webhook:
-https://stripe.com/docs/webhooks/signatures#verify-official-libraries
+[https://stripe.com/docs/webhooks/signatures#verify-official-libraries](https://stripe.com/docs/webhooks/signatures#verify-official-libraries)
 
 ##### Guide
 
-https://stripe.com/docs/webhooks
+[https://stripe.com/docs/webhooks](https://stripe.com/docs/webhooks)
 
 ## Landing page
 
@@ -2093,37 +2093,37 @@ https://stripe.com/docs/webhooks
 
 I use [**Eleventy**](https://www.11ty.dev/) to build the landing page of Sametable. I [wouldn't](https://twitter.com/devongovett/status/1222953655722110981) recommend Gatsby or Nextjs. They are an overkill for this job.
 
-I started off with one of the [starter projects](https://www.11ty.dev/docs/starter/) as I was impatient to get my page off the ground. But I struggled working in them. Although Eleventy claims to be a simple SSG, there are actually quite a few concepts to grasp. Coupled with the tools introduced by the starter kits, things can get complex. So I decided to start from zero and take my time reading the doc from start to finish, slowly building up. And also write my blog posts with Markdown. Quiet and easy. :pray:
+I started with one of the [starter projects](https://www.11ty.dev/docs/starter/) as I was impatient to get my page off the ground. But I struggled working in them. Although Eleventy claims to be a simple SSG, there are actually quite a few concepts to grasp if you are new to [static site generators](https://www.staticgen.com/)(SSG). Coupled with the tools introduced by the starter kits, things can get complex. So I decided to start from zero and take my time reading the doc from start to finish, slowly building up. Quiet and easy.
 
 #### Guides
 
 - **Long version**
-  - https://tatianamac.com/posts/beginner-eleventy-tutorial-parti/
-  - https://www.11ty.dev/docs/
-- **Short version**: https://github.com/kilgarenone/personal-website (the first website I built for my personal site while learning 11ty. It has a homepage and blog posts. Very few concepts introduced here. You could start with this 'starter project')
+  - [https://tatianamac.com/posts/beginner-eleventy-tutorial-parti/](https://tatianamac.com/posts/beginner-eleventy-tutorial-parti/)
+  - [https://www.11ty.dev/docs/](https://www.11ty.dev/docs/)
+- **Short version**: [https://github.com/kilgarenone/personal-website](https://github.com/kilgarenone/personal-website) (the first website I built as my personal site while learning 11ty. It has a homepage and blog posts. Very few concepts introduced here. You could start with this 'starter project')
 
 ### Hosting
 
-I use [**Netlify**](https://www.netlify.com/) to host the landing page. There are also [surge.sh](https://surge.sh/) and [Vercel](https://vercel.com).
+I use [**Netlify**](https://www.netlify.com/) to host the landing page. There are also [surge.sh](https://surge.sh/) and [Vercel](https://vercel.com). You will be fine here.
 
 ## Terms and Conditions
 
-T&C makes your SaaS legit. As far as I know, here are your options to come up with it:
+T&C makes your SaaS legit. As far as I know, here are your options to come up with them:
 
 1. Write your own [https://pinboard.in/tos/](https://pinboard.in/tos/).
-2. Copy and paste others'. Change accordingly.
+2. Copy and paste others'. Change accordingly. Never easy in my experience.
 3. Lawyer up.
-4. Generate them [https://getterms.io/](https://getterms.io/).
+4. Generate them in [**getterms.io**](https://getterms.io/).
 
 ## Marketing
 
-There is no shortage of marketing posts saying "_Let the product speaks for itself_" was a bad idea. Well, in my view- Not if you are trying to 'hack growth' to win the game.
+There is no shortage of marketing posts saying it was a bad idea to "_Let the product speaks for itself_". Well, not unless you are trying to 'hack growth' to win the game.
 
 The following is the trajectory of existence I have in mind for Sametable:
 
 1. Build something that purportedly solves a problem.
 2. Do your SEO. Write the blog posts. Anyone who is affected by the problem that you have solved for will search for it, or know about it by word of mouth.
-3. If it still didn't take off, well, chances are you weren't solving a huge real problem, or enough people have solved it. In that case, be grateful for whatever success that comes your way over the long haul.
+3. If it still didn't take off, well, chances are you weren't solving a huge real problem, or enough people have already solved it. In that case, just be grateful for whatever success that comes your way over the long haul.
 
 ### Resources
 
@@ -2140,5 +2140,5 @@ Here is how I try to stay on top of my health debt:
 - **Install** [**Workrave**](https://workrave.org/)
   You can set it to lock your screen after an interval has passed. Most importantly, it can show some exercises that you can perform behind your computer!
 - Get an adjustable **standing desk** if you can afford it. I got mine from IKEA.
-- Do [burpees](https://www.youtube.com/watch?v=Kjhl-8yU6hI). Stretch those joints. Maintain good posture. Planking helps.
-- Meditate to stay sane. I'm using [Medito](https://meditofoundation.org/).
+- Do [**burpees**](https://www.youtube.com/watch?v=Kjhl-8yU6hI). Stretch those joints. Maintain good posture. Planking helps.
+- **Meditate** to stay sane. I'm using [Medito](https://meditofoundation.org/).
