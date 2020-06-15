@@ -211,11 +211,11 @@ if (process.env.STRIPE_API_KEY) {
 
 #### Webpack & Babel
 
-Webpack is used to bundle all my UI components and its dependencies(npm libraries, files like images, fonts, SVG) into `.js` files. During the bundling, Webpack will run through my [babel config](https://github.com/kilgarenone/boileroom/blob/master/client/config/webpack.production.js#L19-L57), and, if necessary, transpiles the Javascript I have written to an older version(e.g. es5) to support my [targeted browsers](https://github.com/kilgarenone/boileroom/blob/master/client/package.json#L13-L27).
+Webpack is used to lump all my UI components and its dependencies(npm libraries, files like images, fonts, SVG) into appropriate files like `.js`, `.css`, `.png` files. During the bundling, Webpack will run through my [babel config](https://github.com/kilgarenone/boileroom/blob/master/client/config/webpack.production.js#L19-L57), and, if necessary, transpiles the Javascript I have written to an older version(e.g. es5) to support my [targeted browsers](https://github.com/kilgarenone/boileroom/blob/master/client/package.json#L13-L27).
 
-Here is roughly how it goes down: When webpack has done its job, it will have generated one(or [several](https://webpack.js.org/concepts/entry-points/#multi-page-application)) `.js` and `.css` files. What commonly happens next is, by [utilizing](https://github.com/kilgarenone/boileroom/blob/master/client/config/webpack.production.js#L189-L202) a webpack plugin called ['html-webpack-plugin'](https://github.com/jantimon/html-webpack-plugin), the Javascript files are _automatically_(default behaviour) injected as [`<script>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script) in your `index.html`. Then when a user requests your app in a browser, the 'index.html' is fetched and parsed. When a browser sees the `<script>`'s `.js` files inside, it will fetch and execute them, and finally your app is [rendered](https://preactjs.com/guide/v10/api-reference/#render)(i.e. client-side rendering) in all its glories to the users.
+When Webpack has done its job, it will have generated one(or [several](https://webpack.js.org/concepts/entry-points/#multi-page-application)) `.js` and `.css` files. Then by [utilizing](https://github.com/kilgarenone/boileroom/blob/master/client/config/webpack.production.js#L189-L202) a webpack plugin called ['html-webpack-plugin'](https://github.com/jantimon/html-webpack-plugin), references to those JS and CSS files are automatically(default behaviour) injected respectively as `<script>` and `<link` in your `index.html`. Then when a user requests your app in a browser, the 'index.html' is fetched and parsed. When it sees `<script>` and `<link>`, it will fetch and execute the referenced assets, and finally your app is [rendered](https://preactjs.com/guide/v10/api-reference/#render)(i.e. client-side rendering) in all its glories to the user.
 
-If you are new to Webpack/Babel, I'd suggest&mdash;instead of copy/paste bits of them from the web&mdash;learn them from their first principles to slowly build up your configuration of them.
+If you are new to Webpack/Babel, I'd suggest learning them from their first principles to slowly build up your configuration of them, instead of copy/paste bits from the web. Nothing wrong with copy/paste configs, but I find it makes more sense doing it once I have the mental models of how things work.
 
 I wrote about the basics here:
 
@@ -233,11 +233,11 @@ https://medium.com/@kilgarenone/minimal-babel-setup-b12b563ee2ca
 
 To put it simply, a web app that performs well is good for your [users and business](https://developers.google.com/web/fundamentals/performance/why-performance-matters).
 
-Although web perf is a huge subject that's been [well documented](https://web.dev/fast/), I would like to highlight below few of the most impactful things I do for web perf, apart from [optimizing the images](https://images.guide/) which can account for over 50% of a page's weight.
+Although web perf is a huge subject that's [well documented](https://web.dev/fast/), I would like to talk about few of the most impactful things I do for web perf(apart from [optimizing the images](https://images.guide/) which can account for over 50% of a page's weight).
 
 #### Critical rendering path
 
-We mentioned before that 'html-webpack-plugin' automatically injects all Webpack-generated `.js` and `.css` files for us in our `index.html`. But we don't want to do that now to have full control over ordering our assets and setting the resource hints. So let's disable the auto-injection:
+We mentioned before that 'html-webpack-plugin' automatically injects references of all Webpack-generated `.js` and `.css` files for us in our `index.html`. But we don't want to do that now to have full control over placement and setting the resource hints. So let's disable the auto-injection:
 
 ```javascript
 // webpack.production.js
@@ -269,7 +269,7 @@ And knowing that we can grab Webpack-generated assets from the [`htmlWebpackPlug
 }
 ```
 
-We will inject our assets ourselves in `index.html`:
+We inject our assets in `index.html` ourselves:
 
 ```html
 <% if (htmlWebpackPlugin.options.mode === 'production') { %>
@@ -293,7 +293,7 @@ We will inject our assets ourselves in `index.html`:
 Note:
 
 - We only do this when building for production; we let `webpack-dev-server` injects for us during local development.
-- We use the `defer` attribute on our JS files so that browser will fetch them _while_ parsing our HTML, and only execute the fetched JS once the HTML is parsed.
+- We apply the `defer` attribute on our `<script>` so that browser will fetch them _while_ parsing our HTML, and only execute the JS once the HTML has been parsed.
 
   <figure>
   <img src="https://i.imgur.com/cF7jPjB.png" alt="defer diagram" loading="lazy"/>
@@ -302,23 +302,23 @@ Note:
 
 #### Inlining CSS and JS
 
-If you [managed](https://web.dev/extract-critical-css/#overview-of-tools) to separate your _critical_ CSS or you have a tiny JS script, you might want to consider inlining them in `<style>` and `<script>` respectively. Inlining saves network trips, although not being able to cache the inlined is a concern worth factoring in.
+If you [managed](https://web.dev/extract-critical-css/#overview-of-tools) to separate your _critical_ CSS or you have a tiny JS script, you might want to consider inlining them in `<style>` and `<script>`. 'Inlining' means placing corresponding raw content in HTML. This saves network trips, although not being able to cache them is a concern worth factoring in.
 
 Let's inline the `runtime.js` generated by Webpack as suggested [here](https://developers.google.com/web/fundamentals/performance/webpack/use-long-term-caching#inline_webpack_runtime_to_save_an_extra_http_request). Back in the `index.html` above, add this snippet:
 
 ```html
-<!-- more link and script -->
+<!-- <link> and <script> -->
 
 <script>
   <%= compilation.assets[htmlWebpackPlugin.files.js.filter(e => /runtime/.test(e))[0].substr(htmlWebpackPlugin.files.publicPath.length)].source() %>
 </script>
 ```
 
-The key is the `compilation.assets[<ASSET_FILE_NAME>].source()`:
+The key was the `compilation.assets[<ASSET_FILE_NAME>].source()`:
 
 > - compilation: the webpack [compilation object](https://webpack.js.org/api/compilation-object/). This can be used, for example, to get the contents of processed assets and inline them directly in the page, through `compilation.assets[...].source()` (see [the inline template example](https://github.com/jantimon/html-webpack-plugin/blob/master/examples/inline/template.pug)). ([source](https://github.com/jantimon/html-webpack-plugin#writing-your-own-templates))
 
-You can use this method to inline your critical CSS asset too:
+You can use this method to inline your critical CSS too:
 
 ```
 <style>
@@ -343,7 +343,7 @@ In short:
 
 [source](https://timkadlec.com/remembers/2020-02-13-when-css-blocks/)
 
-Let's see how to do this with Webpack.
+But let's see how to do this with Webpack.
 
 So I have my non-critical CSS contained in a CSS file, which I specify as its own entry point in Webpack:
 
@@ -352,20 +352,14 @@ So I have my non-critical CSS contained in a CSS file, which I specify as its ow
 module.exports = {
   entry: {
     app: "index.js",
-    // final asset name will be like '/components.[hash].css'
     components: path.resolve(__dirname, "../src/css/components.scss"),
   },
 };
 ```
 
-Finally, I inject it below my critical CSS:
+Finally, I inject it above my critical CSS:
 
 ```html
-<!-- Inlined critical CSS -->
-<style>
-  <%= compilation.assets[htmlwebpackplugin.files.css.filter(e => /app/.test(e)) [0].substr(htmlWebpackPlugin.files.publicPath.length) ].source() %>
-</style>
-
 <!-- Preloading non-critical CSS -->
 <link
   rel="stylesheet"
@@ -373,9 +367,14 @@ Finally, I inject it below my critical CSS:
   media="print"
   onload="this.media='all'"
 />
+
+<!-- Inlined critical CSS -->
+<style>
+  <%= compilation.assets[htmlwebpackplugin.files.css.filter(e => /app/.test(e)) [0].substr(htmlWebpackPlugin.files.publicPath.length) ].source() %>
+</style>
 ```
 
-Let's **measure** if, after all this, we have actually done anything good on the [signup page](https://web.sametable.app/signup):
+Let's **measure** if, after all this, we have actually done anything good. Measuring the Sametable's [signup page](https://web.sametable.app/signup):
 
 **BEFORE**
 <img src="https://i.imgur.com/rfy7og8.png" loading="lazy"/>
@@ -385,18 +384,18 @@ Let's **measure** if, after all this, we have actually done anything good on the
 
 Looks like we have improved almost all of the important user-centric metrics(not sure about the First Input Delay..)! 🎉
 
-Here is a [good video tutorial](https://www.youtube.com/watch?v=j9LW94EN7n4) about measuring web performance in Chrome Dev tool.
+Here is a [good video tutorial](https://www.youtube.com/watch?v=j9LW94EN7n4) about measuring web performance in the Chrome Dev tool.
 
 #### Code splitting
 
-Rather than bundle all your app's components, routes and third-party libraries into a single `.js` file, you should split and load them on-demand based on a user's action at runtime. This will **dramatically** reduce the bundle size of your SPA and reduces initial Javascript processing costs, hence improving metrics like 'First interactive time' and 'First meaningful paint'.
+Rather than lump all your app's components, routes and third-party libraries into a single `.js` file, you should split and load them on-demand based on a user's action at runtime. This will **dramatically** reduce the bundle size of your SPA and reduces initial Javascript processing costs, hence improving metrics like 'First interactive time' and 'First meaningful paint'.
 
-Do code splitting in Webpack with the ['dynamic imports'](https://webpack.js.org/guides/code-splitting/#dynamic-imports):
+Code splitting is done with the ['dynamic imports'](https://webpack.js.org/guides/code-splitting/#dynamic-imports):
 
 ```javascript
-// editor.jsx
+// Editor.jsx
 
-// LAZY-LOAD A MASSIVE THIRD-PARTY LIBRARY
+// LAZY-LOAD A GIGANTIC THIRD-PARTY LIBRARY
 componentDidMount() {
   const { default: MarkdownIt } = await import(
     /* webpackChunkName: "markdown-it" */
@@ -405,7 +404,7 @@ componentDidMount() {
   new MarkdownIt({ html: true }).render(/* stuff */);
 }
 
-// OR LAZY-LOAD ONE OF YOUR COMPONENTS
+// OR LAZY-LOAD A COMPONENT BASED ON USER ACTION
 checkout = () => {
   const { default: CheckoutModal } = await import(
     /* webpackChunkName: "checkoutModal" */
@@ -416,7 +415,7 @@ checkout = () => {
 
 Another use case for code splitting is to **conditionally load polyfill** for a Web API in a browser that doesn't support it, sparing others that do support it from paying the cost of the polyfill.
 
-For example, if `IntersectionObserver` isn't supported, we will polyfill it with the ['intersection-observer'](https://www.npmjs.com/package/intersection-observer) lib:
+For example, if `IntersectionObserver` isn't supported, we will polyfill it with the ['intersection-observer'](https://www.npmjs.com/package/intersection-observer) library:
 
 ```js
 // InfiniteScroll.jsx
@@ -436,30 +435,32 @@ componentDidMount() {
 
 ##### Guide
 
-https://medium.com/@kilgarenone/pragmatic-code-splitting-with-preact-and-webpack-a3d3b19f86a3
+[https://medium.com/@kilgarenone/pragmatic-code-splitting-with-preact-and-webpack-a3d3b19f86a3](https://medium.com/@kilgarenone/pragmatic-code-splitting-with-preact-and-webpack-a3d3b19f86a3)
 
-#### Differential serving <a href="#differential-serving" id="differential-serving">#</a>
+### Differential serving <a href="#differential-serving" id="differential-serving">#</a>
 
-You probably have configured your Webpack to build your app targeting both modern and legacy browsers like IE11, and serving every user with the same payload, thus effectively forcing those users who are on modern browsers to pay the cost(parse/compile/execute) of unnecessary polyfills and extraneous transformed code that are meant to support users on legacy browsers.
+You probably have configured your Webpack to build your app targeting both modern and legacy browsers like IE11, and serving every user with the same payload, thus forcing those users who are on modern browsers to pay the cost(parse/compile/execute) of unnecessary polyfills and extraneous transformed codes that are meant to support users on legacy browsers.
 
-Such an inclusive two-pronged serving of scripts will serve, on one hand, a much leaner code to users on modern browsers, and on the other, a properly polyfilled and transformed code to support users on legacy browsers such as IE11.
+'Differential serving' will serve, on one hand, a much leaner code to users on modern browsers, and on the other, a properly polyfilled and transformed code to support users on legacy browsers such as IE11.
 
-So, although this approach makes for an even more complex build setup and not without a [few caveat](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/#double-download-issue), the benefits gained(you can find out in the resources below) certainly _outweigh_ the costs, unless majority of your user base was on IE11, in which case, you probably can skip this. But even so, this approach is future-proof as legacy browsers are being phased out.
+Although this approach makes for an even more complex build setup and not without a [few caveats](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/#double-download-issue), the benefits gained(you can find in the resources below) certainly _outweigh_ the costs, unless majority of your user base was on IE11, in which case, you probably can skip this. But even so, this approach is future-proof as legacy browsers are being phased out.
 
-##### Repo
+#### Repo
 
 [https://github.com/kilgarenone/differential-serving](https://github.com/kilgarenone/differential-serving)
 
-##### Resources
+#### Resources
 
 - [https://jasonformat.com/modern-script-loading/#option1loaddynamically](https://jasonformat.com/modern-script-loading/#option1loaddynamically) &mdash; A very good overview of different approaches to differential serving. Sametable is on the 'Option-1'.
-- [https://github.com/firsttris/html-webpack-multi-build-plugin](https://github.com/firsttris/html-webpack-multi-build-plugin) &mdash; A Webpack plugin that let you access the manifest(i.e. assets' name) of your modern & legacy scripts in 'html-webpack-plugin''s 'index.html'
-- [https://calendar.perfplanet.com/2018/doing-differential-serving-in-2019/](https://calendar.perfplanet.com/2018/doing-differential-serving-in-2019/) &mdash; Its 'babel.config.js' method was particularly helpful to me.
-- [https://github.com/nystudio107/annotated-webpack-4-config](https://github.com/nystudio107/annotated-webpack-4-config) - I learned a lot here to structure my Webpack configs.
+- [https://github.com/firsttris/html-webpack-multi-build-plugin](https://github.com/firsttris/html-webpack-multi-build-plugin) &mdash; This Webpack plugin passes the manifest(i.e. assets' reference) of your modern & legacy scripts to 'html-webpack-plugin' so you can access them in your 'index.html'.
+- [https://calendar.perfplanet.com/2018/doing-differential-serving-in-2019/](https://calendar.perfplanet.com/2018/doing-differential-serving-in-2019/) &mdash; I learned here about structuring my babel config with its 'babel.config.js' method.
+- [https://github.com/nystudio107/annotated-webpack-4-config](https://github.com/nystudio107/annotated-webpack-4-config) &mdash; I learned a lot here about structuring my Webpack configs.
 
 ### Fonts
 
-Font files can be costly too. Take my favorite font [Inter](https://rsms.me/inter/) for an example: If I used 3 of its font styles, the total size could get up to 300KB, incurring costs such as network request and the accompanied FOUT and FOIT situations, particularly in low-end devices. Thus, I'm usually happy with the 'system fonts' that come with the machines:
+Font files can be costly. Take my favorite font [Inter](https://rsms.me/inter/) for an example: If I used 3 of its font styles, the total size could get up to 300KB, exacerbating the FOUT and FOIT situations particularly in low-end devices.
+
+To meet my font needs in my projects, I would usually just go with the 'system fonts' that come with the machines:
 
 ```css
 body {
@@ -479,12 +480,12 @@ But if you must use custom web fonts, consider doing it right:
 - ['Font-subsetting'](https://medium.com/@kilgarenone/subsetting-your-fonts-in-windows-10-using-wsl-bae4fafa35fc) to dramatically reduce the size of the font file.
 - Go through this [checklist](https://www.zachleat.com/web/font-checklist/).
 
-### Icons with SVG sprites
+### Icons
 
-Icons in Sametable use SVG. There are different ways that I could have done it:
+Icons in Sametable are SVG. There are different ways that I could have done it:
 
-- Copy and paste the markup of an SVG icon wherever I need it. The downside is it would bloat the HTML and incur parsing costs particularly in mobile.
-- Network request for a particular SVG file. Unless an SVG is huge (> 5KB), making a request for every SVG icon seems a bit much.
+- Copy and paste the markup of an SVG icon wherever I need it. The downside is it would bloat the HTML and incur parsing costs particularly on mobile.
+- Request for my SVG icons over the network:`<img src="./tick.svg" />`. Unless an SVG is huge (> 5KB), making a request for every one of them seems a bit much.
 - Make an icon reusable in the form of a [React component](https://medium.com/@david.gilbertson/icons-as-react-components-de3e33cb8792). The downside is it unnecessarily introduces Javascript and its associated costs.
 
 Instead, the solution I opted for my icons was '**SVG sprites**' which is more closer to the nature of SVG itself( [`<use>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/use) and [`<symbol>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/symbol)).
@@ -512,11 +513,11 @@ Say there are many places that will use two of our SVG icons. In your `index.htm
 
 1. Hide the parent SVG element `style="display: none"`.
 2. Give each SVG symbol an unique id `<symbol id="unique-id"`.
-3. Make sure to define the `viewBox`(usually is already provided), but skip the `width` and `height`.
+3. Make sure to define the `viewBox`(usually already provided), but skip the `width` and `height`.
 4. Give it `title` and `desc` for accessibility.
-5. And most importantly, the `path` data of an icon.
+5. And of course, the `path` data of an icon.
 
-And finally, here is how you use them in your components:
+And finally, here is how you can use them in your components:
 
 ```javascript
 // example.jsx
@@ -535,11 +536,11 @@ render() {
 ```
 
 1. Define the `width` and `height` as desired.
-2. Specify the `id` of one of the `<symbol>` in the 'index.html' above: `<use xlinkHref="#pin-it" />`.
+2. Specify the `id` of the `<symbol>`: `<use xlinkHref="#pin-it" />`.
 
 #### Lazy load SVG sprites
 
-Or to putting your SVG symbols in the `index.html`, you could put them in a `.svg` file:
+Rather than having your SVG symbols in the `index.html`, you could put them in a `.svg` file which is loaded only when needed:
 
 ```html
 <svg xmlns="http://www.w3.org/2000/svg">
@@ -556,7 +557,7 @@ Or to putting your SVG symbols in the `index.html`, you could put them in a `.sv
 </svg>
 ```
 
-And I put that file in `client/src/assets`:
+Put that file in `client/src/assets`:
 
 ```
 - client
@@ -590,7 +591,7 @@ render() {
 }
 ```
 
-And browser will, during runtime, fetch the `.svg` file if it hadn't already.
+And a browser will, during runtime, fetch the `.svg` file if it hadn't already.
 
 And there you have it! No more plastering those lengthy `path` data all over the place.
 
@@ -606,7 +607,7 @@ https://css-tricks.com/mega-list-svg-information/#svg-icons
 
 ### Favicon
 
-If I hadn't disabled the `inject` option of 'html-webpack-plugin', I would have used a plugin called ['favicons-webpack-plugin'](https://github.com/jantimon/favicons-webpack-plugin) that automatically generates all types of favicons(it's alot!), and inject them in my `index.html`:
+If I hadn't disabled the `inject` option of 'html-webpack-plugin', I would have used a plugin called ['favicons-webpack-plugin'](https://github.com/jantimon/favicons-webpack-plugin) that automatically generates all types of favicons(beware it's a lot!), and inject them in my `index.html`:
 
 ```javascript
 // webpack.config.js
@@ -635,7 +636,7 @@ plugins: [
 ];
 ```
 
-Since I had disabled the auto-injection, here is how I handled my favicon:
+But since I had disabled the auto-injection, here is how I handle my favicon:
 
 1. Go to https://realfavicongenerator.net/
 
@@ -689,13 +690,13 @@ Finally, make sure you get an **A** [here](https://observatory.mozilla.org/) and
 
 ## Design
 
-We will explore a few concepts that help structure your design to be coherent.
+I will explore a few concepts that helped structure my design to be coherent.
 
 ### Modular scale
 
-Your design will demand less efforts from your users to make sense of when it flows as enforced by a 'modular scale', which specifies a scale of spaces or sizes that each increments with a certain ratio.
+Your design will demand less efforts from your users to make sense of when it flows according to a 'modular scale' that specifies a scale of spaces or sizes that each increments with a certain ratio.
 
-One way to create a scale is with CSS ['Custom Properties'](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)(credits to [every-layout.dev](https://every-layout.dev/)):
+One way to create a scale is with CSS ['Custom Properties'](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)(credits to view-source [every-layout.dev](https://every-layout.dev/)):
 
 ```css
 :root {
@@ -710,9 +711,9 @@ One way to create a scale is with CSS ['Custom Properties'](https://developer.mo
 }
 ```
 
-If you don't know what scale to use, just [pick a scale](https://www.modularscale.com/) that fits closest to your design and stick to it.
+If you don't know what scale to use, just [pick a scale](https://www.modularscale.com/) that fits closest to your design and **stick to it**.
 
-Then I create a bunch of utility classes, each associated with a scale, in a file call `spacing.scss`. I will use them to space my UI elements across a project:
+Then I would create a bunch of utility classes, each associated with a scale, in a file call `spacing.scss`. I will use them to space my UI elements across a project:
 
 ```css
 .mb-1 {
@@ -783,7 +784,7 @@ export function Button({children, className, ...props}) {
 
 ### Colors
 
-There are many color palette tools out there. But the one from [Material](https://material.io/design/color/the-color-system.html#tools-for-picking-colors) is where I always go to for my colors.
+There are many color palette tools out there. But the one from [Material](https://material.io/design/color/the-color-system.html#tools-for-picking-colors) is the one I always go to for my colors.
 
 Then I will define them as CSS Custom Properties again:
 
@@ -840,7 +841,7 @@ select {
 
 ### A Styling Practice
 
-I always try to style at the **tag**-level first before bringing out the big gun if necessary, in my case, 'CSS Modules', for encapsulating styles per component:
+I always try to style at the **tag**-level first before bringing out the big gun if necessary, in my case, ['CSS Modules'](https://github.com/css-modules/css-modules), for encapsulating styles per component:
 
 ```
 - src
@@ -852,9 +853,9 @@ I always try to style at the **tag**-level first before bringing out the big gun
 
 The `SignIn.scss` contains CSS that pertains only to the `<SignIn />` component.
 
-Furthermore, I don't use any CSS libraries popular in the React ecosystem like 'styled-components' and 'emotion'. I try to **use pure HTML and CSS whenever I can, and only let Preact handle the DOM and state updates** for me.
+Furthermore, I don't use the CSS libraries popular in the React ecosystem such as 'styled-components' and 'emotion'. I try to **use pure HTML and CSS whenever I can, and only let Preact handle the DOM and state updates** for me.
 
-For example, for the `input` element:
+For example, for the `<input/>` element:
 
 ```css
 // index.scss
@@ -882,7 +883,7 @@ input:focus {
 }
 ```
 
-Then using it in a JSX file:
+Then using it in a JSX file with its vanilla tag:
 
 ```javascript
 // SignIn.js
@@ -911,7 +912,7 @@ render() {
 
 ### Layout
 
-I use **CSS Flexbox** for layout works in Sametable. There was no need for any CSS frameworks at all. Learn CSS Flexbox from its first principles to do more with less code. Plus, in many cases, the result is already responsive thanks to the layout algorithms, saving those `@media` queries.
+I use **CSS Flexbox** for layout works in Sametable. There was no need for any CSS frameworks. Learn CSS Flexbox from its first principles to do more with less code. Plus, in many cases, the result would already be responsive thanks to the layout algorithms, saving those `@media` queries.
 
 Let's see how to build a common layout in Flexbox with a minimal amount of CSS:
 
@@ -1017,7 +1018,7 @@ export function api(endPoint, userOptions = {}) {
   }
 
   if (userOptions.body instanceof FormData) {
-    // let browser set content-type to multipart/etc.
+    // let browser set content-type to multipart
     delete defaultHeaders["Content-Type"];
   }
 
@@ -1063,22 +1064,22 @@ async componentDidMount() {
 }
 ```
 
-But if you preferred to use a library to handle your http calls, I'd recommend ['redaxios'](https://github.com/developit/redaxios) which not only shares API with the popular [axios](https://www.npmjs.com/package/axios), but also it's much more lightweight.
+But if you preferred to use a library to handle your http calls, I'd recommend ['redaxios'](https://github.com/developit/redaxios) which not only shares API with the popular [axios](https://www.npmjs.com/package/axios), it's much more lightweight.
 
 ### Test production build locally
 
 I would always build my client app locally to test and measure in my browser before I deploy to the cloud.
 
-I have a npm script(`npm run test-build`) in the client's `package.json` that builds and then serve it with a local web server so I can play with it in my browser at http://localhost:5000:
+I have a npm script(`npm run test-build`) in the `package.json` of the 'client' folder that will build and serve it on a local web server so I can play with it in my browser at http://localhost:5000:
 
-```
+```json
 "scripts": {
     "test-build": "cross-env NODE_ENV=production TEST_RUN=true node_modules/.bin/webpack && npm run serve",
     "serve": "ws --spa index.html --directory dist --port 5000 --hostname localhost"
   }
 ```
 
-The app is served using ['local-web-server'](https://www.npmjs.com/package/local-web-server). It's so far the only one I find works perfectly for a SPA.
+The app is served using a tool called ['local-web-server'](https://www.npmjs.com/package/local-web-server). It's so far the only one I find works perfectly for a SPA.
 
 ## Server
 
@@ -1087,7 +1088,6 @@ The app is served using ['local-web-server'](https://www.npmjs.com/package/local
   - server.js
   - package.json
   - .env
-
 ```
 
 The [server](https://github.com/kilgarenone/boileroom/tree/master/server) is run on NodeJS(ExpressJS framework) to serve all my **API** endpoints.
@@ -1099,13 +1099,13 @@ router.put("/save/:taskId", (req, res, next) => {});
 
 The [`server.js`](https://github.com/kilgarenone/boileroom/blob/master/server/server.js) contains the [familiar](https://expressjs.com/en/starter/hello-world.html) codes to start a Nodejs server.
 
-#### Project structure
+### File structure
 
 I'm grateful for this digestible [guide](https://node-postgres.com/guides/project-structure) about project structure, allowing me to hunker down quickly to build out my API.
 
-#### npm script
+### npm script
 
-In the server's `package.json`, there is a npm script that will start your server for you:
+In the `package.json` inside the 'server' folder, there is a npm script that will start your server for you:
 
 ```json
 "scripts": {
@@ -1116,97 +1116,90 @@ In the server's `package.json`, there is a npm script that will start your serve
 
 - The `dev` script ['preload'](https://www.npmjs.com/package/dotenv#preload) dotenv as suggested [here](https://medium.com/the-node-js-collection/making-your-node-js-work-everywhere-with-environment-variables-2da8cdf6e786#b1af). And that's it&mdash; You will have access to the env variables defined in the `.env` file from the `process.env` object.
 
-- The `start` script, as we will see later, is used to start our Nodejs server in production.
+- The `start` script is used to start our Nodejs server in production. In my case, GCP will run this script to bootup my Nodejs.
 
 ### Database
 
-Database is used to store and persist users' data.
-
-I use **Postgresql** for my database. And I use ['node-postgres'](https://node-postgres.com/)(a.k.a `pg`) library to connect my Nodejs to the database. Once that's done, I can do CRUD works between my API endpoints and the database.
+I use **Postgresql** as my database. Then I use ['node-postgres'](https://node-postgres.com/)(a.k.a `pg`) library to connect my Nodejs to the database. Once that's done, I can do CRUD works between my API endpoints and the database.
 
 #### Setup
 
 For local development:
 
-### 1.
+1. Download [Postgresql here](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads). Get the latest version. Leave everything as it is. Remember the password you set. Then,
 
-Download the [software here](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads). Get the latest version. Leave everything as it is. Remember the password you set. Then,
+   - Open 'pgAdmin'. It's a browser application.
+   - Create a database for you app:
+     <img src="https://i.imgur.com/trcAaSi.png" loading="lazy"/>
 
-- Open 'pgAdmin'. It's a browser application.
-- Create a database for you app, :
+2. Define a set of environment variables in the `.env` file:
 
-<img src="https://i.imgur.com/trcAaSi.png" loading="lazy"/>
+   ```
+   DB_HOST='localhost'
+   DB_USER=postgres
+   DB_NAME=<YOUR_CUSTOM_DATABASE_NAME_HERE>
+   DB_PASSWORD=<YOUR_MASTER_PASSWORD>
+   DB_PORT=5432
+   ```
 
-### 2.
+3. Then we will [connect](https://node-postgres.com/features/connecting) a new client through a [connection pool](https://node-postgres.com/features/pooling) to our Postgresql database from our Nodejs. I do it in `server/db/index.js`:
 
-Define a set of environment variables in the `.env` file:
+   <a href="#db-wrapper" id="db-wrapper">#</a>
 
-```
-DB_HOST='localhost'
-DB_USER=postgres
-DB_NAME=<YOUR_CUSTOM_DATABASE_NAME_HERE>
-DB_PASSWORD=<YOUR_MASTER_PASSWORD>
-DB_PORT=5432
-```
+   ```javascript
+   const { Pool } = require("pg");
 
-### 3. [#](#db-wrapper)
+   const pool = new Pool({
+     user: process.env.DB_USER,
+     host: process.env.DB_HOST,
+     port: process.env.DB_PORT,
+     database: process.env.DB_NAME,
+     password: process.env.DB_PASSWORD,
+   });
 
-Then we will [connect](https://node-postgres.com/features/connecting) a new client through a [connection pool](https://node-postgres.com/features/pooling) to our Postgresql database from our Nodejs. I do it in `server/db/index.js`:
+   // TRANSACTION
+   // https://github.com/brianc/node-postgres/issues/1252#issuecomment-293899088
+   const tx = async (callback, errCallback) => {
+     const client = await pool.connect();
+     try {
+       await client.query("BEGIN");
+       await callback(client);
+       await client.query("COMMIT");
+     } catch (err) {
+       console.log(("DB ERROR:", err));
+       await client.query("ROLLBACK");
+       errCallback && errCallback(err);
+     } finally {
+       client.release();
+     }
+   };
+   // the pool will emit an error on behalf of any idle clients
+   // it contains if a backend error or network partition happens
+   pool.on("error", (err) => {
+     process.exit(-1);
+   });
 
-```javascript
-const { Pool } = require("pg");
+   pool.on("connect", () => {
+     console.log("❤️ Connected to the Database ❤️");
+   });
 
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-});
+   module.exports = {
+     query: (text, params, callback) => pool.query(text, params, callback),
+     tx,
+     pool,
+   };
+   ```
 
-// TRANSACTION
-// https://github.com/brianc/node-postgres/issues/1252#issuecomment-293899088
-const tx = async (callback, errCallback) => {
-  const client = await pool.connect();
-  try {
-    await client.query("BEGIN");
-    await callback(client);
-    await client.query("COMMIT");
-  } catch (err) {
-    console.log(("DB ERROR:", err));
-    await client.query("ROLLBACK");
-    errCallback && errCallback(err);
-  } finally {
-    client.release();
-  }
-};
-// the pool will emit an error on behalf of any idle clients
-// it contains if a backend error or network partition happens
-pool.on("error", (err) => {
-  process.exit(-1);
-});
+   - I will use the `tx` function in an API if I have to call **many** queries that depends on each other.
+   - If I'm making a **single** query, I will use the `query` function.
 
-pool.on("connect", () => {
-  console.log("❤️ Connected to the Database ❤️");
-});
-
-module.exports = {
-  query: (text, params, callback) => pool.query(text, params, callback),
-  tx,
-  pool,
-};
-```
-
-- I will use the `tx` function if I have to call **many** queries that depends on each other in an API.
-- If I'm making a **single** query, I will use the `query` function.
-
-And that's it! Now you have got a database to work with for your local development :rocket:
+And that's it! Now you got a database to work with for your local development :rocket:
 
 #### Usage
 
 I will confess: I **hand-craft** all the queries for Sametable.
 
-In my opinion, SQL itself is already a declarative language that needs no further abstraction-it's easy to read, understand, and write. It can be maintainable if you separated well your API endpoints. But, if you knew you were building a facebook-scale app, perhaps it would be wise to use an ORM. But I'm just a [everyday normal guy](https://www.youtube.com/watch?v=5PsnxDQvQpw) building a very narrow-scoped SaaS all by myself. So I needed to avoid overhead and complexity while considering factors such as ease of onboarding, performance, ease of reiteration, and the potential lifespan of the knowledge. It's like the advice that urges us to learn vanilla Javascript before jumping on the bandwagon of a popular front-end framework. Because you just might realize: That's all you need for what you have set out to accomplish.
+In my opinion, SQL itself is already a declarative language that needs no further abstraction&mdash;it's easy to read, understand, and write. It can be maintainable if you separated well your API endpoints. But, if you knew you were building a facebook-scale app, perhaps it would be wise to use an ORM. But I'm just a [everyday normal guy](https://www.youtube.com/watch?v=5PsnxDQvQpw) building a very narrow-scoped SaaS all by myself. So I needed to avoid overhead and complexity while considering factors such as ease of onboarding, performance, ease of reiteration, and the potential lifespan of the knowledge. It reminds me of the advice urges us to learn vanilla Javascript before jumping on the bandwagon of a popular front-end framework. Because you just might realize: That's all you need for what you have set out to accomplish to reach your 1000th customer.
 
 To be fair though, when I decided to go down this path, I'd had modest experiences in writing MySQL. So if you knew nothing about SQL and you were anxious to ship it, then you might want to consider a library like [knex.js](http://knexjs.org/).
 
@@ -1244,7 +1237,7 @@ router.post(
 );
 ```
 
-- With [`express-async-handler`](https://github.com/Abazhenov/express-async-handler/blob/master/index.js), I can write my route handlers with the 'async/await' pattern and handling the async errors. It will be obsolete when Express 5 drops.
+- The [`express-async-handler`](https://github.com/Abazhenov/express-async-handler/blob/master/index.js) is mainly used to handle the async errors in my route handlers. It won't be needed anymore when Express 5 drops.
 
 * Import the `db` module to use the `tx` method. Pass your hand-crafted SQL queries and [parameters](https://node-postgres.com/features/queries).
 
@@ -1252,7 +1245,7 @@ That's it!
 
 #### Creating table schemas
 
-Before you can start quering a database, you need to create tables. Each table contains information about an entity or relationships. Before that can happen, you need to decide which information goes to which table. And what has helped me in that exercise is a concept called [**denormalization**](https://firebase.google.com/docs/database/web/structure-data). Essentially, you don't want to store everything about an entity in the same table. For example, say, we have a `users` table storing `fullname`, `password` and `email`. It wouldn't be advisable to also store the ids of all the projects assigned to a particular user. Instead, I would break them up into separate tables:
+Before you can start querying a database, you need to create tables. Each table contains information about an entity. But we don't just lump all information about an entity in the same table. We need to organize the information in a way that promotes query performance and data maintainability. And what has helped me in that exercise is a concept called [**denormalization**](https://firebase.google.com/docs/database/web/structure-data). As mentioned, we don't want to store everything about an entity in the same table. For example, say, we have a `users` table storing `fullname`, `password` and `email`. That's fine so far. But problem arises when we are also storing the ids of all the projects assigned to a particular user in a separate column in the same table. Instead, I would break them up into separate tables:
 
 1. Create the `users` table. Notice that it's not storing any data related to 'projects':
 
@@ -1278,7 +1271,7 @@ Before you can start quering a database, you need to create tables. Each table c
    );
    ```
 
-3. Create a 'bridge' table about projects' ownerships by connecting a user's 'id' to an id of a project that she owns. This table is just a bunch of ids from different tables, in this case, the `users` and `projects` tables:
+3. Create a 'bridge' table about projects' ownerships by associating the ID of an user with the ID of a project that she owns:
 
    ```sql
    CREATE TABLE project_ownerships(
@@ -1291,9 +1284,7 @@ Before you can start quering a database, you need to create tables. Each table c
 
 4. Finally, to get all the projects that are assigned to a particular user, we will do what relational database do best: [`join`](https://www.postgresqltutorial.com/postgresql-joins/).
 
-Now the way I create and maintain my tables' schema is, to say the least, lackluster.
-
-I put all my schemas in a file:
+I would put all my schemas in a `.sql` file at my project's root:
 
 ```sql
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
@@ -1307,17 +1298,17 @@ CREATE TABLE users(
 );
 ```
 
-Then, I would copy the schemas from the file, paste and run them in pgAdmin:
+Then, I would copy, paste, and run them in pgAdmin:
 
 <img src="https://i.imgur.com/gm9YFZF.png" alt="create table schemas in pgadmin" loading="lazy" />
 
-No doubt there are more advanced ways of doing this, so it's up to you if you want to spend more time exploring them to see which suits you.
+No doubt there are more advanced ways of doing this, so it's up to you if you want to explore what you like.
 
 ##### Dropping a database
 
 Deleting an entire database to start with a new set of schemas was something I had to do very often at the beginning.
 
-The trick is, well: Copy, paste, and run it in the database's query editor as accessed from above:
+The trick is: Well, you copy, paste, and run the command below in the database's query editor in pgAdmin:
 
 ```sql
 DROP SCHEMA public CASCADE;
@@ -1327,19 +1318,18 @@ GRANT ALL ON SCHEMA public TO public;
 COMMENT ON SCHEMA public IS 'standard public schema';
 ```
 
-#### Building SQL queries
+#### Crafting SQL queries
 
-I craft my SQL queries in **pgAdmin** to get the data I want out of an API endpoint.
+I write my SQL queries in **pgAdmin** to get the data I want out of an API endpoint.
 
-Hopefully this annotated image sums that up:
-
+To give a sense of direction to doing that in pgAdmin:
 <img src="https://i.imgur.com/54tIRzc.png" alt="writing sql queries in pgadmin editor" loading="lazy" />
 
-##### Writing queries with Common Table Expressions(CTEs)
+##### Common Table Expressions(CTEs)
 
-I stumbled upon a pattern called [**CTEs**](https://www.postgresql.org/docs/9.1/queries-with.html) when I was exploring how I am going to get the data that I want from disparate tables, and structure them as desired, without doing lots of separate database queries and for-loops.
+I stumbled upon a pattern called [**CTEs**](https://www.postgresql.org/docs/9.1/queries-with.html) when I was exploring how I am going to get the data I want from disparate tables, and structure them as desired, without doing lots of separate database queries and for-loops.
 
-The way CTE works is simple enough: You write your queries. Each is given an alias name (`q`, `q1`, `q3`). And a next query can access any previous query's results by their alias name(`q1.workspace_id`):
+The way CTE works is simple enough: You write your queries. Each query is given an alias name (`q`, `q1`, `q3`). And a next query can access any previous query's results by their alias name(`q1.workspace_id`):
 
 ```sql
 WITH q AS (SELECT * FROM projects_tasks WHERE task_id=$1)
@@ -1349,16 +1339,18 @@ WITH q AS (SELECT * FROM projects_tasks WHERE task_id=$1)
 SELECT * FROM q3;
 ```
 
+Almost all the queries in Sametable are written this way.
+
 ### Redis
 
-Redis is a NoSQL database that stores data in memory which makes it fast. In Sametable, I used Redis for two purposes:
+Redis is a NoSQL database that stores data in memory. In Sametable, I used Redis for two purposes:
 
-1. Store a user's session data.
-2. Cache the results of some of my Postgresql's queries, saving us from having to query the database if the cache is still fresh.
+1. Store a user's session data and basic info from the `users` table&mdash;name, email, and a flag that indicates the user is a subscriber or not&mdash;once they have logged in.
+2. Cache the results of some of my Postgresql's queries to avoid having to query the database if the cache is still fresh.
 
 #### Installation
 
-I'm on a Windows 10 machine with Windows Subsystem Linux(WSL) installed. This was the only guide I followed:
+I'm on a Windows 10 machine with Windows Subsystem Linux(WSL) installed. This was the only guide I followed to install Redis on my machine:
 
 https://redislabs.com/blog/redis-on-windows-10/
 
@@ -1372,7 +1364,7 @@ Then I will start my local Redis server in WSL bash:
 
 Now install the [`redis`](https://www.npmjs.com/package/redis) npm package:
 
-```
+```json
 cd server
 
 npm i redis
@@ -1416,7 +1408,7 @@ module.exports = {
 };
 ```
 
-- By [default](https://www.npmjs.com/package/redis#options-object-properties), `node-redis` will connect to `localhost` at port `6379`. But that might not be the case in production particularly when you host your Redis in a VM. So I provide this object when it's 'production':
+- By [default](https://www.npmjs.com/package/redis#options-object-properties), `node-redis` will connect to `localhost` at port `6379`. But that might not be the case in production if you host your Redis in a VM. So I provide this object if it's in production mode:
 
   ```
   {
@@ -1427,7 +1419,7 @@ module.exports = {
   ```
 
   - TBH, I'm not entirely sure about the `no_ready_check`. I got it from this official [tutorial](https://docs.redislabs.com/latest/rs/references/client_references/client_nodejs/).
-  - The `auth_pass` and `host` are provided as custom since I host my Redis in a GCE VM where I have also set a password on my Redis.
+  - The `auth_pass` and `host` are provided as custom since I host my Redis in a GCE VM where I have set a password on my Redis.
 
 * I [promisfy](https://www.npmjs.com/package/redis#promises) the Redis methods that I will use to make them async to avoid blocking NodeJS's single-thread.
 
@@ -1441,13 +1433,13 @@ Error handling in Nodejs has a paradigm which we will explore in 3 different con
 
 To set the stage, we need two things in place first:
 
-1. An npm package called [http-errors](https://www.npmjs.com/package/http-errors) that will give us a standard error data structure to work with.
+1. An npm package called [http-errors](https://www.npmjs.com/package/http-errors) that will give us a standard error data structure to work with especially in client-side.
 
-   ```
+   ```json
    npm install http-errors
    ```
 
-2. Our custom error handler at the global level to capture **all** propagated errors(i.e. `next(err)`) from the routes or the `catch` blocks.
+2. We create a custom error handler at the global level to capture **all** propagated errors from the routes or the `catch` blocks via `next(err)`:
 
    ```javascript
    // app.js
@@ -1473,9 +1465,9 @@ To set the stage, we need two things in place first:
 
    Note that although this is a common pattern of handling error in Express, you might want to consider an [alternative way](https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/errorhandling/centralizedhandling.md) that's, however, more complicated.
 
-##### Input validation
+##### Handle input validation errors
 
-It's a [good practise](https://github.com/goldbergyoni/nodebestpractices#-610-validate-incoming-json-schemas) to validate a user's inputs both in the client and server side. At the server side, I use a library called ['express-validator'](https://express-validator.github.io/docs/) to do the job. If any input is invalid, we will handle it by responding with a http code and an error message to inform the user about it.
+It's a [good practise](https://github.com/goldbergyoni/nodebestpractices#-610-validate-incoming-json-schemas) to validate a user's inputs both in the client and server side. At the server side, I use a library called ['express-validator'](https://express-validator.github.io/docs/) to do the job. If any input is invalid, I will handle it by responding with a http code and an error message to inform the user about it.
 
 For example, when an email provided by a user is invalid, we will exit early by creating an error object with the 'http-errors' library, and then pass it to the `next` function:
 
@@ -1513,9 +1505,9 @@ The following response will be sent to the client:
 
 Then it's up to you what you want to do with it. For example, you can access the `email.msg` property to display the error message below the email input field.
 
-##### Errors from business logic
+##### Handle errors from business logic
 
-Let's say we have a situation where a user entered an email that doesn't exist in the database. In that case, we need to tell the user to try again.
+Let's say we have a situation where a user entered an email that didn't exist in the database. In that case, we need to tell the user to try again:
 
 ```javascript
 router.post(
@@ -1538,11 +1530,11 @@ router.post(
     res.json({});
 ```
 
-Remember, any error object passed to 'next'- `next(err)`- will be captured by the custom error handler as we have set above.
+Remember, any error object passed to 'next'(`next(err)`) will be captured by the custom error handler that we have set above.
 
-##### Unexpected errors from database
+##### Handle unexpected errors from database
 
-I pass the route handler's `next` to my db's <a href="db-wrapper">transaction</a> wrapper function to handle any unexpected erorrs.
+I pass the route handler's `next` to my db's <a href="#db-wrapper">transaction</a> wrapper function to handle any unexpected erorrs.
 
 ```javascript
 router.post(
@@ -1562,15 +1554,18 @@ router.post(
 
 #### Logging
 
-When a particular error occurs, it's a common practise to 1) Log it to a system for records, and 2) Automatically send you a notification about it.
+When an error occured, it's a common practise to 1) Log it to a system for records, and 2) Automatically notify you about it.
 
-As expected, there are many tools out there in this area. But I ended up with [**Sentry**](https://sentry.io/welcome/) for storing details(e.g. stack traces) of my errors, and [**pino**](https://github.com/pinojs/pino) to enable logging in my Nodejs.
+There are many tools out there in this area. But I ended up with two of them:
 
-**Why Sentry**? Well it was recommended by lots of solo devs and small startups. It offers 5000 errors you can send per month for free. For perspective, if you are operating a small side project and careful about it, I would say that'd last you until you can afford a more luxurous vendor or plan. Another option worth exploring is [honeybadger.io](https://www.honeybadger.io/) with more generous free-tier but without a [pino transport](https://getpino.io/#/docs/transports).
+- [**Sentry**](https://sentry.io/welcome/) for storing details(e.g. stack traces) of my errors, and display them on their web-based dashboard.
+- [**pino**](https://github.com/pinojs/pino) to enable logging in my Nodejs.
 
-**Why Pino**- Why not the official SDK provided by Sentry? Because Pino has ['low overhead'](https://github.com/pinojs/pino#low-overhead), whereas, Sentry SDK, although it gives you a more complete picture of an error, it seemeed to have a complex [memory issue](https://github.com/getsentry/sentry-javascript/issues/1762) that I couldn't see myself being able to circumvent.
+**Why Sentry**? Well it was recommended by lots of devs and small startups. It offers 5000 errors you can send per month for free. For perspective, if you are operating a small side project and careful about it, I would say that'd last you until you can afford a more luxurous vendor or plan. Another option worth exploring is [honeybadger.io](https://www.honeybadger.io/) with more generous free-tier but without a [pino transport](https://getpino.io/#/docs/transports).
 
-With that, here is how the logging system works in Sametable:
+**Why Pino**- Why not the official SDK provided by Sentry? Because Pino has ['low overhead'](https://github.com/pinojs/pino#low-overhead), whereas, Sentry SDK, although it gives you a more complete picture of an error, seemed to have a complex [memory issue](https://github.com/getsentry/sentry-javascript/issues/1762) that I couldn't see myself being able to circumvent.
+
+With that, here is how logging system is hooked up in Sametable:
 
 ```javascript
 // server/lib/logger.js
@@ -1594,9 +1589,9 @@ module.exports = {
 };
 ```
 
-Rather than attaching the logger(`expressLogger`) as a middleware at the top of the chain(`app.use(expressLogger)`), I use the `logger` object whenever I need to log an error.
+Rather than attaching the logger(`expressLogger`) as a middleware at the top of the chain(`app.use(expressLogger)`), I use the `logger` object only where I want to log an error.
 
-For example, the custom global error handler uses the `logger`:
+For example, the custom global error handler uses the `logger` object:
 
 ```javascript
 app.use(function (err, req, res, next) {
@@ -1605,7 +1600,7 @@ app.use(function (err, req, res, next) {
     : createError(500, "Something went wrong. Notified dev.");
 
   if (isProduction) {
-    // LOG THIS ERROR IN MY SENTRY ACCOUNT
+    // LOG THIS ERROR IN MY SENTRY DASHBOARD
     logger.error(error);
   } else {
     console.log("Custom error handler:", error);
@@ -1615,17 +1610,17 @@ app.use(function (err, req, res, next) {
 });
 ```
 
-That's it! And don't forget to enable email **notification** in your Sentry dashboard to get an alert when your Sentry receives an error! :heart:
+That's it! And don't forget to enable email **notification** in your Sentry dashboard to get an alert when your Sentry receives an error! ❤️
 
 ## User authentication system
 
-A user authentication system can get very complicated when you need to support things like SSO and third-party OAuth providers. That's why we have third-party tools such as Auth0, Okta, and PassportJS to abstract that out for us. But those tools cost: vendor lock-in, more Javascript payload, and cognitive overhead.
+A user authentication system can get very complicated if you need to support things like SSO and third-party OAuth providers. That's why we have third-party tools such as Auth0, Okta, and PassportJS to abstract that out for us. But those tools cost: vendor lock-in, more Javascript payload, and cognitive overhead.
 
-I would argue that if you are starting out and just need _some_ _kind of_ authentication system so you can move on to other parts of your app, and at the same time, overwhelmed by all the dated tutorials and heavy-handed tools out there, well, chances are all you need is the good old way of doing authentication: **Session cookie** with **email** and **password**! And we are not talking about 'JWT' either! None of that.
+I would argue that if you are starting out and just need _some_ _kind of_ authentication system so you can move on to other parts of your app, and at the same time, overwhelmed by all the dated tutorials that deal with stuff you don't use, well, chances are all you need is the good old way of doing authentication: **Session cookie** with **email** and **password**! And we are not talking about 'JWT' either! None of that.
 
 ### Guide
 
-https://medium.com/@kilgarenone/easily-implements-user-authentication-in-nodejs-b22bdb6f15bc
+[Here is a guide](https://medium.com/@kilgarenone/easily-implements-user-authentication-in-nodejs-b22bdb6f15bc) I ended up writing. Follow it and you got yourself a user authentication system!
 
 ## Email
 
@@ -1635,16 +1630,18 @@ There are two ways to send emails in Nodejs:
 
 1. **Roll your own** with [Nodemailer](https://nodemailer.com/about/).
 
-   I wouldn't go down this path because although sending one email might seem a trivial task, doing it 'at scale' is hard; every email must be sent successfully; and they must not end up in a user's spam folder; and other things I haven't even realized yet.
+   I wouldn't go down this path because although sending one email might seem a trivial task, doing it 'at scale' is hard; every email must be sent successfully; and they must not end up in a user's spam folder; and other things I'm not aware of.
 
 2. Choose one of the **email service providers**.
 
-   There are many email services who offer a free-tier plan offering a limited number of emails you can send per month/day for free. When I started exploring this space for Sametable in October 2019, Mailgun stood out to be a no-brainer- It offers 10,000 emails for free per month! But, sadly, as I was researching for this section write-up, I learned that it no longer offers that. Despite that though, I would still stick to Mailgun, on their [pay-as-you-go](https://www.mailgun.com/pricing) plan: 1000 emails sent will cost you 80 cents. If you would rather not pay a cent for whatever reason, here are two options for you that I could find:
+   There are many email services who offer a free-tier plan offering a limited number of emails you can send per month/day for free. When I started exploring this space for Sametable in October 2019, Mailgun stood out to be a no-brainer&mdash;It offers 10,000 emails for free per month! But, sadly, as I was researching for this section write-up, I learned that it no longer offers that. Despite that, though, I would still stick to Mailgun, on their [pay-as-you-go](https://www.mailgun.com/pricing) plan: 1000 emails sent will cost you 80 cents.
 
-   - https://www.mailjet.com/pricing/
-   - https://www.sendinblue.com/pricing/
+   If you would rather not pay a cent for whatever reason, here are two options for you that I could find:
 
-   But do go down this path while being aware there's no guarantee that all free-tier plans will stay that way forever as was the case with Mailgun.
+   - [https://www.mailjet.com/pricing/](https://www.mailjet.com/pricing/)
+   - [https://www.sendinblue.com/pricing/](https://www.sendinblue.com/pricing/)
+
+   But do go down this path while being aware there's no guarantee that these free-tier plans will stay that way forever as was the case with Mailgun.
 
 ### Implementation
 
