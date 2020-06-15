@@ -7,9 +7,11 @@ title: How I built my first SaaS
 
 _From first principles_
 
-I switched my career to web development back in 2013. I did it for two reasons. First, I noticed I could get lost in building customer-facing products amongst all the colors and endless possibilities of interactivity; so while being reminded by the trite "_Find a job you enjoy doing, and you will never have to work a day in your life._", I thought "_Hey, why not make this a job, huh???_". And second, I wanted to make something for myself having spent my teenage years inspired by the Web 2.0(The Digg.com circa 2005 opened the world for me). My plan was to work on the latter while working in the former.
+I switched my career to web development back in 2013. I did it for two reasons. First, I noticed I could get lost in building customer-facing products amongst all the colors and endless possibilities for interactivity; so while being reminded by the trite "_Find a job you enjoy doing, and you will never have to work a day in your life._", I thought "_Why not make this a job???_". And second, I wanted to make something for myself having spent my teenage years inspired by Web 2.0(Digg.com circa 2005 opened the world for me). My plan was to work on the latter while working in the former.
 
-Turns out, though, the job and the 'Javascript fatigue' ensued to wholly consume me. It also didn't help that I was reckless in my pursue of my ambition having been influenced by my perception of successes from the 'Silicon Valley'. I read Paul Graham's _Hackers & Painters_ and Peter Thiel's _Zero to One_. I'm properly fired up! I'm hustling. I can do this too! But nope, I can't. At least not alone. I always was beat after work. I couldn't gather a team who would buy into dreams. So meanwhile, I rinse and repeat less than half-baked projects. I am chronically anxious and depressed. Then I mellowed out as years go by. And I began to cultivate a personal philosophy on entrepreneurship and technology that align better with my personality and life circumstances&mdash; Until September 2019.
+Turns out, though, the job and the 'Javascript fatigue' ensued to wholly consume me. It also didn't help that I was reckless in my pursue of my ambition having been influenced by my perception of successes from the 'Silicon Valley'. I read Paul Graham's _Hackers & Painters_ and Peter Thiel's _Zero to One_. I'm properly fired up! I'm hustling. I can do this too!
+
+But nope, I can't. At least not alone. I always was beat after work. I couldn't find a team who would buy into dreams or share the same values. So meanwhile, I rinse and repeat less than half-baked projects in my free time. I am chronically anxious and depressed. Then I mellowed out as the years go by. I began to cultivate a personal philosophy on entrepreneurship and technology that align better with my personality and life circumstances&mdash; Until September 2019.
 
 The fog in the path ahead finally cleared up. I got pretty good at it; the job then became less taxing; I'd reined in on my 'Javascript fatigue'. For the longest time, I had the mental energy, time, and the mindset that allow me to see through a side project. And this time, I start small. I believed I got this.
 
@@ -17,11 +19,11 @@ I was wrong.
 
 Having been a front-end developer for my entire career, I could only go as far as naming the things that I imagined I would need&mdash;a 'server', a 'database', an 'authentication' system, a 'host', a 'domain name', but _how_... _where_... and _what_..._I..I don..I don't even_... 😭
 
-Now, I knew my life would have been easier if I'd decided to use those abstract tools like 'create-react-app', 'firebase SDK', 'ORM', and 'one-click-deployment' services; the ode of '_Don't reinvent the wheel. Iterate fast_'. But there were a few things I wanted my decisions to meet:
+Now, I knew my life would have been easier if I'd decided to use one of those abstract tools like 'create-react-app', 'firebase SDK', 'ORM', and 'one-click-deployment' services; the ode of '_Don't reinvent the wheel. Iterate fast_'. But there were a few things I wanted my decisions to meet:
 
 - No vendor lock-in &mdash; This ruled out using the Firebase SDK all over my codebase. Including the 'create-react-app', because ejecting it forces me to inherit and maintain its massive tooling infrastructure.
-- Simplicity & Minimalistic &mdash; Cut having to learn new opinionated syntax and pattern. This ruled out 1) Project generators that output complex architecture and layers of boilerplate codes, 2) Using third-party libraries such as 'knex.js' or 'sequalize' ORM.
-- Pay-as-you-need &mdash; I wanted to keep my operating cost proportional to the usage level. This ruled out many services such as 'one-click-deployment'.
+- Simplicity & Minimalistic &mdash; Cut having to learn new opinionated syntax and pattern. This ruled out 1) Project generators that output complex architecture and layers of boilerplate codes, 2) Using third-party libraries such as 'knex.js' or 'sequelize' ORM.
+- Pay-as-you-need &mdash; I wanted to keep my operating cost proportional to the usage level. This ruled out services such as 'one-click-deployment'.
 
 To be fair though, I got the following things going for me:
 
@@ -37,44 +39,46 @@ Also keep in mind that:
 
 **Most importantly**, I wanted to follow through with a guiding principle: Building things [_responsibly_](https://alistapart.com/article/responsible-javascript-part-1/). Although, unsurprisingly, doing so had had a significant impact on my development speed, it had forced me to delineate my motivations:
 
-- If I had to ship something the soonest possible, unless it's a matter of life and death, then I probably wasn't solving a unique and hard problem, in which case&mdash;assuming I was still on my day job and had zero debt took on&mdash;What is the rush?
-- And second-guessing from an ethical perspective: Was it even a problem needs solving? What will be the second-order consequences if I solved it? Could my good intentions have been better directed elsewhere?
+- If I had to ship something the soonest possible unless it's a matter of life and death, then I probably wasn't solving a unique and hard problem, in which case&mdash;assuming I was still on my day job and had zero debt took on&mdash;What is the rush?
+- And second-guessing from the ethical perspective: Was it even a problem needs solving? What will be the second-order consequences if I solved it? Could my good intentions have been better directed elsewhere?
+
+So what follows is everything I'd learned when developing the first project I ever launched called **Sametable** that helps [managing your work in spreadsheets](https://www.sametable.app). From implementing favicon to deploying to a cloud platform, I will share extensive code snippets, best practices, lessons, guides, and key resources. I hope something here would be useful to you. Thanks for reading.
 
 ## Finding ideas
 
-I used to lose sleep thinking and remixing thoughts, hoping for an eureka - Until I started to look inward:
+Well, first of all, you need to know what you want to build. I used to lose sleep over this; thinking and remixing thoughts, hoping for an eureka &mdash;Until I started to look inward:
 
 - Build things that solve problems that you encounter and piss you off frequently.
 - Solving the so-called 'pain points' or 'frictions'. Go outside, don't stop listening to people and learn from them.
-- Be an expert in your own domain. Feel its pain. Seems to me lots of founders founded company related to their domain on which they have built their career and social network.
+- Be an expert in your own domain. Feel its pains. Maybe solve one of them. Seems to me lots of founders founded company related to their domain on which they have built their career and social network.
 
 ## The Stack
 
 How your stack looks like will depend on how you will render your application. Here is a [comprehensive](https://developers.google.com/web/updates/2019/02/rendering-on-the-web#wrapup) discussion about that, but in a nutshell:
 
 - **Client-side rendering(CSR); SPA; APIs with JSON**
-  This is currently the most common approach in the modern web. It's great for building interactive web applications. But [be aware](https://macwright.org/2020/05/10/spa-fatigue.html) of its downsides and steps to mitigate them. This is the approach I took, so we will talk more about this in details.
+  This is perhaps the most popular approach. It's great for building interactive web applications. But [be aware](https://macwright.org/2020/05/10/spa-fatigue.html) of its downsides and steps to mitigate them. This is the approach I took, so we will talk more about this in much details.
 
 - **Hybrid CSR; Both client-side and server-side rendering(SSR)**
-  With this approach, you still build your SPA. But when a user requests your app, for example, the homepage, you would first render the homepage's component into the corresponding static HTML **in your server** before serving it to the user. Then once the user's browser parse the HTML, [hydration](https://reactjs.org/docs/react-dom.html#hydrate) will happen so the whole thing becomes a SPA.
+  With this approach, you still build your SPA. But when a user requests your app, for example, the homepage, you would render the homepage's component into its static HTML **in your server** and serve it to the user. Then at the user's browser, [hydration](https://reactjs.org/docs/react-dom.html#hydrate) will happen so the whole thing becomes the intended SPA.
 
-  The main benefits of this approach are that you get good SEO and users can see your stuff sooner(faster 'First Meaningful Paint'). But there are downsides too. Apart from the extra maintainance costs, we have to download the same payload twice- First, the HTML, and second, its Javascript counterpart for 'hydration'.
+  The main benefits of this approach are that you get good SEO and users can see your stuff sooner(faster 'First Meaningful Paint'). But there are downsides too. Apart from the extra maintainance costs, we will have to download the same payload twice&mdash;First, the HTML, and second, its Javascript counterpart for the 'hydration'.
 
   The technologies that are adopted for this approach are [NextJs](https://nextjs.org/), [NuxtJs](https://nuxtjs.org/), and [GatsbyJs](https://www.gatsbyjs.org/).
 
-- **Server-side rendering and sprinkle :sparkles: it with Javascript**
-  This was the old-school way of building on the web!- Render your templates in PHP, then bind events handlers with jQuery. This approach might be ill-suited to build the increasingly complex app that businesses have asked for on the web, but some technologies have emerged to elevate this approach:
+- **Server-side rendering and 'sprinkle :sparkles: it with Javascript'**
+  This was the old-school way of building on the web!&mdash;Use PHP to build your templates with data in your server, then bind events handlers to the DOM with jQuery in the browser. This approach might have been ill-suited to build the increasingly complex app that businesses have asked for on the web, but some technologies have emerged to warrant a reconsideration:
 
   - [https://stimulusjs.org/](https://stimulusjs.org/)
   - [https://github.com/turbolinks/turbolinks](https://github.com/turbolinks/turbolinks)
   - [https://github.com/phoenixframework/phoenix_live_view](https://github.com/phoenixframework/phoenix_live_view)
   - For more, check out this [twitter thread](https://mobile.twitter.com/nateberkopec/status/1260602209475198976)
 
-  To be honest, if I could have been more patient with myself, I would have gone down this path. This approach is making a comeback in light of the wretched excess of Javascript in this modern web.
+  To be honest, if I could be more patient with myself, I would have gone down this path. This approach is making a comeback in light of the excess of Javascript on this modern web.
 
-Bottom line is, pick any approach you are already proficient with. Be mindful of the associated downsides, and try to mitigate them before shipping it to your users.
+The bottom line is: Pick any approach you are already proficient with. But be mindful of the associated downsides, and try to mitigate them before shipping it to your users.
 
-With that, here is my boring stack:
+With that, here is the boring stack of Sametable:
 
 ### Front-end
 
@@ -83,7 +87,7 @@ With that, here is my boring stack:
 
 ### Back-end
 
-- **Node** &mdash; API web server with ExpressJS
+- **Node** &mdash; API server with ExpressJS
 - **Postgresql** &mdash; Database
 - **Redis** &mdash; Store users' session data and cache queries' results.
 
@@ -98,7 +102,7 @@ With that, here is my boring stack:
 
 [https://github.com/kilgarenone/boileroom](https://github.com/kilgarenone/boileroom)
 
-This repo contains the structure I'm using to develop my SaaS. We have one folder for the **client** stuff, and one folder for the **server** stuff:
+This repo contains the structure I'm using to develop my SaaS. I have one folder for the **client** stuff, and another for the **server** stuff:
 
 ```json
 - client
@@ -122,7 +126,7 @@ This repo contains the structure I'm using to develop my SaaS. We have one folde
 
 ```
 
-The file structure aims to be flat, cohesive, and as linear to navigate as possible. Each 'component' is self-contained; it contains all the constituent files(html|css|js). For example, in a 'Login' route folder:
+The file structure always aims to be flat, cohesive, and as linear to navigate as possible. Each 'component' is self-contained within a folder with all its constituent files(html|css|js). For example, in a 'Login' route folder:
 
 ```
 - client
@@ -134,11 +138,11 @@ The file structure aims to be flat, cohesive, and as linear to navigate as possi
          - Login.redux.js
 ```
 
-I learned this from the [Angular2 style guide](https://angular.io/guide/styleguide#angular-coding-style-guide).
+I learned this from the [Angular2 style guide](https://angular.io/guide/styleguide#angular-coding-style-guide) which has a lot of other good stuff you can take away from. Highly recommended.
 
-### Local development
+### Start full-stack development locally
 
-The `package.json` at the root has a **npm script** that I will run to start both of my client and server **to begin my local development**:
+The `package.json` at the root has a **npm script** that I will run to boot up **both** my client and server to begin my local development:
 
 ```json
 "scripts": {
@@ -168,11 +172,16 @@ npm run dev
     -.env.development
 ```
 
-The folder structure of 'client' is quite like that of the 'create-react-app'. The meat of your application code is inside the `src` folder: A `components` folder contains your functional React components; `index.html` is your [custom template](https://github.com/kilgarenone/boileroom/blob/master/client/config/webpack.development.js#L41-L43) provided to the [`html-webpack-plugin` ](https://github.com/jantimon/html-webpack-plugin#options); [`index.js`](https://github.com/kilgarenone/boileroom/blob/master/client/src/index.js) is your [entry point](https://github.com/kilgarenone/boileroom/blob/master/client/config/webpack.common.js#L12-L15) for Webpack bundling.
+The file structure of the 'client' is quite like that of the 'create-react-app'. The meat of your application code is inside the `src` folder in which there is a `components` folder for your functional React components; `index.html` is your [custom template](https://github.com/kilgarenone/boileroom/blob/master/client/config/webpack.development.js#L41-L43) provided to the [`html-webpack-plugin`](https://github.com/jantimon/html-webpack-plugin#options); [`index.js`](https://github.com/kilgarenone/boileroom/blob/master/client/src/index.js) is a file as a [entry point](https://github.com/kilgarenone/boileroom/blob/master/client/config/webpack.common.js#L12-L15) to Webpack.
 
-#### npm script
+<aside>
+<strong>Note</strong>
+<p>I have since restructured my build environment to achieve <a href="#differential-serving">differential serving</a>. Webpack and babel have been organized differently, and npm scripts change a bit. Everything else remains the same.</p>
+</aside>
 
-The client's `package.json` file contains two npm scripts: 1) `dev` to start development, 2) `build` to bundle for production.
+### npm script
+
+The client's `package.json` file has two most important npm scripts: 1) `dev` to start development, 2) `build` to bundle for production.
 
 ```json
 "scripts": {
@@ -181,7 +190,7 @@ The client's `package.json` file contains two npm scripts: 1) `dev` to start dev
 }
 ```
 
-#### Environment variables
+### Environment variables
 
 It's a good practice to have a `.env` file where you define your sensitive values such as API keys and database credentials:
 
@@ -190,7 +199,7 @@ SQL_PASSWORD=admin
 STRIPE_API_KEY=1234567890
 ```
 
-A library called [dotenv](https://www.npmjs.com/package/dotenv) is usually used to load these variables for our application code to consume. However, in the context of Webpack, we will use [dotenv_webpack](https://www.npmjs.com/package/dotenv-webpack) to load them during compile or build time [as shown here](https://github.com/kilgarenone/boileroom/blob/master/config/webpack.common.js#L33-L37). The variables will then be accessible in `process.env` across your application code:
+A library called [dotenv](https://www.npmjs.com/package/dotenv) is usually used to load these variables into our application code for consumption. However, in the context of Webpack, we will use [dotenv_webpack](https://www.npmjs.com/package/dotenv-webpack) to do that during compile or build time [as shown here](https://github.com/kilgarenone/boileroom/blob/master/config/webpack.common.js#L33-L37). The variables will then be accessible in `process.env` across your application code:
 
 ```js
 // payment.jsx
@@ -222,7 +231,7 @@ https://medium.com/@kilgarenone/minimal-babel-setup-b12b563ee2ca
 
 ### Performance
 
-A web app that performs well is good for your [users and business](https://developers.google.com/web/fundamentals/performance/why-performance-matters).
+To put it simply, a web app that performs well is good for your [users and business](https://developers.google.com/web/fundamentals/performance/why-performance-matters).
 
 Although web perf is a huge subject that's been [well documented](https://web.dev/fast/), I would like to highlight below few of the most impactful things I do for web perf, apart from [optimizing the images](https://images.guide/) which can account for over 50% of a page's weight.
 
@@ -429,7 +438,7 @@ componentDidMount() {
 
 https://medium.com/@kilgarenone/pragmatic-code-splitting-with-preact-and-webpack-a3d3b19f86a3
 
-#### Differential serving
+#### Differential serving [#](#differential-serving)
 
 You probably have configured your Webpack to build your app targeting both modern and legacy browsers like IE11, and serving every user with the same payload, thus effectively forcing those users who are on modern browsers to pay the cost(parse/compile/execute) of unnecessary polyfills and extraneous transformed code that are meant to support users on legacy browsers.
 
