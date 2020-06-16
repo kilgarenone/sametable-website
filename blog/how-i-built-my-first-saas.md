@@ -5,7 +5,65 @@ title: How I built my first SaaS
 
 # How I Built My First SaaS
 
-_From first principles_
+## Content
+
+- <a href="#introduction">Introduction</a>
+- <a href="#finding-ideas">Finding Ideas</a>
+- <a href="#the-stack">The Stack</a>
+- <a href="#repo">Repo</a>
+  - <a href="#start-dev-locally">Start full-stack development locally</a>
+- <a href="#client">Client</a>
+  - <a href="#client-npm-script">Npm Script</a>
+  - <a href="#client-env-var">Environment Variables</a>
+  - <a href="#webpack-babel">Webpack & Babel</a>
+  - <a href="#web-perf">Web Performance</a>
+  - <a href="#differential-serving">Differential Serving</a>
+  - <a href="#fonts">Fonts</a>
+  - <a href="#icons">Icons</a>
+  - <a href="#favicon">Favicon</a>
+  - <a href="#api-calls">API Calls</a>
+  - <a href="#test-prod-build-locally">Test Production Build Locally</a>
+  - <a href="#web-security">Security</a>
+- <a href="#design">Design</a>
+  - <a href="#modular-scale">Modular Scale</a>
+  - <a href="#colors">Colors</a>
+  - <a href="#css-reset">CSS Reset</a>
+  - <a href="#a-styling-practice">A Styling Practice</a>
+  - <a href="#layout">Layout</a>
+- <a href="#server">Server</a>
+  - <a href="#server-file-structure">File Structure</a>
+  - <a href="#server-npm-script">Npm Script</a>
+  - <a href="#database">Database</a>
+  - <a href="#creating-table-schemas">Creating Table Schemas</a>
+  - <a href="#dropping-a-database">Dropping a database</a>
+  - <a href="#crafting-sql-queries">Crafting SQL Queries</a>
+  - <a href="#redis">Redis</a>
+  - <a href="#error-handling-and-logging">Error Handling & Logging</a>
+- <a href="#user-authentication-system">User Authentication System</a>
+  - <a href="#user-authentication-system-guide">Guide</a>
+- <a href="#email">Email</a>
+  - <a href="#implement-email">Implementation</a>
+  - <a href="#email-templates">Email Templates</a>
+- <a href="#tenancy">Tenancy</a>
+- <a href="#domain-name">Domain Name</a>
+- <a href="#deployment">Deployment</a>
+  - <a href="#deploy-nodejs">Deploy Nodejs</a>
+  - <a href="#deploy-psql">Deploy Postgresql</a>
+  - <a href="#deploy-redis">Deploy Redis</a>
+  - <a href="#deploy-file-storage">File Storage</a>
+- <a href="#cors">CORS</a>
+- <a href="#hosting-spa">Hosting Your SPA</a>
+- <a href="#payment-subscription">Payment & Subscription</a>
+  - <a href="#payment-subscription-guide">Guide</a>
+  - <a href="#payment-subscription-webhook">Webhook</a>
+- <a href="#landing-page">Landing Page</a>
+  - <a href="#building-landing-page">Building</a>
+  - <a href="#hosting-landing-page">Hosting</a>
+- <a href="#tnc">Terms & Conditions</a>
+- <a href="#marketing">Marketing</a>
+- <a href="#well-being">Well-being</a>
+
+## Introduction <a href="#introduction" id="introduction">#</a>
 
 I switched my career to web development back in 2013. I did it for two reasons. First, I noticed I could get lost in building customer-facing products amongst all the colors and endless possibilities for interactivity; so while being reminded by the trite "_Find a job you enjoy doing, and you will never have to work a day in your life._", I thought "_Why not make this a job???_". And second, I wanted to make something for myself having spent my teenage years inspired by Web 2.0(Digg.com circa 2005 opened the world for me). My plan was to work on the latter while working in the former.
 
@@ -44,7 +102,7 @@ Also keep in mind that:
 
 So what follows is everything I'd learned when developing the first project I ever launched called **Sametable** that helps [managing your work in spreadsheets](https://www.sametable.app). From implementing favicon to deploying to a cloud platform, I will share extensive code snippets, best practices, lessons, guides, and key resources. I hope something here would be useful to you. Thanks for reading.
 
-## Finding ideas
+## Finding Ideas <a href="#finding-ideas" id="finding-ideas">#</a>
 
 Well, first of all, you need to know what you want to build. I used to lose sleep over this; thinking and remixing thoughts, hoping for an eureka &mdash;Until I started to look inward:
 
@@ -52,7 +110,7 @@ Well, first of all, you need to know what you want to build. I used to lose slee
 - Solving the so-called 'pain points' or 'frictions'. Go outside, don't stop listening to people and learn from them.
 - Be an expert in your own domain. Feel its pains. Maybe solve one of them. Seems to me lots of founders founded company related to their domain on which they have built their career and social network.
 
-## The Stack
+## The Stack <a href="#the-stack" id="the-stack">#</a>
 
 How your stack looks like will depend on how you will render your application. Here is a [comprehensive](https://developers.google.com/web/updates/2019/02/rendering-on-the-web#wrapup) discussion about that, but in a nutshell:
 
@@ -98,7 +156,7 @@ With that, here is the boring stack of Sametable:
 
 <img loading="lazy" src="https://i.imgur.com/CA88ijh.png" alt="Sametable architecture" />
 
-## Repo
+## Repo <a href="#repo" id="repo">#</a>
 
 [https://github.com/kilgarenone/boileroom](https://github.com/kilgarenone/boileroom)
 
@@ -140,7 +198,7 @@ The file structure always aims to be flat, cohesive, and as linear to navigate a
 
 I learned this from the [Angular2 style guide](https://angular.io/guide/styleguide#angular-coding-style-guide) which has a lot of other good stuff you can take away from. Highly recommended.
 
-### Start full-stack development locally
+### Start Full-stack Development Locally <a href="#start-dev-locally" id="start-dev-locally">#</a>
 
 The `package.json` at the root has a **npm script** that I will run to boot up **both** my client and server to begin my local development:
 
@@ -158,7 +216,7 @@ Run the following in a terminal at your project's root:
 npm run dev
 ```
 
-## Client
+## Client <a href="#client" id="client">#</a>
 
 ```json
 - client
@@ -179,7 +237,7 @@ The file structure of the 'client' is quite like that of the 'create-react-app'.
 <p>I have since restructured my build environment to achieve <a href="#differential-serving">differential serving</a>. Webpack and babel have been organized differently, and npm scripts changed a bit. Everything else remains the same.</p>
 </aside>
 
-### npm script
+### Npm Script <a href="#client-npm-script" id="client-npm-script">#</a>
 
 The client's `package.json` file has two most important npm scripts: 1) `dev` to start development, 2) `build` to bundle for production.
 
@@ -190,7 +248,7 @@ The client's `package.json` file has two most important npm scripts: 1) `dev` to
 }
 ```
 
-### Environment variables
+### Environment Variables <a href="#client-env-var" id="client-env-var">#</a>
 
 It's a good practice to have a `.env` file where you define your sensitive values such as API keys and database credentials:
 
@@ -209,7 +267,7 @@ if (process.env.STRIPE_API_KEY) {
 }
 ```
 
-#### Webpack & Babel
+### Webpack & Babel <a href="#webpack-babel" id="webpack-babel">#</a>
 
 Webpack is used to lump all my UI components and its dependencies(npm libraries, files like images, fonts, SVG) into appropriate files like `.js`, `.css`, `.png` files. During the bundling, Webpack will run through my [babel config](https://github.com/kilgarenone/boileroom/blob/master/client/config/webpack.production.js#L19-L57), and, if necessary, transpiles the Javascript I have written to an older version(e.g. es5) to support my [targeted browsers](https://github.com/kilgarenone/boileroom/blob/master/client/package.json#L13-L27).
 
@@ -219,17 +277,17 @@ If you are new to Webpack/Babel, I'd suggest learning them from their first prin
 
 I wrote about the basics here:
 
-##### Webpack
+#### Webpack
 
 https://medium.com/@kilgarenone/minimal-webpack-setup-a5f32c5f8960
 
 Once I understood the basics, I started [referring to this resource](https://github.com/nystudio107/annotated-webpack-4-config) for more advanced configuration.
 
-##### Babel
+#### Babel
 
 https://medium.com/@kilgarenone/minimal-babel-setup-b12b563ee2ca
 
-### Performance
+### Web Performance <a href="#web-perf" id="web-perf">#</a>
 
 To put it simply, a web app that performs well is good for your [users and business](https://developers.google.com/web/fundamentals/performance/why-performance-matters).
 
@@ -437,7 +495,7 @@ componentDidMount() {
 
 [https://medium.com/@kilgarenone/pragmatic-code-splitting-with-preact-and-webpack-a3d3b19f86a3](https://medium.com/@kilgarenone/pragmatic-code-splitting-with-preact-and-webpack-a3d3b19f86a3)
 
-### Differential serving <a href="#differential-serving" id="differential-serving">#</a>
+### Differential Serving <a href="#differential-serving" id="differential-serving">#</a>
 
 You probably have configured your Webpack to build your app targeting both modern and legacy browsers like IE11, and serving every user with the same payload, thus forcing those users who are on modern browsers to pay the cost(parse/compile/execute) of unnecessary polyfills and extraneous transformed codes that are meant to support users on legacy browsers.
 
@@ -456,7 +514,7 @@ Although this approach makes for an even more complex build setup and not withou
 - [https://calendar.perfplanet.com/2018/doing-differential-serving-in-2019/](https://calendar.perfplanet.com/2018/doing-differential-serving-in-2019/) &mdash; I learned here about structuring my babel config with its 'babel.config.js' method.
 - [https://github.com/nystudio107/annotated-webpack-4-config](https://github.com/nystudio107/annotated-webpack-4-config) &mdash; I learned a lot here about structuring my Webpack configs.
 
-### Fonts
+### Fonts <a href="#fonts" id="fonts">#</a>
 
 Font files can be costly. Take my favorite font [Inter](https://rsms.me/inter/) for an example: If I used 3 of its font styles, the total size could get up to 300KB, exacerbating the FOUT and FOIT situations particularly in low-end devices.
 
@@ -480,7 +538,7 @@ But if you must use custom web fonts, consider doing it right:
 - ['Font-subsetting'](https://medium.com/@kilgarenone/subsetting-your-fonts-in-windows-10-using-wsl-bae4fafa35fc) to dramatically reduce the size of the font file.
 - Go through this [checklist](https://www.zachleat.com/web/font-checklist/).
 
-### Icons
+### Icons <a href="#icons" id="icons">#</a>
 
 Icons in Sametable are SVG. There are different ways that I could have done it:
 
@@ -605,7 +663,7 @@ And there you have it! No more plastering those lengthy `path` data all over the
 
 https://css-tricks.com/mega-list-svg-information/#svg-icons
 
-### Favicon
+### Favicon <a href="#favicon" id="favicon">#</a>
 
 If I hadn't disabled the `inject` option of 'html-webpack-plugin', I would have used a plugin called ['favicons-webpack-plugin'](https://github.com/jantimon/favicons-webpack-plugin) that automatically generates all types of favicons(beware it's a lot!), and inject them in my `index.html`:
 
@@ -655,282 +713,7 @@ But since I had disabled the auto-injection, here is how I handle my favicon:
 
 And that's it!
 
-### Security
-
-Consider adding the [CSP](https://developers.google.com/web/fundamentals/security/csp/) security headers.
-
-To add headers in firebase: https://firebase.google.com/docs/hosting/full-config#headers
-
-Sample of CSP headers in your `firebase.json`:
-
-```json
-{
-  "source": "**",
-  "headers": [
-    {
-      "key": "Strict-Transport-Security",
-      "value": "max-age=63072000; includeSubdomains; preload"
-    },
-    {
-      "key": "Content-Security-Policy",
-      "value": "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'"
-    },
-    { "key": "X-Content-Type-Options", "value": "nosniff" },
-    { "key": "X-Frame-Options", "value": "DENY" },
-    { "key": "X-XSS-Protection", "value": "1; mode=block" },
-    { "key": "Referrer-Policy", "value": "same-origin" }
-  ]
-}
-```
-
-If you use Stripe, make sure you add their CSP directives too:
-https://stripe.com/docs/security/guide#content-security-policy
-
-Finally, make sure you get an **A** [here](https://observatory.mozilla.org/) and pat yourself on the back!
-
-## Design
-
-I will explore a few concepts that helped structure my design to be coherent.
-
-### Modular scale
-
-Your design will demand less efforts from your users to make sense of when it flows according to a 'modular scale' that specifies a scale of spaces or sizes that each increments with a certain ratio.
-
-One way to create a scale is with CSS ['Custom Properties'](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)(credits to view-source [every-layout.dev](https://every-layout.dev/)):
-
-```css
-:root {
-  --ratio: 1.414;
-  --s-3: calc(var(--s0) / var(--ratio) / var(--ratio) / var(--ratio));
-  --s-2: calc(var(--s0) / var(--ratio) / var(--ratio));
-  --s-1: calc(var(--s0) / var(--ratio));
-  --s0: 1rem;
-  --s1: calc(var(--s0) * var(--ratio));
-  --s2: calc(var(--s0) * var(--ratio) * var(--ratio));
-  --s3: calc(var(--s0) * var(--ratio) * var(--ratio) * var(--ratio));
-}
-```
-
-If you don't know what scale to use, just [pick a scale](https://www.modularscale.com/) that fits closest to your design and **stick to it**.
-
-Then I would create a bunch of utility classes, each associated with a scale, in a file call `spacing.scss`. I will use them to space my UI elements across a project:
-
-```css
-.mb-1 {
-  margin-bottom: var(--s1);
-}
-.mb-2 {
-  margin-bottom: var(--s2);
-}
-.mr-1 {
-  margin-right: var(--s1);
-}
-.mr--1 {
-  margin-right: var(--s-1);
-}
-```
-
-Notice that I try to define the spacing only in the `right` and `bottom` direction as [suggested here](https://csswizardry.com/2012/06/single-direction-margin-declarations/).
-
-In my experience, it's better to not bake in any spacing definitions in your UI components:
-
-**DON'T**
-
-```javascript
-// Button.scss
-.btn {
-  margin: 10px; // a default spacing; annoying to have in most cases
-  font-style: normal;
-  border: 0;
-  background-color: transparent;
-}
-
-// Button.jsx
-import s from './Button.scss';
-
-export function Button({children, ...props}) {
-  return (
-    <button class={s.btn} {...props}>{children}</button>
-  )
-}
-
-// Usage
-<Button />
-```
-
-**DO**
-
-```javascript
-// Button.scss
-.btn {
-  font-style: normal;
-  border: 0;
-  background-color: transparent;
-}
-
-// Button.jsx
-import s from './Button.scss';
-
-export function Button({children, className, ...props}) {
-  return (
-    <button class={`${s.btn} ${className}`} {...props}>{children}</button>
-  )
-}
-
-// Usage
-// Pass your spacing utility classes when building your pages
-<Button className="mr-1 pb-1">Sign Up</Button>
-```
-
-### Colors
-
-There are many color palette tools out there. But the one from [Material](https://material.io/design/color/the-color-system.html#tools-for-picking-colors) is the one I always go to for my colors.
-
-Then I will define them as CSS Custom Properties again:
-
-```css
-:root {
-  --black-100: #0b0c0c;
-  --black-80: #424242;
-  --black-60: #555759;
-  --black-50: #626a6e;
-
-  font-size: 105%;
-  color: var(--black-100);
-}
-```
-
-### CSS Reset
-
-Very simple:
-
-```css
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  overflow-wrap: break-word;
-  margin: 0;
-  padding: 0;
-  border: 0 solid;
-  background-color: inherit;
-  font-family: inherit;
-  color: inherit;
-}
-
-/* Set core body defaults */
-body {
-  scroll-behavior: smooth;
-  text-rendering: optimizeLegibility;
-}
-
-/* Make images easier to work with */
-img {
-  max-width: 100%;
-}
-
-/* Inherit fonts for inputs and buttons */
-button,
-input,
-textarea,
-select {
-  color: inherit;
-  font: inherit;
-}
-```
-
-### A Styling Practice
-
-I always try to style at the **tag**-level first before bringing out the big gun if necessary, in my case, ['CSS Modules'](https://github.com/css-modules/css-modules), for encapsulating styles per component:
-
-```
-- src
-  - routes
-    - SignIn
-      - SignIn.js
-      - SignIn.scss
-```
-
-The `SignIn.scss` contains CSS that pertains only to the `<SignIn />` component.
-
-Furthermore, I don't use the CSS libraries popular in the React ecosystem such as 'styled-components' and 'emotion'. I try to **use pure HTML and CSS whenever I can, and only let Preact handle the DOM and state updates** for me.
-
-For example, for the `<input/>` element:
-
-```css
-// index.scss
-
-label {
-  display: block;
-  color: var(--black-100);
-  font-weight: 600;
-}
-
-input {
-  width: 100%;
-  font-weight: 400;
-  font-style: normal;
-  border: 2px solid var(--black-100);
-  box-shadow: none;
-  outline: none;
-  appearance: none;
-}
-
-input:focus {
-  box-shadow: inset 0 0 0 2px;
-  outline: 3px solid #fd0;
-  outline-offset: 0;
-}
-```
-
-Then using it in a JSX file with its vanilla tag:
-
-```javascript
-// SignIn.js
-
-render() {
-  return (
-    <div class="form-control">
-      <label htmlFor="email">
-        Email&nbsp;
-        <strong>
-          <abbr title="This field is required">*</abbr>
-        </strong>
-      </label>
-      <input
-        required
-        value={this.email}
-        type="email"
-        id="email"
-        name="email"
-        placeholder="e.g. sara@widgetco.com"
-      />
-    </div>
-  )
-}
-```
-
-### Layout
-
-I use **CSS Flexbox** for layout works in Sametable. There was no need for any CSS frameworks. Learn CSS Flexbox from its first principles to do more with less code. Plus, in many cases, the result would already be responsive thanks to the layout algorithms, saving those `@media` queries.
-
-Let's see how to build a common layout in Flexbox with a minimal amount of CSS:
-
-<img src="https://i.imgur.com/PTCrd0K.png" alt="sidebar and content layout" loading="lazy"/>
-
-<p class="codepen" data-height="265" data-theme-id="dark" data-default-tab="html,result" data-user="kilgarenone" data-slug-hash="mdeLwvx" data-preview="true" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="Sidebar/Content layout">
-  <span>See the Pen <a href="https://codepen.io/kilgarenone/pen/mdeLwvx">
-  Sidebar/Content layout</a> by Ahwei (<a href="https://codepen.io/kilgarenone">@kilgarenone</a>)
-  on <a href="https://codepen.io">CodePen</a>.</span>
-</p>
-<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
-
-#### Resources
-
-- https://flexboxfroggy.com/
-- https://www.freecodecamp.org/news/understanding-flexbox-everything-you-need-to-know-b4013d4dc9af/
-
-### API Calls
+### API Calls <a href="#api-calls" id="api-calls">#</a>
 
 A client needs to communicate with a server to do the works of 'CRUD'- Create, Read, Update, and Delete:
 
@@ -1066,7 +849,7 @@ async componentDidMount() {
 
 But if you preferred to use a library to handle your http calls, I'd recommend ['redaxios'](https://github.com/developit/redaxios) which not only shares API with the popular [axios](https://www.npmjs.com/package/axios), it's much more lightweight.
 
-### Test production build locally
+### Test Production Build Locally <a href="#test-prod-build-locally" id="test-prod-build-locally">#</a>
 
 I would always build my client app locally to test and measure in my browser before I deploy to the cloud.
 
@@ -1081,7 +864,293 @@ I have a npm script(`npm run test-build`) in the `package.json` of the 'client' 
 
 The app is served using a tool called ['local-web-server'](https://www.npmjs.com/package/local-web-server). It's so far the only one I find works perfectly for a SPA.
 
-## Server
+### Security <a href="#web-security" id="web-security">#</a>
+
+Consider adding the [CSP](https://developers.google.com/web/fundamentals/security/csp/) security headers.
+
+To add headers in firebase: https://firebase.google.com/docs/hosting/full-config#headers
+
+Sample of CSP headers in your `firebase.json`:
+
+```json
+{
+  "source": "**",
+  "headers": [
+    {
+      "key": "Strict-Transport-Security",
+      "value": "max-age=63072000; includeSubdomains; preload"
+    },
+    {
+      "key": "Content-Security-Policy",
+      "value": "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'"
+    },
+    { "key": "X-Content-Type-Options", "value": "nosniff" },
+    { "key": "X-Frame-Options", "value": "DENY" },
+    { "key": "X-XSS-Protection", "value": "1; mode=block" },
+    { "key": "Referrer-Policy", "value": "same-origin" }
+  ]
+}
+```
+
+If you use Stripe, make sure you add their CSP directives too:
+https://stripe.com/docs/security/guide#content-security-policy
+
+Finally, make sure you get an **A** [here](https://observatory.mozilla.org/) and pat yourself on the back!
+
+## Design <a href="#design" id="design">#</a>
+
+I will explore a few concepts that helped structure my design to be coherent.
+
+### Modular Scale <a href="#modular-scale" id="modular-scale">#</a>
+
+Your design will demand less effort from your users to make sense of when it flows according to a 'modular scale' that specifies a scale of spaces or sizes that each increment with a certain ratio.
+
+<figure>
+<img src="https://i.imgur.com/WWl6KuB.png" loading="lazy" alt="modular scale illustration" />
+<figcaption><em>Figure: Modular scale</em></figcaption>
+</figure>
+
+One way to create a scale is with CSS ['Custom Properties'](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)(credits to view-source [every-layout.dev](https://every-layout.dev/)):
+
+```css
+:root {
+  --ratio: 1.414;
+  --s-3: calc(var(--s0) / var(--ratio) / var(--ratio) / var(--ratio));
+  --s-2: calc(var(--s0) / var(--ratio) / var(--ratio));
+  --s-1: calc(var(--s0) / var(--ratio));
+  --s0: 1rem;
+  --s1: calc(var(--s0) * var(--ratio));
+  --s2: calc(var(--s0) * var(--ratio) * var(--ratio));
+  --s3: calc(var(--s0) * var(--ratio) * var(--ratio) * var(--ratio));
+}
+```
+
+If you don't know what scale to use, just [pick a scale](https://www.modularscale.com/) that fits closest to your design and **stick to it**.
+
+Then I would create a bunch of utility classes, each associated with a scale, in a file call `spacing.scss`. I will use them to space my UI elements across a project:
+
+```css
+.mb-1 {
+  margin-bottom: var(--s1);
+}
+.mb-2 {
+  margin-bottom: var(--s2);
+}
+.mr-1 {
+  margin-right: var(--s1);
+}
+.mr--1 {
+  margin-right: var(--s-1);
+}
+```
+
+Notice that I try to define the spacing only in the `right` and `bottom` direction as [suggested here](https://csswizardry.com/2012/06/single-direction-margin-declarations/).
+
+In my experience, it's better to not bake in any spacing definitions in your UI components:
+
+**DON'T**
+
+```javascript
+// Button.scss
+.btn {
+  margin: 10px; // a default spacing; annoying to have in most cases
+  font-style: normal;
+  border: 0;
+  background-color: transparent;
+}
+
+// Button.jsx
+import s from './Button.scss';
+
+export function Button({children, ...props}) {
+  return (
+    <button class={s.btn} {...props}>{children}</button>
+  )
+}
+
+// Usage
+<Button />
+```
+
+**DO**
+
+```javascript
+// Button.scss
+.btn {
+  font-style: normal;
+  border: 0;
+  background-color: transparent;
+}
+
+// Button.jsx
+import s from './Button.scss';
+
+export function Button({children, className, ...props}) {
+  return (
+    <button class={`${s.btn} ${className}`} {...props}>{children}</button>
+  )
+}
+
+// Usage
+// Pass your spacing utility classes when building your pages
+<Button className="mr-1 pb-1">Sign Up</Button>
+```
+
+### Colors <a href="#colors" id="colors">#</a>
+
+There are many color palette tools out there. But the one from [Material](https://material.io/design/color/the-color-system.html#tools-for-picking-colors) is the one I always go to for my colors.
+
+Then I will define them as CSS Custom Properties again:
+
+```css
+:root {
+  --black-100: #0b0c0c;
+  --black-80: #424242;
+  --black-60: #555759;
+  --black-50: #626a6e;
+
+  font-size: 105%;
+  color: var(--black-100);
+}
+```
+
+### CSS Reset <a href="#css-reset" id="css-reset">#</a>
+
+The purpose of a 'CSS reset' is to remove default styling of common browsers.
+
+There are quite a few of those out there. Beware that some can get quite opinionated and potentially gives you more headaches than its worth. Here is a popular one: [https://meyerweb.com/eric/tools/css/reset/reset.css](https://meyerweb.com/eric/tools/css/reset/reset.css)
+
+Here is mine:
+
+```css
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  margin: 0;
+  padding: 0;
+  border: 0 solid;
+  background-color: inherit;
+  font-family: inherit;
+  color: inherit;
+}
+
+/* Set core body defaults */
+body {
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+}
+
+/* Make images easier to work with */
+img {
+  max-width: 100%;
+}
+
+/* Inherit fonts for inputs and buttons */
+button,
+input,
+textarea,
+select {
+  color: inherit;
+  font: inherit;
+}
+```
+
+You could also consider using [postcss-normalize](https://github.com/csstools/postcss-normalize) that generates one according to your targeted browsers.
+
+### A Styling Practice <a href="#a-styling-practice" id="a-styling-practice">#</a>
+
+I always try to style at the **tag**-level first before bringing out the big gun if necessary, in my case, ['CSS Modules'](https://github.com/css-modules/css-modules), for encapsulating styles per component:
+
+```
+- src
+  - routes
+    - SignIn
+      - SignIn.js
+      - SignIn.scss
+```
+
+The `SignIn.scss` contains CSS that pertains only to the `<SignIn />` component.
+
+Furthermore, I don't use the CSS libraries popular in the React ecosystem such as 'styled-components' and 'emotion'. I try to **use pure HTML and CSS whenever I can, and only let Preact handle the DOM and state updates** for me.
+
+For example, for the `<input/>` element:
+
+```css
+// index.scss
+
+label {
+  display: block;
+  color: var(--black-100);
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  font-weight: 400;
+  font-style: normal;
+  border: 2px solid var(--black-100);
+  box-shadow: none;
+  outline: none;
+  appearance: none;
+}
+
+input:focus {
+  box-shadow: inset 0 0 0 2px;
+  outline: 3px solid #fd0;
+  outline-offset: 0;
+}
+```
+
+Then using it in a JSX file with its vanilla tag:
+
+```javascript
+// SignIn.js
+
+render() {
+  return (
+    <div class="form-control">
+      <label htmlFor="email">
+        Email&nbsp;
+        <strong>
+          <abbr title="This field is required">*</abbr>
+        </strong>
+      </label>
+      <input
+        required
+        value={this.email}
+        type="email"
+        id="email"
+        name="email"
+        placeholder="e.g. sara@widgetco.com"
+      />
+    </div>
+  )
+}
+```
+
+### Layout <a href="#layout" id="layout">#</a>
+
+I use **CSS Flexbox** for layout works in Sametable. There was no need for any CSS frameworks. Learn CSS Flexbox from its first principles to do more with less code. Plus, in many cases, the result would already be responsive thanks to the layout algorithms, saving those `@media` queries.
+
+Let's see how to build a common layout in Flexbox with a minimal amount of CSS:
+
+<img src="https://i.imgur.com/PTCrd0K.png" alt="sidebar and content layout" loading="lazy"/>
+
+<p class="codepen" data-height="265" data-theme-id="dark" data-default-tab="html,result" data-user="kilgarenone" data-slug-hash="mdeLwvx" data-preview="true" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="Sidebar/Content layout">
+  <span>See the Pen <a href="https://codepen.io/kilgarenone/pen/mdeLwvx">
+  Sidebar/Content layout</a> by Ahwei (<a href="https://codepen.io/kilgarenone">@kilgarenone</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+#### Resources
+
+- https://flexboxfroggy.com/
+- https://www.freecodecamp.org/news/understanding-flexbox-everything-you-need-to-know-b4013d4dc9af/
+
+## Server <a href="#server" id="server">#</a>
 
 ```json
 - server
@@ -1099,11 +1168,11 @@ router.put("/save/:taskId", (req, res, next) => {});
 
 The [`server.js`](https://github.com/kilgarenone/boileroom/blob/master/server/server.js) contains the [familiar](https://expressjs.com/en/starter/hello-world.html) codes to start a Nodejs server.
 
-### File structure
+### File Structure <a href="#server-file-structure" id="server-file-structure">#</a>
 
 I'm grateful for this digestible [guide](https://node-postgres.com/guides/project-structure) about project structure, allowing me to hunker down quickly to build out my API.
 
-### npm script
+### Npm Script <a href="#server-npm-script" id="server-npm-script">#</a>
 
 In the `package.json` inside the 'server' folder, there is a npm script that will start your server for you:
 
@@ -1118,7 +1187,7 @@ In the `package.json` inside the 'server' folder, there is a npm script that wil
 
 - The `start` script is used to start our Nodejs server in production. In my case, GCP will run this script to bootup my Nodejs.
 
-### Database
+### Database <a href="#database" id="database">#</a>
 
 I use **Postgresql** as my database. Then I use ['node-postgres'](https://node-postgres.com/)(a.k.a `pg`) library to connect my Nodejs to the database. Once that's done, I can do CRUD works between my API endpoints and the database.
 
@@ -1243,7 +1312,7 @@ router.post(
 
 That's it!
 
-#### Creating table schemas
+### Creating table schemas <a href="#creating-table-schemas" id="creating-table-schemas">#</a>
 
 Before you can start querying a database, you need to create tables. Each table contains information about an entity. But we don't just lump all information about an entity in the same table. We need to organize the information in a way that promotes query performance and data maintainability. And what has helped me in that exercise is a concept called [**denormalization**](https://firebase.google.com/docs/database/web/structure-data). As mentioned, we don't want to store everything about an entity in the same table. For example, say, we have a `users` table storing `fullname`, `password` and `email`. That's fine so far. But problem arises when we are also storing the ids of all the projects assigned to a particular user in a separate column in the same table. Instead, I would break them up into separate tables:
 
@@ -1304,7 +1373,7 @@ Then, I would copy, paste, and run them in pgAdmin:
 
 No doubt there are more advanced ways of doing this, so it's up to you if you want to explore what you like.
 
-##### Dropping a database
+### Dropping a database <a href="#dropping-a-database" id="dropping-a-database">#</a>
 
 Deleting an entire database to start with a new set of schemas was something I had to do very often at the beginning.
 
@@ -1318,14 +1387,14 @@ GRANT ALL ON SCHEMA public TO public;
 COMMENT ON SCHEMA public IS 'standard public schema';
 ```
 
-#### Crafting SQL queries
+### Crafting SQL queries <a href="#crafting-sql-queries" id="crafting-sql-queries">#</a>
 
 I write my SQL queries in **pgAdmin** to get the data I want out of an API endpoint.
 
 To give a sense of direction to doing that in pgAdmin:
 <img src="https://i.imgur.com/54tIRzc.png" alt="writing sql queries in pgadmin editor" loading="lazy" />
 
-##### Common Table Expressions(CTEs)
+#### Common Table Expressions(CTEs) <a href="#common-table-expressions" id="common-table-expressions">#</a>
 
 I stumbled upon a pattern called [**CTEs**](https://www.postgresql.org/docs/9.1/queries-with.html) when I was exploring how I am going to get the data I want from disparate tables, and structure them as desired, without doing lots of separate database queries and for-loops.
 
@@ -1341,7 +1410,7 @@ SELECT * FROM q3;
 
 Almost all the queries in Sametable are written this way.
 
-### Redis
+### Redis <a href="#redis" id="redis">#</a>
 
 Redis is a NoSQL database that stores data in memory. In Sametable, I used Redis for two purposes:
 
@@ -1425,7 +1494,7 @@ module.exports = {
 
 And now you have the Redis for your local development!
 
-### Error handling & Logging
+### Error handling & Logging <a href="#error-handling-and-logging" id="error-handling-and-logging">#</a>
 
 #### Error handling
 
@@ -1612,17 +1681,17 @@ app.use(function (err, req, res, next) {
 
 That's it! And don't forget to enable email **notification** in your Sentry dashboard to get an alert when your Sentry receives an error! ❤️
 
-## User authentication system
+## User Authentication System <a href="#user-authentication-system" id="user-authentication-system">#</a>
 
 A user authentication system can get very complicated if you need to support things like SSO and third-party OAuth providers. That's why we have third-party tools such as Auth0, Okta, and PassportJS to abstract that out for us. But those tools cost: vendor lock-in, more Javascript payload, and cognitive overhead.
 
 I would argue that if you are starting out and just need _some_ _kind of_ authentication system so you can move on to other parts of your app, and at the same time, overwhelmed by all the dated tutorials that deal with stuff you don't use, well, chances are all you need is the good old way of doing authentication: **Session cookie** with **email** and **password**! And we are not talking about 'JWT' either! None of that.
 
-### Guide
+### Guide <a href="#user-authentication-system-guide" id="user-authentication-system-guide">#</a>
 
 [Here is a guide](https://medium.com/@kilgarenone/easily-implements-user-authentication-in-nodejs-b22bdb6f15bc) I ended up writing. Follow it and you got yourself a user authentication system!
 
-## Email
+## Email <a href="#email" id="email">#</a>
 
 Currently, in Sametable, the only emails it sends are of 'transactional' type like sending a reset password email when users reset their password.
 
@@ -1643,7 +1712,7 @@ There are two ways to send emails in Nodejs:
 
    But do go down this path while being aware there's no guarantee that these free-tier plans will stay that way forever as was the case with Mailgun.
 
-### Implementation
+### Implementation <a href="#implement-email" id="implement-email">#</a>
 
 #### Wrapper file
 
@@ -1695,7 +1764,7 @@ router.post(
 );
 ```
 
-### Email templates
+### Email templates <a href="#email-templates" id="email-templates">#</a>
 
 Each type of email you send could have its own email template whose content can be varied with dynamic values you can provide.
 
@@ -1814,7 +1883,7 @@ mailer.send(data);
 
 Notice that, to associate a value with a placeholder name in a template: `"v:project_title":'Project Mario'`.
 
-## Tenancy
+## Tenancy <a href="#tenancy" id="tenancy">#</a>
 
 When an organization, say, Acme Inc., signs up on your SaaS, it's considered a 'tenant'&mdash;They 'occupy' a space on your service.
 
@@ -1832,13 +1901,13 @@ Here are three instrumental resources about 'multi-tenancy' I bookmarked before:
 - [https://stackoverflow.com/a/44530588/73323](https://stackoverflow.com/a/44530588/73323)
 - [https://blog.checklyhq.com/building-a-multi-tenant-saas-data-model/](https://blog.checklyhq.com/building-a-multi-tenant-saas-data-model/)
 
-## Domain name
+## Domain name <a href="#domain-name" id="domain-name">#</a>
 
 Sametable.app domain and all its DNS records are hosted in [**NameCheap**](https://www.namecheap.com/). I was on [hover](https://www.hover.com/) before(it still hosts my personal website's domain). But I hit a limitation there when I tried to enter my Mailgun's DKIM value. Namecheap also has more competitive prices in my experience.
 
 At which stage in your SaaS development should you get a domain name? Well, I would say not until when the lack of a DNS registrar is blocking your development. In my case, I deferred it until I had to integrate Mailgun which requires creating a bunch of DNS records in a domain.
 
-## Deployment
+## Deployment <a href="#deployment" id="deployment">#</a>
 
 Ugh. This was a stage where I struggled for the longest time 😣. It was one hell of a journey where I found myself doubling down on a cloud platform but end up bailing out as I found out their downsides to optimize for developer experience, costs, quota, and performance(latency).
 
@@ -1846,7 +1915,7 @@ The journey started with me jumping head-first(bad idea) into Digital Ocean sinc
 
 Then I learnt about [AWS Lightsail](https://aws.amazon.com/lightsail/) which is a mirror image of DO, but to my surprise, with more competitive [quota](https://aws.amazon.com/lightsail/pricing/) at a given price point:
 
-#### VM at \$5/month
+**VM at \$5/month**
 
 | AWS Lightsail      | Digital Ocean    |
 | ------------------ | ---------------- |
@@ -1855,7 +1924,7 @@ Then I learnt about [AWS Lightsail](https://aws.amazon.com/lightsail/) which is 
 | **40 GB** SSD Disk | 25 GB SSD Disk   |
 | **2 TB** transfer  | 1 TB transfer    |
 
-#### Managed database at \$15/month
+**Managed database at \$15/month**
 
 | AWS Lightsail      | Digital Ocean    |
 | ------------------ | ---------------- |
@@ -1869,7 +1938,7 @@ At this point, I supposed that I had to get my hands dirty to optimize for the c
 
 Then I checked back in IndieHacker for a sanity check, and came across [render.com](https://render.com/). It seemed perfect! It's one of those tools that are on a mission '_so you can focus on building your app_'. The tutorials were short and got you up and running in no time. And here is the '_but_'&mdash;It was [expensive](https://render.com/pricing):
 
-#### Comparison of Lightsail and Render at their lowest price point
+**Comparison of Lightsail and Render at their lowest price point**
 
 | AWS Lightsail(\$3.50/mo) | Render(\$7/mo)                               |
 | ------------------------ | -------------------------------------------- |
@@ -1886,7 +1955,7 @@ But I hold my ground. I revisit AWS again. I still believed AWS was the answer b
 
 **Sametable's Nodejs, Redis, and Postgresql are hosted on GCP**. The thing that drew me to GCP was its documentation&mdash;It's much more linear; code snippets everywhere for your specific language; step-by-step guides about the common things you would do for a web app. Plus, it's serverless! Which means your cost is proportional to your usage.
 
-### NodeJS on GCP
+### Deploy Nodejs <a href="#deploy-nodejs" id="deploy-nodejs">#</a>
 
 The GAE ['standard environment'](https://cloud.google.com/appengine/docs/the-appengine-environments) hosts my Nodejs.
 
@@ -1904,7 +1973,7 @@ Start with the ['Quick Start'](https://cloud.google.com/appengine/docs/standard/
 
 I noticed that while going through GCP doc, I never had to open more than 4 tabs in my browser. It was the complete opposite with AWS doc- My browser would be _packed_ with it.
 
-### Postgresql on GCP
+### Deploy Postgresql <a href="#deploy-psql" id="deploy-psql">#</a>
 
 #### Guide
 
@@ -1919,7 +1988,7 @@ It's pay-as-you-use as opposed to the fixed \$15/mo you find in Lightsail and DO
 Sample cost:
 [https://cloud.google.com/products/calculator/#id=dd6b78da-1215-4366-b7b4-afefe5472ee6](https://cloud.google.com/products/calculator/#id=dd6b78da-1215-4366-b7b4-afefe5472ee6)
 
-### Redis on GCP
+### Deploy Redis <a href="#deploy-redis" id="deploy-redis">#</a>
 
 If you were following the main guide about Nodejs, you can't miss [this guide](https://cloud.google.com/appengine/docs/standard/nodejs/using-memorystore) about setting up your Redis in MemoryStore. But I figured it would be more cost effective to **host my Redis in a Google Compute Engine**(GCE) which has, unlike MemoryStore, free quota. (Also [see this](https://github.com/ripienaar/free-for-dev#major-cloud-providers) for comparison of free quota across different cloud platforms)
 
@@ -1971,7 +2040,7 @@ If you were following the main guide about Nodejs, you can't miss [this guide](h
    };
    ```
 
-### Storing files
+### File Storage <a href="#deploy-file-storage" id="deploy-file-storage">#</a>
 
 [Cloud Storage](https://cloud.google.com/storage/docs) is what you need for your users to upload their files such as images which they will need to retrieve and possibly display later.
 
@@ -1984,7 +2053,7 @@ There is a [free tier](https://cloud.google.com/free/docs/gcp-free-tier#always-f
 You will be fine:
 [https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-storage](https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-storage)
 
-### CORS
+## CORS <a href="#cors" id="cors">#</a>
 
 To stop your browser from complaining about CORS issues, it's [all about](https://medium.com/@kilgarenone/deploy-your-nodejs-app-to-digital-ocean-1de40797666f#4aa4) getting your backend to send those `Access-Control-Allow-*` headers back per request. (Apologies for oversimplification is in order)
 
@@ -2019,7 +2088,7 @@ app.use(
 );
 ```
 
-## Hosting your SPA
+## Hosting Your SPA <a href="#hosting-spa" id="hosting-spa">#</a>
 
 When I was still on Lightsail, my SPA was [hosted](https://medium.com/@kilgarenone/deploy-spa-to-aws-9302796acd88) on S3+Cloudfront because I assumed it's better to keep them under the same platform for better latency. Then I found GCP. As a beat refugee from AWS landing in GCP, I first explored the 'Cloud Storage' to host my SPA, and turns out it wasn't ideal for SPA. It's rather convoluted. So you can skip that.
 
@@ -2027,20 +2096,20 @@ Then I tried hosting my SPA in [**Firebase**](https://firebase.google.com/docs/h
 
 Another option you can consider is [Netlify](https://netlify.com) which is super easy to get started too.
 
-## Payment & Subscription
+## Payment & Subscription <a href="#payment-subscription" id="payment-subscription">#</a>
 
 A SaaS usually allows users to pay and subscribe to access the paid features you have designated.
 
 To enable that possibility in Sametable, I use **Stripe** to handle both the payment and subscription flows.
 
-### Guide
+### Guide <a href="#payment-subscription-guide" id="payment-subscription-guide">#</a>
 
 There are two ways to implement them:
 
 1. [Very hands-on](https://stripe.com/docs/billing/subscriptions/fixed-price) that's great for customizing your UI.
 2. [**Checkout**](https://stripe.com/docs/payments/checkout/set-up-a-subscription). Fastest to implement. This was what I went for.
 
-#### Webhook
+### Webhook <a href="#payment-subscription-webhook" id="payment-subscription-webhook">#</a>
 
 The last key component I needed for this piece was a 'webhook' which is basically just a typical endpoint in your Nodejs that can be called by a third-party such as Stripe.
 
@@ -2078,18 +2147,18 @@ router.post(
 );
 ```
 
-##### Reference
+#### Reference
 
 Here is a code snippet of a webhook:
 [https://stripe.com/docs/webhooks/signatures#verify-official-libraries](https://stripe.com/docs/webhooks/signatures#verify-official-libraries)
 
-##### Guide
+#### Guide
 
 [https://stripe.com/docs/webhooks](https://stripe.com/docs/webhooks)
 
-## Landing page
+## Landing page <a href="#landing-page" id="landing-page">#</a>
 
-### Building
+### Building <a href="#building-landing-page" id="building-landing-page">#</a>
 
 I use [**Eleventy**](https://www.11ty.dev/) to build the landing page of Sametable. I [wouldn't](https://twitter.com/devongovett/status/1222953655722110981) recommend Gatsby or Nextjs. They are an overkill for this job.
 
@@ -2102,11 +2171,11 @@ I started with one of the [starter projects](https://www.11ty.dev/docs/starter/)
   - [https://www.11ty.dev/docs/](https://www.11ty.dev/docs/)
 - **Short version**: [https://github.com/kilgarenone/personal-website](https://github.com/kilgarenone/personal-website) (the first website I built as my personal site while learning 11ty. It has a homepage and blog posts. Very few concepts introduced here. You could start with this 'starter project')
 
-### Hosting
+### Hosting <a href="#hosting-landing-page" id="hosting-landing-page">#</a>
 
 I use [**Netlify**](https://www.netlify.com/) to host the landing page. There are also [surge.sh](https://surge.sh/) and [Vercel](https://vercel.com). You will be fine here.
 
-## Terms and Conditions
+## Terms and Conditions <a href="#tnc" id="tnc">#</a>
 
 T&C makes your SaaS legit. As far as I know, here are your options to come up with them:
 
@@ -2115,7 +2184,7 @@ T&C makes your SaaS legit. As far as I know, here are your options to come up wi
 3. Lawyer up.
 4. Generate them in [**getterms.io**](https://getterms.io/).
 
-## Marketing
+## Marketing <a href="#marketing" id="marketing">#</a>
 
 There is no shortage of marketing posts saying it was a bad idea to "_Let the product speaks for itself_". Well, not unless you are trying to 'hack growth' to win the game.
 
@@ -2131,14 +2200,14 @@ The following is the trajectory of existence I have in mind for Sametable:
 - [https://github.com/LisaDziuba/Marketing-for-Engineers](https://github.com/LisaDziuba/Marketing-for-Engineers)
 - [https://www.coryzue.com/writing/seo-for-developers/](https://github.com/LisaDziuba/Marketing-for-Engineers)
 
-## Well-being
+## Well-being <a href="#well-being" id="well-being">#</a>
 
-It's easy to sit and get lost in our contemporary works. And we do that by accumulating debts from the future. One of the debts, in this case, is our personal **health**.
+It's easy to sit and get lost in our contemporary works. And we do that by accumulating debts from the future. One of the debts is our personal **health**.
 
 Here is how I try to stay on top of my health debt:
 
 - **Install** [**Workrave**](https://workrave.org/)
   You can set it to lock your screen after an interval has passed. Most importantly, it can show some exercises that you can perform behind your computer!
 - Get an adjustable **standing desk** if you can afford it. I got mine from IKEA.
-- Do [**burpees**](https://www.youtube.com/watch?v=Kjhl-8yU6hI). Stretch those joints. Maintain good posture. Planking helps.
+- Do [**burpees**](https://www.youtube.com/watch?v=Kjhl-8yU6hI). Stretch those joints. Maintain good posture. [Planking](https://www.youtube.com/watch?v=59MaNHq8UDo) helps. You can [twerk](https://www.youtube.com/watch?v=QryoOF5jEbc) too if that's your thing. No judging.
 - **Meditate** to stay sane. I'm using [Medito](https://meditofoundation.org/).
