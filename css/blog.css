@@ -36,7 +36,7 @@ img {
   --s1: 1rem;
   --s2: 1.2em;
   --s3: 1.5em;
-  --s4: 2.07em;
+  --s4: 2.05em;
   --s5: 2.7em;
   --line-height: var(--ratio);
 
@@ -56,6 +56,10 @@ body {
 
 article > * + * {
   margin-bottom: var(--s1);
+}
+
+li ul {
+  margin-top: var(--s-3);
 }
 
 strong {
@@ -182,13 +186,6 @@ article h6 {
   font-size: 12px;
 }
 
-/* article ol,
-article ul {
-  padding-left: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-} */
-
 article ol ol,
 article ul ol {
   list-style-type: lower-roman;
@@ -210,17 +207,6 @@ article pre {
   font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
   font-size: 12px;
 }
-
-/* article blockquote,
-article details,
-article dl,
-article ol,
-article p,
-article pre,
-article table,
-article ul {
-  margin-bottom: 16px;
-} */
 
 article blockquote {
   padding: 0 1em;
