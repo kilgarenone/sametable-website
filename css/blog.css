@@ -23,10 +23,20 @@ img {
     sans-serif;
   --font-special: "Times New Roman", Times, serif;
   --ratio: 1.5;
-  --s1: 0.93em;
-  --s2: 1.15em;
-  --s3: 1.49em;
-  --s4: 2.05em;
+  --s-5: calc(
+    var(--s1) / var(--ratio) / var(--ratio) / var(--ratio) / var(--ratio) /
+      var(--ratio)
+  );
+  --s-4: calc(
+    var(--s1) / var(--ratio) / var(--ratio) / var(--ratio) / var(--ratio)
+  );
+  --s-3: calc(var(--s1) / var(--ratio) / var(--ratio) / var(--ratio));
+  --s-2: calc(var(--s1) / var(--ratio) / var(--ratio));
+  --s-1: calc(var(--s1) / var(--ratio));
+  --s1: 1rem;
+  --s2: 1.2em;
+  --s3: 1.5em;
+  --s4: 2.07em;
   --s5: 2.7em;
   --line-height: var(--ratio);
 
@@ -44,8 +54,12 @@ body {
   word-wrap: break-word;
 }
 
-main > * + * {
-  margin-top: var(--s1);
+article > * + * {
+  margin-bottom: var(--s1);
+}
+
+strong {
+  font-weight: 600;
 }
 
 .markdown-body {
@@ -134,28 +148,30 @@ main > * + * {
 
 .markdown-body h1 {
   font-size: var(--s5);
-  margin: 0.67em 0;
 }
 
 .markdown-body h2 {
   font-size: var(--s4);
+  margin-top: var(--s4);
+  margin-bottom: var(--s1);
 }
 
 .markdown-body h3 {
   font-size: var(--s3);
-}
-
-.markdown-body h3,
-.markdown-body h4 {
-  font-weight: 600;
+  margin-top: var(--s3);
+  margin-bottom: var(--s-1);
 }
 
 .markdown-body h4 {
   font-size: var(--s2);
+  margin-top: var(--s3);
+  margin-bottom: var(--s-1);
 }
 
 .markdown-body h5 {
   font-size: var(--s1);
+  margin-top: var(--s3);
+  margin-bottom: var(--s-1);
 }
 
 .markdown-body h5,
@@ -227,8 +243,6 @@ main > * + * {
 .markdown-body h4,
 .markdown-body h5,
 .markdown-body h6 {
-  /* margin-top: 33px; */
-  margin-bottom: 13px;
   font-weight: 600;
   line-height: 1.25;
 }
