@@ -65,13 +65,13 @@ title: How I built my first SaaS
 
 ## Introduction <a href="#introduction" id="introduction">#</a>
 
-I switched my career to web development back in 2013. I did it for two reasons. First, I noticed I could get lost in building customer-facing products amongst all the colors and endless possibilities for interactivity; so while being reminded by the trite "_Find a job you enjoy doing, and you will never have to work a day in your life._", I thought "_Why not make this a job???_". And second, I wanted to make something for myself having spent my teenage years inspired by Web 2.0(Digg.com circa 2005 opened the world for me). My plan was to work on the latter while working in the former.
+I switched my career to web development back in 2013. I did it for two reasons. First, I noticed I could get lost in building customer-facing products amongst all the colors and endless possibilities for interactivity; so while being reminded by the trite "_Find a job you enjoy doing, and you will never have to work a day in your life._", I thought "_Why not make this a job???_". And second, I wanted to make something for myself having spent my teenage years inspired by Web 2.0(Digg.com circa 2005 opened the world for me). The plan was to work on the latter while working in the former.
 
 Turns out, though, the job and the 'Javascript fatigue' ensued to wholly consume me. It also didn't help that I was reckless in my pursue of my ambition having been influenced by my perception of successes from the 'Silicon Valley'. I read Paul Graham's _Hackers & Painters_ and Peter Thiel's _Zero to One_. I'm properly fired up! I'm hustling. I can do this too!
 
-But nope, I can't. At least not alone. I always was beat after work. I couldn't find a team who would buy into dreams or share the same values. So meanwhile, I rinse and repeat less than half-baked projects in my free time. I am chronically anxious and depressed. Then I mellowed out as the years go by. I began to cultivate a personal philosophy on entrepreneurship and technology that align better with my personality and life circumstances&mdash; Until September 2019.
+But nope, I can't. At least not alone. I always was beat after work. I couldn't find a team that share the dreams and values. So meanwhile, I rinse and repeat less than half-baked projects in my free time. I was chronically anxious and depressed. I mellowed out as the years go by. And I began to cultivate a personal philosophy on entrepreneurship and technology that align better with my personality and life circumstances&mdash; Until September 2019.
 
-The fog in the path ahead finally cleared up. I got pretty good at it; the job then became less taxing; I'd reined in on my 'Javascript fatigue'. For the longest time, I had the mental energy, time, and the mindset that allow me to see through a side project. And this time, I start small. I believed I got this.
+The fog in the path ahead finally cleared up. I got pretty good at it; the job then became less taxing; I'd reined in on my 'Javascript fatigue'. For the longest time, I had the mental energy, time, and the mindset that allow me to see through a side project. And this time, I start small. I believed I got this!
 
 I was wrong.
 
@@ -92,23 +92,23 @@ To be fair though, I got the following things going for me:
 
 Also keep in mind that:
 
-- It's a one-man show&mdash;design, development, maintenance, marketing etc.
+- It's a one-man show&mdash;design, development, maintenance, marketing, etc.
 - I'm not a 10x rockstar full-stack programmer.
 
 **Most importantly**, I wanted to follow through with a guiding principle: Building things [_responsibly_](https://alistapart.com/article/responsible-javascript-part-1/). Although, unsurprisingly, doing so had had a significant impact on my development speed, it had forced me to delineate my motivations:
 
-- If I had to ship something the soonest possible unless it's a matter of life and death, then I probably wasn't solving a unique and hard problem, in which case&mdash;assuming I was still on my day job and had zero debt took on&mdash;What is the rush?
+- If I had to ship something the soonest possible, unless it's a matter of life and death, then I probably wasn't solving a unique and hard problem, in which case&mdash;assuming I was still on my day job and had zero debt took on&mdash;What is the rush?
 - And second-guessing from the ethical perspective: Was it even a problem needs solving? What will be the second-order consequences if I solved it? Could my good intentions have been better directed elsewhere?
 
-So what follows is everything I'd learned when developing the first project I ever launched called **Sametable** that helps [managing your work in spreadsheets](https://www.sametable.app). From implementing favicon to deploying to a cloud platform, I will share extensive code snippets, best practices, lessons, guides, and key resources. I hope something here would be useful to you. Thanks for reading.
+So what follows is everything I'd learned when developing the first project I ever launched called **Sametable** that helps [managing your work in spreadsheets](https://www.sametable.app). From implementing favicon to deploying to a cloud platform, I will share extensive code snippets, best practices, lessons, guides, and key resources. I hope something here would be useful to you. Thanks for reading. ❤️
 
 ## Finding Ideas <a href="#finding-ideas" id="finding-ideas">#</a>
 
-Well, first of all, you need to know what you want to build. I used to lose sleep over this; thinking and remixing thoughts, hoping for an eureka &mdash;Until I started to look inward:
+Well, first of all, you need to know what you want to build. I used to lose sleep over this; thinking and remixing thoughts, hoping for eureka &mdash; Until I started to look inward:
 
 - Build things that solve problems that you encounter and piss you off frequently.
 - Solving the so-called 'pain points' or 'frictions'. Go outside, don't stop listening to people and learn from them.
-- Be an expert in your own domain. Feel its pains. Maybe solve one of them. Seems to me lots of founders founded company related to their domain on which they have built their career and social network.
+- Be an expert in your domain. Feel its pains. Maybe solve one of them. Seems to me lots of founders founded company related to their domain on which they have built their career and social network.
 
 ## The Stack <a href="#the-stack" id="the-stack">#</a>
 
@@ -186,7 +186,7 @@ This repo contains the structure I'm using to develop my SaaS. I have one folder
 
 The file structure always aims to be flat, cohesive, and as linear to navigate as possible. Each 'component' is self-contained within a folder with all its constituent files(html|css|js). For example, in a 'Login' route folder:
 
-```
+```xml
 - client
    - src
      - routes
@@ -232,9 +232,8 @@ npm run dev
 
 The file structure of the 'client' is quite like that of the 'create-react-app'. The meat of your application code is inside the `src` folder in which there is a `components` folder for your functional React components; `index.html` is your [custom template](https://github.com/kilgarenone/boileroom/blob/master/client/config/webpack.development.js#L41-L43) provided to the [`html-webpack-plugin`](https://github.com/jantimon/html-webpack-plugin#options); [`index.js`](https://github.com/kilgarenone/boileroom/blob/master/client/src/index.js) is a file as a [entry point](https://github.com/kilgarenone/boileroom/blob/master/client/config/webpack.common.js#L12-L15) to Webpack.
 
-<aside>
-<strong>Note</strong>
-<p>I have since restructured my build environment to achieve <a href="#differential-serving">differential serving</a>. Webpack and babel have been organized differently, and npm scripts changed a bit. Everything else remains the same.</p>
+<aside class="info">
+<p><strong>Note:</strong> I have since restructured my build environment to achieve <a href="#differential-serving">differential serving</a>. Webpack and babel have been organized differently, and npm scripts changed a bit. Everything else remains the same.</p>
 </aside>
 
 ### Npm Script <a href="#client-npm-script" id="client-npm-script">#</a>
@@ -252,7 +251,7 @@ The client's `package.json` file has two most important npm scripts: 1) `dev` to
 
 It's a good practice to have a `.env` file where you define your sensitive values such as API keys and database credentials:
 
-```
+```json
 SQL_PASSWORD=admin
 STRIPE_API_KEY=1234567890
 ```
@@ -277,15 +276,11 @@ If you are new to Webpack/Babel, I'd suggest learning them from their first prin
 
 I wrote about the basics here:
 
-#### Webpack
-
-https://medium.com/@kilgarenone/minimal-webpack-setup-a5f32c5f8960
+- <strong>[Webpack](https://medium.com/@kilgarenone/minimal-webpack-setup-a5f32c5f8960)</strong>
 
 Once I understood the basics, I started [referring to this resource](https://github.com/nystudio107/annotated-webpack-4-config) for more advanced configuration.
 
-#### Babel
-
-https://medium.com/@kilgarenone/minimal-babel-setup-b12b563ee2ca
+- <strong>[Babel](https://medium.com/@kilgarenone/minimal-babel-setup-b12b563ee2ca)</strong>
 
 ### Web Performance <a href="#web-perf" id="web-perf">#</a>
 
@@ -378,7 +373,7 @@ The key was the `compilation.assets[<ASSET_FILE_NAME>].source()`:
 
 You can use this method to inline your critical CSS too:
 
-```
+```html
 <style>
   <%= compilation.assets[htmlwebpackplugin.files.css.filter(e => /app/.test(e)) [0].substr(htmlWebpackPlugin.files.publicPath.length) ].source() %>
 </style>
@@ -493,7 +488,7 @@ componentDidMount() {
 
 ##### Guide
 
-[https://medium.com/@kilgarenone/pragmatic-code-splitting-with-preact-and-webpack-a3d3b19f86a3](https://medium.com/@kilgarenone/pragmatic-code-splitting-with-preact-and-webpack-a3d3b19f86a3)
+- [https://medium.com/@kilgarenone/pragmatic-code-splitting-with-preact-and-webpack-a3d3b19f86a3](https://medium.com/@kilgarenone/pragmatic-code-splitting-with-preact-and-webpack-a3d3b19f86a3)
 
 ### Differential Serving <a href="#differential-serving" id="differential-serving">#</a>
 
@@ -617,7 +612,7 @@ Rather than having your SVG symbols in the `index.html`, you could put them in a
 
 Put that file in `client/src/assets`:
 
-```
+```xml
 - client
   - src
     - assets
@@ -655,13 +650,13 @@ And there you have it! No more plastering those lengthy `path` data all over the
 
 #### Sources of icons
 
-- https://material.io/resources/icons/?style=baseline
-- https://logomakr.com/
-- https://github.com/wmira/react-icons-kit#bundled-icon-sets (has a nice list of sources)
+- [https://material.io/resources/icons/?style=baseline](https://material.io/resources/icons/?style=baseline)
+- [https://logomakr.com/](https://logomakr.com/)
+- [https://github.com/wmira/react-icons-kit#bundled-icon-sets](https://github.com/wmira/react-icons-kit#bundled-icon-sets) (has a nice list of sources)
 
 #### References
 
-https://css-tricks.com/mega-list-svg-information/#svg-icons
+- [https://css-tricks.com/mega-list-svg-information/#svg-icons](https://css-tricks.com/mega-list-svg-information/#svg-icons)
 
 ### Favicon <a href="#favicon" id="favicon">#</a>
 
@@ -696,7 +691,7 @@ plugins: [
 
 But since I had disabled the auto-injection, here is how I handle my favicon:
 
-1. Go to https://realfavicongenerator.net/
+1. Go to [https://realfavicongenerator.net/](https://realfavicongenerator.net/)
 
    - Provide your logo in SVG format.
    - Select the 'Version/Refresh' option to enable cache-busting your favicon asset in your users' browser.
@@ -868,7 +863,7 @@ The app is served using a tool called ['local-web-server'](https://www.npmjs.com
 
 Consider adding the [CSP](https://developers.google.com/web/fundamentals/security/csp/) security headers.
 
-To add headers in firebase: https://firebase.google.com/docs/hosting/full-config#headers
+To add headers in firebase: [https://firebase.google.com/docs/hosting/full-config#headers](https://firebase.google.com/docs/hosting/full-config#headers)
 
 Sample of CSP headers in your `firebase.json`:
 
@@ -893,7 +888,7 @@ Sample of CSP headers in your `firebase.json`:
 ```
 
 If you use Stripe, make sure you add their CSP directives too:
-https://stripe.com/docs/security/guide#content-security-policy
+[https://stripe.com/docs/security/guide#content-security-policy](https://stripe.com/docs/security/guide#content-security-policy)
 
 Finally, make sure you get an **A** [here](https://observatory.mozilla.org/) and pat yourself on the back!
 
@@ -1031,7 +1026,6 @@ Here is mine:
   margin: 0;
   padding: 0;
   border: 0 solid;
-  background-color: inherit;
   font-family: inherit;
   color: inherit;
 }
@@ -1063,7 +1057,7 @@ You could also consider using [postcss-normalize](https://github.com/csstools/po
 
 I always try to style at the **tag**-level first before bringing out the big gun if necessary, in my case, ['CSS Modules'](https://github.com/css-modules/css-modules), for encapsulating styles per component:
 
-```
+```xml
 - src
   - routes
     - SignIn
@@ -1147,8 +1141,8 @@ Let's see how to build a common layout in Flexbox with a minimal amount of CSS:
 
 #### Resources
 
-- https://flexboxfroggy.com/
-- https://www.freecodecamp.org/news/understanding-flexbox-everything-you-need-to-know-b4013d4dc9af/
+- [Flexbox froggy](https://flexboxfroggy.com/)
+- [Everything you need to know about flexbox](https://www.freecodecamp.org/news/understanding-flexbox-everything-you-need-to-know-b4013d4dc9af/)
 
 ## Server <a href="#server" id="server">#</a>
 
@@ -1203,7 +1197,7 @@ For local development:
 
 2. Define a set of environment variables in the `.env` file:
 
-   ```
+   ```json
    DB_HOST='localhost'
    DB_USER=postgres
    DB_NAME=<YOUR_CUSTOM_DATABASE_NAME_HERE>
@@ -1262,7 +1256,7 @@ For local development:
    - I will use the `tx` function in an API if I have to call **many** queries that depends on each other.
    - If I'm making a **single** query, I will use the `query` function.
 
-And that's it! Now you got a database to work with for your local development :rocket:
+And that's it! Now you got a database to work with for your local development 🚀
 
 #### Usage
 
@@ -1421,7 +1415,7 @@ Redis is a NoSQL database that stores data in memory. In Sametable, I used Redis
 
 I'm on a Windows 10 machine with Windows Subsystem Linux(WSL) installed. This was the only guide I followed to install Redis on my machine:
 
-https://redislabs.com/blog/redis-on-windows-10/
+[https://redislabs.com/blog/redis-on-windows-10/](https://redislabs.com/blog/redis-on-windows-10/)
 
 Follow the guide to install WSL if you don't have it already.
 
@@ -1479,7 +1473,7 @@ module.exports = {
 
 - By [default](https://www.npmjs.com/package/redis#options-object-properties), `node-redis` will connect to `localhost` at port `6379`. But that might not be the case in production if you host your Redis in a VM. So I provide this object if it's in production mode:
 
-  ```
+  ```js
   {
      host: process.env.REDISHOST,
      no_ready_check: true,
@@ -2050,8 +2044,8 @@ There is a [free tier](https://cloud.google.com/free/docs/gcp-free-tier#always-f
 
 #### Guide
 
-You will be fine:
-[https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-storage](https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-storage)
+- You will be fine:
+  [https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-storage](https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-storage)
 
 ## CORS <a href="#cors" id="cors">#</a>
 
@@ -2154,7 +2148,7 @@ Here is a code snippet of a webhook:
 
 #### Guide
 
-[https://stripe.com/docs/webhooks](https://stripe.com/docs/webhooks)
+- [https://stripe.com/docs/webhooks](https://stripe.com/docs/webhooks)
 
 ## Landing page <a href="#landing-page" id="landing-page">#</a>
 
@@ -2211,3 +2205,5 @@ Here is how I try to stay on top of my health debt:
 - Get an adjustable **standing desk** if you can afford it. I got mine from IKEA.
 - Do [**burpees**](https://www.youtube.com/watch?v=Kjhl-8yU6hI). Stretch those joints. Maintain good posture. [Planking](https://www.youtube.com/watch?v=59MaNHq8UDo) helps. You can [twerk](https://www.youtube.com/watch?v=QryoOF5jEbc) too if that's your thing. No judging.
 - **Meditate** to stay sane. I'm using [Medito](https://meditofoundation.org/).
+
+🌈🌻
