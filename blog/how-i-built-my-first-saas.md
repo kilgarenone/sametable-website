@@ -51,6 +51,7 @@ title: How I built my first SaaS
   - <a href="#deploy-psql">Deploy Postgresql</a>
   - <a href="#deploy-redis">Deploy Redis</a>
   - <a href="#deploy-file-storage">File Storage</a>
+- <a href="#rte">Rich-text Editor</a>
 - <a href="#cors">CORS</a>
 - <a href="#hosting-spa">Hosting Your SPA</a>
 - <a href="#payment-subscription">Payment & Subscription</a>
@@ -1879,7 +1880,7 @@ Notice that, to associate a value with a placeholder name in a template: `"v:pro
 
 ## Tenancy <a href="#tenancy" id="tenancy">#</a>
 
-When an organization, say, Acme Inc., signs up on your SaaS, it's considered a 'tenant'&mdash;They 'occupy' a space on your service.
+When an organization, say, Acme Inc., signs up on your SaaS, it's considered a 'tenant' &mdash; They 'occupy' a spot on your service.
 
 While I'd heard of the 'multi-tenancy' term being associated with a SaaS before, I never had the slightest idea about implementing it. I always thought that it'd involve some cryptic computer-sciency maneuvering that I couldn't possibly have figured it all out by myself.
 
@@ -1907,7 +1908,7 @@ Ugh. This was a stage where I struggled for the longest time 😣. It was one he
 
 The journey started with me jumping head-first(bad idea) into Digital Ocean since I saw it recommended a lot in the IndieHackers forum. And sure enough, I managed to get my Nodejs up and running in a VM by following [closely](https://coderrocketfuel.com/article/create-and-deploy-an-express-rest-api-to-a-digitalocean-server#configure-and-deploy-your-node-js-app) the [tutorials](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-18-04). Then I found out that the [DO Space](https://www.digitalocean.com/products/spaces/) wasn't exactly AWS S3&mdash;It [can't](https://ideas.digitalocean.com/ideas/DO-I-318) host my SPA. Although I [could have](https://coderrocketfuel.com/article/deploy-a-create-react-app-website-to-digitalocean) hosted it in my droplet and [hook up](https://www.youtube.com/watch?v=2X_Tp_G7aTs) a third-party CDN like CloudFlare to the droplet, it seemed to me unnecessarily convoluted compared to the S3+Cloudfront setup. I was also using a DO's Managed Database(Postgresql) because I didn't want to manage my DB and tweak in the `*.config` files myself. That costs a fixed \$15/month.
 
-Then I learnt about [AWS Lightsail](https://aws.amazon.com/lightsail/) which is a mirror image of DO, but to my surprise, with more competitive [quota](https://aws.amazon.com/lightsail/pricing/) at a given price point:
+Then I learned about [AWS Lightsail](https://aws.amazon.com/lightsail/) which is a mirror image of DO, but to my surprise, with more competitive [quota](https://aws.amazon.com/lightsail/pricing/) at a given price point:
 
 **VM at \$5/month**
 
@@ -1945,7 +1946,7 @@ And that's just for hosting my Nodejs!
 
 So what now?! Do I just say _f\*\*\* it_ and do whatever it takes to 'ship it'?
 
-But I hold my ground. I revisit AWS again. I still believed AWS was the answer because everyone else is singing its song. I must be missing something! This time I considered their higher level tools like AWS AppSync and Amplify. But I couldn't overlook the fact that both of them force me to completely work by their standards and library. So at this point, I'd had it with AWS, and turned to another...platform: **Google Cloud Platform(GCP)**.
+But I hold my ground. I revisit AWS again. I still believed AWS was the answer because everyone else is singing its song. I must be missing something! This time I considered their higher-level tools like AWS AppSync and Amplify. But I couldn't overlook the fact that both of them force me to completely work by their standards and library. So at this point, I'd had it with AWS, and turned to another...platform: **Google Cloud Platform(GCP)**.
 
 **Sametable's Nodejs, Redis, and Postgresql are hosted on GCP**. The thing that drew me to GCP was its documentation&mdash;It's much more linear; code snippets everywhere for your specific language; step-by-step guides about the common things you would do for a web app. Plus, it's serverless! Which means your cost is proportional to your usage.
 
@@ -1955,7 +1956,7 @@ The GAE ['standard environment'](https://cloud.google.com/appengine/docs/the-app
 
 #### Cost
 
-GAE's stardard environment has [free quota](https://cloud.google.com/free/docs/gcp-free-tier#always-free-usage-limits) unlike the 'flexible environment'. Beyond that, you will pay only if somebody is using your SaaS 😊.
+GAE's standard environment has [free quota](https://cloud.google.com/free/docs/gcp-free-tier#always-free-usage-limits) unlike the 'flexible environment'. Beyond that, you will pay only if somebody is using your SaaS 😊.
 
 #### Guide
 
@@ -1984,7 +1985,7 @@ Sample cost:
 
 ### Deploy Redis <a href="#deploy-redis" id="deploy-redis">#</a>
 
-If you were following the main guide about Nodejs, you can't miss [this guide](https://cloud.google.com/appengine/docs/standard/nodejs/using-memorystore) about setting up your Redis in MemoryStore. But I figured it would be more cost effective to **host my Redis in a Google Compute Engine**(GCE) which has, unlike MemoryStore, free quota. (Also [see this](https://github.com/ripienaar/free-for-dev#major-cloud-providers) for comparison of free quota across different cloud platforms)
+If you were following the main guide about Nodejs, you can't miss [this guide](https://cloud.google.com/appengine/docs/standard/nodejs/using-memorystore) about setting up your Redis in MemoryStore. But I figured it would be more cost-effective to **host my Redis in a Google Compute Engine**(GCE) which has, unlike MemoryStore, free quota. (Also [see this](https://github.com/ripienaar/free-for-dev#major-cloud-providers) for comparison of free quota across different cloud platforms)
 
 #### Guide
 
@@ -2046,6 +2047,35 @@ There is a [free tier](https://cloud.google.com/free/docs/gcp-free-tier#always-f
 
 - You will be fine:
   [https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-storage](https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-storage)
+
+## Rich-text Editor <a href="#rte" id="rte">#</a>
+
+Building the rich-text editor in Sametable was the second most challenging thing for me. I realized that I could have had it easy with those drop-in editors such as CKEditor and TinyMCE, but I wanted to be able to craft the writing experience in the editor, and there was nothing better than [**ProseMirror**](https://prosemirror.net/) in that regard. Sure, I had other options too, which I decided against for several reasons:
+
+1. [Quilljs](https://quilljs.com/)
+   - Seemed many unaddressed [issues](https://github.com/quilljs/quill/issues n ).
+   - Shaped specifically by a special-interest group.
+   - Involves hacky workaround once you ventured out from the set of standard use cases.
+2. [Draftjs](https://draftjs.org/)
+   - It's for React. Sametable is on Preact.
+3. [trix](https://trix-editor.org/)
+   - Based on Web Component. I had issues integrating it in Preact.
+   - It wasn't flexible to build a customized editing experience.
+
+**Prosemirror** is undoubtedly an _impeccable_ library. But learning it was not for the faint of heart as far as I'm concerned. I failed to build any encompassing mental models around it even after I'd read the [guide](https://prosemirror.net/docs/guide/) several times. The only way I could make progress from there was by cross-referencing existing code examples and the [manual](https://prosemirror.net/docs/ref/), and trial-and-error from there. And if I ever stuck, I would ask in the forum and it's always answered. I wouldn't bother with StackOverflow unless maybe for the popular Quilljs.
+
+These were the places I went scrounging for code samples:
+
+- The [official examples](https://prosemirror.net/examples/)
+- Search the [forum](https://discuss.prosemirror.net/)
+- 'Fork' [prosemirror-example-setup](https://github.com/prosemirror/prosemirror-example-setup)
+- An editor called [tiptap](https://tiptap.scrumpy.io/) that's based on Prosemirror but built for Vuejs. The codebase actually has very few bits of Vuejs. So you can find lots of helpful Prosemirror-specific snippets there(thanks guys!).
+
+So in keeping with the spirit of this learning journey, I have extracted the rich-text editor of Sametable in a CodeSandBox:
+
+[https://codesandbox.io/s/compassionate-montalcini-gcgwc](https://codesandbox.io/s/compassionate-montalcini-gcgwc)
+
+🙌
 
 ## CORS <a href="#cors" id="cors">#</a>
 
@@ -2203,7 +2233,7 @@ Here is how I try to stay on top of my health debt:
 - **Install** [**Workrave**](https://workrave.org/)
   You can set it to lock your screen after an interval has passed. Most importantly, it can show some exercises that you can perform behind your computer!
 - Get an adjustable **standing desk** if you can afford it. I got mine from IKEA.
-- Do [**burpees**](https://www.youtube.com/watch?v=Kjhl-8yU6hI). Stretch those joints. Maintain good posture. [Planking](https://www.youtube.com/watch?v=59MaNHq8UDo) helps. You can [twerk](https://www.youtube.com/watch?v=QryoOF5jEbc) too if that's your thing. No judging.
+- Do [**burpees**](https://www.youtube.com/watch?v=Kjhl-8yU6hI). Stretch those joints. Maintain good posture. [Planking](https://www.youtube.com/watch?v=59MaNHq8UDo) helps.
 - **Meditate** to stay sane. I'm using [Medito](https://meditofoundation.org/).
 
 🌈🌻

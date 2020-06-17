@@ -215,6 +215,7 @@
 <li><a href="#deploy-file-storage">File Storage</a></li>
 </ul>
 </li>
+<li><a href="#rte">Rich-text Editor</a></li>
 <li><a href="#cors">CORS</a></li>
 <li><a href="#hosting-spa">Hosting Your SPA</a></li>
 <li><a href="#payment-subscription">Payment &amp; Subscription</a>
@@ -815,7 +816,7 @@ This was the old-school way of building on the web!—Use PHP to build your temp
 <pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> data <span class="token operator">=</span> <span class="token punctuation">{</span><br>  <span class="token keyword">from</span><span class="token operator">:</span> <span class="token string">"Sametable &lt;feedback@sametable.app>"</span><span class="token punctuation">,</span><br>  to<span class="token operator">:</span> email<span class="token punctuation">,</span><br>  subject<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Hello</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span><br>  template<span class="token operator">:</span> <span class="token string">"invite_project"</span><span class="token punctuation">,</span> <span class="token comment">// the template's name you gave when you created it in mailgun</span><br>  <span class="token string">"v:invite_link"</span><span class="token operator">:</span> inviteLink<span class="token punctuation">,</span><br>  <span class="token string">"v:assigner_name"</span><span class="token operator">:</span> fullname<span class="token punctuation">,</span><br>  <span class="token string">"v:project_title"</span><span class="token operator">:</span> title<span class="token punctuation">,</span><br><span class="token punctuation">}</span><span class="token punctuation">;</span><br><br>mailer<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>Notice that, to associate a value with a placeholder name in a template: <code>&quot;v:project_title&quot;:'Project Mario'</code>.</p>
 <h2>Tenancy <a href="#tenancy" id="tenancy">#</a></h2>
-<p>When an organization, say, Acme Inc., signs up on your SaaS, it's considered a 'tenant'—They 'occupy' a space on your service.</p>
+<p>When an organization, say, Acme Inc., signs up on your SaaS, it's considered a 'tenant' — They 'occupy' a spot on your service.</p>
 <p>While I'd heard of the 'multi-tenancy' term being associated with a SaaS before, I never had the slightest idea about implementing it. I always thought that it'd involve some cryptic computer-sciency maneuvering that I couldn't possibly have figured it all out by myself.</p>
 <p>Fortunately, there is an easy way to do 'multi-tenancy':</p>
 <blockquote>
@@ -834,7 +835,7 @@ This was the old-school way of building on the web!—Use PHP to build your temp
 <h2>Deployment <a href="#deployment" id="deployment">#</a></h2>
 <p>Ugh. This was a stage where I struggled for the longest time 😣. It was one hell of a journey where I found myself doubling down on a cloud platform but end up bailing out as I found out their downsides to optimize for developer experience, costs, quota, and performance(latency).</p>
 <p>The journey started with me jumping head-first(bad idea) into Digital Ocean since I saw it recommended a lot in the IndieHackers forum. And sure enough, I managed to get my Nodejs up and running in a VM by following <a href="https://coderrocketfuel.com/article/create-and-deploy-an-express-rest-api-to-a-digitalocean-server#configure-and-deploy-your-node-js-app">closely</a> the <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-18-04">tutorials</a>. Then I found out that the <a href="https://www.digitalocean.com/products/spaces/">DO Space</a> wasn't exactly AWS S3—It <a href="https://ideas.digitalocean.com/ideas/DO-I-318">can't</a> host my SPA. Although I <a href="https://coderrocketfuel.com/article/deploy-a-create-react-app-website-to-digitalocean">could have</a> hosted it in my droplet and <a href="https://www.youtube.com/watch?v=2X_Tp_G7aTs">hook up</a> a third-party CDN like CloudFlare to the droplet, it seemed to me unnecessarily convoluted compared to the S3+Cloudfront setup. I was also using a DO's Managed Database(Postgresql) because I didn't want to manage my DB and tweak in the <code>*.config</code> files myself. That costs a fixed $15/month.</p>
-<p>Then I learnt about <a href="https://aws.amazon.com/lightsail/">AWS Lightsail</a> which is a mirror image of DO, but to my surprise, with more competitive <a href="https://aws.amazon.com/lightsail/pricing/">quota</a> at a given price point:</p>
+<p>Then I learned about <a href="https://aws.amazon.com/lightsail/">AWS Lightsail</a> which is a mirror image of DO, but to my surprise, with more competitive <a href="https://aws.amazon.com/lightsail/pricing/">quota</a> at a given price point:</p>
 <p><strong>VM at $5/month</strong></p>
 <table>
 <thead>
@@ -917,12 +918,12 @@ This was the old-school way of building on the web!—Use PHP to build your temp
 </table>
 <p>And that's just for hosting my Nodejs!</p>
 <p>So what now?! Do I just say <em>f*** it</em> and do whatever it takes to 'ship it'?</p>
-<p>But I hold my ground. I revisit AWS again. I still believed AWS was the answer because everyone else is singing its song. I must be missing something! This time I considered their higher level tools like AWS AppSync and Amplify. But I couldn't overlook the fact that both of them force me to completely work by their standards and library. So at this point, I'd had it with AWS, and turned to another...platform: <strong>Google Cloud Platform(GCP)</strong>.</p>
+<p>But I hold my ground. I revisit AWS again. I still believed AWS was the answer because everyone else is singing its song. I must be missing something! This time I considered their higher-level tools like AWS AppSync and Amplify. But I couldn't overlook the fact that both of them force me to completely work by their standards and library. So at this point, I'd had it with AWS, and turned to another...platform: <strong>Google Cloud Platform(GCP)</strong>.</p>
 <p><strong>Sametable's Nodejs, Redis, and Postgresql are hosted on GCP</strong>. The thing that drew me to GCP was its documentation—It's much more linear; code snippets everywhere for your specific language; step-by-step guides about the common things you would do for a web app. Plus, it's serverless! Which means your cost is proportional to your usage.</p>
 <h3>Deploy Nodejs <a href="#deploy-nodejs" id="deploy-nodejs">#</a></h3>
 <p>The GAE <a href="https://cloud.google.com/appengine/docs/the-appengine-environments">'standard environment'</a> hosts my Nodejs.</p>
 <h4>Cost</h4>
-<p>GAE's stardard environment has <a href="https://cloud.google.com/free/docs/gcp-free-tier#always-free-usage-limits">free quota</a> unlike the 'flexible environment'. Beyond that, you will pay only if somebody is using your SaaS 😊.</p>
+<p>GAE's standard environment has <a href="https://cloud.google.com/free/docs/gcp-free-tier#always-free-usage-limits">free quota</a> unlike the 'flexible environment'. Beyond that, you will pay only if somebody is using your SaaS 😊.</p>
 <h4>Guide</h4>
 <p>This was the <em>only</em> guide I relied on. It was my north star. It covers Nodejs, Postgresql, Redis, file storage, and more:</p>
 <blockquote>
@@ -939,7 +940,7 @@ This was the old-school way of building on the web!—Use PHP to build your temp
 <p>Sample cost:
 <a href="https://cloud.google.com/products/calculator/#id=dd6b78da-1215-4366-b7b4-afefe5472ee6">https://cloud.google.com/products/calculator/#id=dd6b78da-1215-4366-b7b4-afefe5472ee6</a></p>
 <h3>Deploy Redis <a href="#deploy-redis" id="deploy-redis">#</a></h3>
-<p>If you were following the main guide about Nodejs, you can't miss <a href="https://cloud.google.com/appengine/docs/standard/nodejs/using-memorystore">this guide</a> about setting up your Redis in MemoryStore. But I figured it would be more cost effective to <strong>host my Redis in a Google Compute Engine</strong>(GCE) which has, unlike MemoryStore, free quota. (Also <a href="https://github.com/ripienaar/free-for-dev#major-cloud-providers">see this</a> for comparison of free quota across different cloud platforms)</p>
+<p>If you were following the main guide about Nodejs, you can't miss <a href="https://cloud.google.com/appengine/docs/standard/nodejs/using-memorystore">this guide</a> about setting up your Redis in MemoryStore. But I figured it would be more cost-effective to <strong>host my Redis in a Google Compute Engine</strong>(GCE) which has, unlike MemoryStore, free quota. (Also <a href="https://github.com/ripienaar/free-for-dev#major-cloud-providers">see this</a> for comparison of free quota across different cloud platforms)</p>
 <h4>Guide</h4>
 <ol>
 <li><a href="https://cloud.google.com/community/tutorials/setting-up-redis">Setup</a> Redis in a VM.</li>
@@ -977,6 +978,38 @@ This was the old-school way of building on the web!—Use PHP to build your temp
 <li>You will be fine:
 <a href="https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-storage">https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-storage</a></li>
 </ul>
+<h2>Rich-text Editor <a href="#rte" id="rte">#</a></h2>
+<p>Building the rich-text editor in Sametable was the second most challenging for me, probably because it's built with <a href="https://prosemirror.net/"><strong>ProseMirror</strong></a>. I realized that I could have had it easy with those drop-in editors such as CKEditor and TinyMCE, but I wanted to be able to craft the writing experience in the editor, and there was nothing better than ProseMirror in that regard. Sure, I had other options too, which I decided against for several reasons:</p>
+<ol>
+<li><a href="https://quilljs.com/">Quilljs</a>
+<ul>
+<li>Seemed many maintenance issues.</li>
+<li>Shaped specifically by a special-interest group.</li>
+<li>Involves hacky workaround once you ventured out from the set of standard use cases.</li>
+</ul>
+</li>
+<li><a href="https://draftjs.org/">Draftjs</a>
+<ul>
+<li>It's for React. Sametable is on Preact.</li>
+</ul>
+</li>
+<li><a href="https://trix-editor.org/">trix</a>
+<ul>
+<li>Based on Web Component. I had issues integrating it in Preact.</li>
+<li>It wasn't flexible to build a customized editing experience.</li>
+</ul>
+</li>
+</ol>
+<p>Prosemirror is undoubtedly an <em>impeccable</em> library. But learning it was not for the faint of heart as far as I'm concerned. I failed to build any encompassing mental models around it even after I'd read the <a href="https://prosemirror.net/docs/guide/">guide</a> several times. The only way I could make progress from there was by cross-referencing existing code examples and the <a href="https://prosemirror.net/docs/ref/">manual</a>, and trial-and-error from there. And I ever stuck I would ask in the forum and it's always answered. I wouldn't bother with StackOverflow unless maybe for the popular Quilljs.</p>
+<p>These were the places I went scrounging for code samples:</p>
+<ul>
+<li><a href="https://prosemirror.net/examples/">Official examples</a></li>
+<li>Search the <a href="https://discuss.prosemirror.net/">forum</a></li>
+<li>'Fork' <a href="https://github.com/prosemirror/prosemirror-example-setup">prosemirror-example-setup</a></li>
+<li>An editor called <a href="https://tiptap.scrumpy.io/">tiptap</a> that's based on Prosemirror but built for Vuejs. The codebase actually had very few bits of Vuejs. So you can find lots of helpful Prosemirror-specific snippets there. Thanks guys 🙇</li>
+</ul>
+<p>So in keeping to the spirit of this learning journey, I have extracted the rich-text editor of Sametable in a CodeSandBox 🙌:</p>
+<p><a href="https://codesandbox.io/s/compassionate-montalcini-gcgwc">https://codesandbox.io/s/compassionate-montalcini-gcgwc</a></p>
 <h2>CORS <a href="#cors" id="cors">#</a></h2>
 <p>To stop your browser from complaining about CORS issues, it's <a href="https://medium.com/@kilgarenone/deploy-your-nodejs-app-to-digital-ocean-1de40797666f#4aa4">all about</a> getting your backend to send those <code>Access-Control-Allow-*</code> headers back per request. (Apologies for oversimplification is in order)</p>
 <p>But, correct me if I'm wrong, there's <a href="https://stackoverflow.com/a/60502433/73323">no way</a> to configure CORS in GAE itself. So I had to do it with the <a href="https://www.npmjs.com/package/cors">cors</a> npm package:</p>
@@ -1050,7 +1083,7 @@ This was the old-school way of building on the web!—Use PHP to build your temp
 <li><strong>Install</strong> <a href="https://workrave.org/"><strong>Workrave</strong></a>
 You can set it to lock your screen after an interval has passed. Most importantly, it can show some exercises that you can perform behind your computer!</li>
 <li>Get an adjustable <strong>standing desk</strong> if you can afford it. I got mine from IKEA.</li>
-<li>Do <a href="https://www.youtube.com/watch?v=Kjhl-8yU6hI"><strong>burpees</strong></a>. Stretch those joints. Maintain good posture. <a href="https://www.youtube.com/watch?v=59MaNHq8UDo">Planking</a> helps. You can <a href="https://www.youtube.com/watch?v=QryoOF5jEbc">twerk</a> too if that's your thing. No judging.</li>
+<li>Do <a href="https://www.youtube.com/watch?v=Kjhl-8yU6hI"><strong>burpees</strong></a>. Stretch those joints. Maintain good posture. <a href="https://www.youtube.com/watch?v=59MaNHq8UDo">Planking</a> helps.</li>
 <li><strong>Meditate</strong> to stay sane. I'm using <a href="https://meditofoundation.org/">Medito</a>.</li>
 </ul>
 <p>🌈🌻</p>
