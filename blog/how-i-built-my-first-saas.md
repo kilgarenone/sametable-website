@@ -2050,7 +2050,7 @@ There is a [free tier](https://cloud.google.com/free/docs/gcp-free-tier#always-f
 
 ## Rich-text Editor <a href="#rte" id="rte">#</a>
 
-Building the rich-text editor in Sametable was the second most challenging thing for me. I realized that I could have had it easy with those drop-in editors such as CKEditor and TinyMCE, but I wanted to be able to craft the writing experience in the editor, and there was nothing better than [**ProseMirror**](https://prosemirror.net/) in that regard. Sure, I had other options too, which I decided against for several reasons:
+Building the rich-text editor in Sametable was the second most challenging thing for me. Now, I realized that I could have had it easy with those drop-in editors such as CKEditor and TinyMCE, but I wanted to be able to craft the writing experience in the editor, and there was nothing better than [**ProseMirror**](https://prosemirror.net/) in that regard. Sure, I had other options too, which I decided against for several reasons:
 
 1. [Quilljs](https://quilljs.com/)
    - Seemed many unaddressed [issues](https://github.com/quilljs/quill/issues n ).

@@ -979,11 +979,11 @@ This was the old-school way of building on the web!—Use PHP to build your temp
 <a href="https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-storage">https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-storage</a></li>
 </ul>
 <h2>Rich-text Editor <a href="#rte" id="rte">#</a></h2>
-<p>Building the rich-text editor in Sametable was the second most challenging for me, probably because it's built with <a href="https://prosemirror.net/"><strong>ProseMirror</strong></a>. I realized that I could have had it easy with those drop-in editors such as CKEditor and TinyMCE, but I wanted to be able to craft the writing experience in the editor, and there was nothing better than ProseMirror in that regard. Sure, I had other options too, which I decided against for several reasons:</p>
+<p>Building the rich-text editor in Sametable was the second most challenging thing for me. Now, I realized that I could have had it easy with those drop-in editors such as CKEditor and TinyMCE, but I wanted to be able to craft the writing experience in the editor, and there was nothing better than <a href="https://prosemirror.net/"><strong>ProseMirror</strong></a> in that regard. Sure, I had other options too, which I decided against for several reasons:</p>
 <ol>
 <li><a href="https://quilljs.com/">Quilljs</a>
 <ul>
-<li>Seemed many maintenance issues.</li>
+<li>Seemed many unaddressed [issues](https://github.com/quilljs/quill/issues n ).</li>
 <li>Shaped specifically by a special-interest group.</li>
 <li>Involves hacky workaround once you ventured out from the set of standard use cases.</li>
 </ul>
@@ -1000,16 +1000,17 @@ This was the old-school way of building on the web!—Use PHP to build your temp
 </ul>
 </li>
 </ol>
-<p>Prosemirror is undoubtedly an <em>impeccable</em> library. But learning it was not for the faint of heart as far as I'm concerned. I failed to build any encompassing mental models around it even after I'd read the <a href="https://prosemirror.net/docs/guide/">guide</a> several times. The only way I could make progress from there was by cross-referencing existing code examples and the <a href="https://prosemirror.net/docs/ref/">manual</a>, and trial-and-error from there. And I ever stuck I would ask in the forum and it's always answered. I wouldn't bother with StackOverflow unless maybe for the popular Quilljs.</p>
+<p><strong>Prosemirror</strong> is undoubtedly an <em>impeccable</em> library. But learning it was not for the faint of heart as far as I'm concerned. I failed to build any encompassing mental models around it even after I'd read the <a href="https://prosemirror.net/docs/guide/">guide</a> several times. The only way I could make progress from there was by cross-referencing existing code examples and the <a href="https://prosemirror.net/docs/ref/">manual</a>, and trial-and-error from there. And if I ever stuck, I would ask in the forum and it's always answered. I wouldn't bother with StackOverflow unless maybe for the popular Quilljs.</p>
 <p>These were the places I went scrounging for code samples:</p>
 <ul>
-<li><a href="https://prosemirror.net/examples/">Official examples</a></li>
+<li>The <a href="https://prosemirror.net/examples/">official examples</a></li>
 <li>Search the <a href="https://discuss.prosemirror.net/">forum</a></li>
 <li>'Fork' <a href="https://github.com/prosemirror/prosemirror-example-setup">prosemirror-example-setup</a></li>
-<li>An editor called <a href="https://tiptap.scrumpy.io/">tiptap</a> that's based on Prosemirror but built for Vuejs. The codebase actually had very few bits of Vuejs. So you can find lots of helpful Prosemirror-specific snippets there. Thanks guys 🙇</li>
+<li>An editor called <a href="https://tiptap.scrumpy.io/">tiptap</a> that's based on Prosemirror but built for Vuejs. The codebase actually has very few bits of Vuejs. So you can find lots of helpful Prosemirror-specific snippets there(thanks guys!).</li>
 </ul>
-<p>So in keeping to the spirit of this learning journey, I have extracted the rich-text editor of Sametable in a CodeSandBox 🙌:</p>
+<p>So in keeping with the spirit of this learning journey, I have extracted the rich-text editor of Sametable in a CodeSandBox:</p>
 <p><a href="https://codesandbox.io/s/compassionate-montalcini-gcgwc">https://codesandbox.io/s/compassionate-montalcini-gcgwc</a></p>
+<p>🙌</p>
 <h2>CORS <a href="#cors" id="cors">#</a></h2>
 <p>To stop your browser from complaining about CORS issues, it's <a href="https://medium.com/@kilgarenone/deploy-your-nodejs-app-to-digital-ocean-1de40797666f#4aa4">all about</a> getting your backend to send those <code>Access-Control-Allow-*</code> headers back per request. (Apologies for oversimplification is in order)</p>
 <p>But, correct me if I'm wrong, there's <a href="https://stackoverflow.com/a/60502433/73323">no way</a> to configure CORS in GAE itself. So I had to do it with the <a href="https://www.npmjs.com/package/cors">cors</a> npm package:</p>
