@@ -2236,8 +2236,7 @@ It's easy to sit and get lost in our contemporary works. And we do that by accum
 
 Here is how I try to stay on top of my health debt:
 
-- **Install** [**Workrave**](https://workrave.org/)
-  You can set it to lock your screen after an interval has passed. Most importantly, it can show some exercises that you can perform behind your computer!
+- **Install** [**Workrave**](https://workrave.org/). You can set it to lock your screen after an interval has passed. Most importantly, it can show some exercises that you can perform behind your computer!
 - Get an adjustable **standing desk** if you can afford it. I got mine from IKEA.
 - Do [**burpees**](https://www.youtube.com/watch?v=Kjhl-8yU6hI). Stretch those joints. Maintain good posture. [Planking](https://www.youtube.com/watch?v=59MaNHq8UDo) helps.
 - **Meditate** to stay sane. I'm using [Medito](https://meditofoundation.org/).
