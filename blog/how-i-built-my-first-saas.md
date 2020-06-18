@@ -67,9 +67,9 @@ description: From first principles
 
 ## Introduction <a href="#introduction" id="introduction">#</a>
 
-I switched my career to web development back in 2013. I did it for two reasons. First, I noticed I could get lost in building customer-facing products amongst all the colors and endless possibilities for interactivity; so while being reminded by the trite "_Find a job you enjoy doing, and you will never have to work a day in your life._", I thought "_Why not make this a job???_". And second, I wanted to make something for myself having spent my teenage years inspired by Web 2.0(Digg.com circa 2005 opened the world for me). The plan was to work on the latter while working in the former.
+I switched my career to web development back in 2013. I did it for two reasons. First, I noticed I could get lost in building customer-facing products among all the colors and endless possibilities for interactivity; so while being reminded of the trite "_Find a job you enjoy doing, and you will never have to work a day in your life._", I thought "_Why not make this a job???_". And second, I wanted to make something for myself having spent my teenage years inspired by Web 2.0(Digg.com circa 2005 opened the world for me). The plan was to work on the latter while working in the former.
 
-Turns out, though, the job and the 'Javascript fatigue' ensued to wholly consume me. It also didn't help that I was reckless in my pursue of my ambition having been influenced by my perception of successes from the 'Silicon Valley'. I read Paul Graham's _Hackers & Painters_ and Peter Thiel's _Zero to One_. I'm properly fired up! I'm hustling. I can do this too!
+Turns out, though, the job and the 'Javascript fatigue' ensued to wholly consume me. It also didn't help that I was reckless in my pursue of my ambition having been influenced by the rhetoric from the 'Silicon Valley'. I read Paul Graham's _Hackers & Painters_ and Peter Thiel's _Zero to One_. I'm properly fired up! I'm hustling. I can do this too!
 
 But nope, I can't. At least not alone. I always was beat after work. I couldn't find a team that share the dreams and values. So meanwhile, I rinse and repeat less than half-baked projects in my free time. I was chronically anxious and depressed. I mellowed out as the years go by. And I began to cultivate a personal philosophy on entrepreneurship and technology that align better with my personality and life circumstances&mdash; Until September 2019.
 
@@ -85,7 +85,7 @@ Now, I knew my life would have been easier if I'd decided to use one of those ab
 - Simplicity & Minimalistic &mdash; Cut having to learn new opinionated syntax and pattern. This ruled out 1) Project generators that output complex architecture and layers of boilerplate codes, 2) Using third-party libraries such as 'knex.js' or 'sequelize' ORM.
 - Pay-as-you-need &mdash; I wanted to keep my operating cost proportional to the usage level. This ruled out services such as 'one-click-deployment'.
 
-To be fair though, I got the following things going for me:
+To be fair, I got the following things going for me:
 
 - I was building a simple SaaS.
 - I was not anxious to scale, dominate, disrupt etc.
@@ -116,7 +116,7 @@ Well, first of all, you need to know what you want to build. I used to lose slee
 
 How your stack looks like will depend on how you will render your application. Here is a [comprehensive](https://developers.google.com/web/updates/2019/02/rendering-on-the-web#wrapup) discussion about that, but in a nutshell:
 
-- **Client-side rendering(CSR); SPA; APIs with JSON**
+- **Client-side rendering(CSR); SPA; JSON APIs**
   This is perhaps the most popular approach. It's great for building interactive web applications. But [be aware](https://macwright.org/2020/05/10/spa-fatigue.html) of its downsides and steps to mitigate them. This is the approach I took, so we will talk more about this in much details.
 
 - **Hybrid CSR; Both client-side and server-side rendering(SSR)**
@@ -272,7 +272,7 @@ if (process.env.STRIPE_API_KEY) {
 
 Webpack is used to lump all my UI components and its dependencies(npm libraries, files like images, fonts, SVG) into appropriate files like `.js`, `.css`, `.png` files. During the bundling, Webpack will run through my [babel config](https://github.com/kilgarenone/boileroom/blob/master/client/config/webpack.production.js#L19-L57), and, if necessary, transpiles the Javascript I have written to an older version(e.g. es5) to support my [targeted browsers](https://github.com/kilgarenone/boileroom/blob/master/client/package.json#L13-L27).
 
-When Webpack has done its job, it will have generated one(or [several](https://webpack.js.org/concepts/entry-points/#multi-page-application)) `.js` and `.css` files. Then by [utilizing](https://github.com/kilgarenone/boileroom/blob/master/client/config/webpack.production.js#L189-L202) a webpack plugin called ['html-webpack-plugin'](https://github.com/jantimon/html-webpack-plugin), references to those JS and CSS files are automatically(default behaviour) injected respectively as `<script>` and `<link` in your `index.html`. Then when a user requests your app in a browser, the 'index.html' is fetched and parsed. When it sees `<script>` and `<link>`, it will fetch and execute the referenced assets, and finally your app is [rendered](https://preactjs.com/guide/v10/api-reference/#render)(i.e. client-side rendering) in all its glories to the user.
+When Webpack has done its job, it will have generated one(or [several](https://webpack.js.org/concepts/entry-points/#multi-page-application)) `.js` and `.css` files. Then by [using](https://github.com/kilgarenone/boileroom/blob/master/client/config/webpack.production.js#L189-L202) a webpack plugin called ['html-webpack-plugin'](https://github.com/jantimon/html-webpack-plugin), references to those JS and CSS files are automatically(default behaviour) injected respectively as `<script>` and `<link` in your `index.html`. Then when a user requests your app in a browser, the 'index.html' is fetched and parsed. When it sees `<script>` and `<link>`, it will fetch and execute the referenced assets, and finally your app is [rendered](https://preactjs.com/guide/v10/api-reference/#render)(i.e. client-side rendering) in all its glories to the user.
 
 If you are new to Webpack/Babel, I'd suggest learning them from their first principles to slowly build up your configuration of them, instead of copy/paste bits from the web. Nothing wrong with copy/paste configs, but I find it makes more sense doing it once I have the mental models of how things work.
 
@@ -362,7 +362,7 @@ If you [managed](https://web.dev/extract-critical-css/#overview-of-tools) to sep
 Let's inline the `runtime.js` generated by Webpack as suggested [here](https://developers.google.com/web/fundamentals/performance/webpack/use-long-term-caching#inline_webpack_runtime_to_save_an_extra_http_request). Back in the `index.html` above, add this snippet:
 
 ```html
-<!-- <link> and <script> -->
+<!-- more <link> and <script> -->
 
 <script>
   <%= compilation.assets[htmlWebpackPlugin.files.js.filter(e => /runtime/.test(e))[0].substr(htmlWebpackPlugin.files.publicPath.length)].source() %>
@@ -1394,7 +1394,7 @@ To give a sense of direction to doing that in pgAdmin:
 
 I stumbled upon a pattern called [**CTEs**](https://www.postgresql.org/docs/9.1/queries-with.html) when I was exploring how I am going to get the data I want from disparate tables, and structure them as desired, without doing lots of separate database queries and for-loops.
 
-The way CTE works is simple enough: You write your queries. Each query is given an alias name (`q`, `q1`, `q3`). And a next query can access any previous query's results by their alias name(`q1.workspace_id`):
+The way CTE works is simple enough even though it looks daunting: You write your queries. Each query is given an alias name (`q`, `q1`, `q3`). And a next query can access any previous query's results by their alias name(`q1.workspace_id`):
 
 ```sql
 WITH q AS (SELECT * FROM projects_tasks WHERE task_id=$1)
@@ -1423,7 +1423,7 @@ Follow the guide to install WSL if you don't have it already.
 
 Then I will start my local Redis server in WSL bash:
 
-1. Press `Win` + `R`.
+1. Press <kbd>Win</kbd> + <kbd>R</kbd>.
 2. Type `bash` and enter.
 3. In the terminal, run `sudo service redis-server start`
 
@@ -1581,9 +1581,10 @@ router.post(
   asyncHandler(async (req, res, next) => {
     const { email, password } = req.body;
 
-    const {
-      rowCount,
-    } = await db.query(`SELECT * FROM users WHERE email=($1)`, [email]);
+    const { rowCount } = await db.query(
+      `SELECT * FROM users WHERE email=($1)`,
+      [email]
+    );
 
     if (rowCount === 0) {
       // issue an error with generic message
@@ -1593,6 +1594,8 @@ router.post(
     }
 
     res.json({});
+  })
+);
 ```
 
 Remember, any error object passed to 'next'(`next(err)`) will be captured by the custom error handler that we have set above.
@@ -1889,7 +1892,7 @@ Fortunately, there is an easy way to do 'multi-tenancy':
 
 > Single database; all clients share the same tables; each client has a `tenant_id`; queries the database as per an API request by `WHERE tenant_id = $ID`.
 
-So don't worry&mdash;If you know basic SQL, you should have a clear picture on the steps required to implement this.
+So don't worry&mdash;If you know basic SQL(again indicating the importance of mastering the basics in anything you do!), you should have a clear picture on the steps required to implement this.
 
 Here are three instrumental resources about 'multi-tenancy' I bookmarked before:
 
@@ -1949,7 +1952,9 @@ So what now?! Do I just say _f\*\*\* it_ and do whatever it takes to 'ship it'?
 
 But I hold my ground. I revisit AWS again. I still believed AWS was the answer because everyone else is singing its song. I must be missing something! This time I considered their higher-level tools like AWS AppSync and Amplify. But I couldn't overlook the fact that both of them force me to completely work by their standards and library. So at this point, I'd had it with AWS, and turned to another...platform: **Google Cloud Platform(GCP)**.
 
-**Sametable's Nodejs, Redis, and Postgresql are hosted on GCP**. The thing that drew me to GCP was its documentation&mdash;It's much more linear; code snippets everywhere for your specific language; step-by-step guides about the common things you would do for a web app. Plus, it's serverless! Which means your cost is proportional to your usage.
+Sametable's Nodejs, Redis, and Postgresql are hosted on **GCP**.
+
+The thing that drew me to GCP was its documentation&mdash;It's much more linear; code snippets everywhere for your specific language; step-by-step guides about the common things you would do for a web app. Plus, it's serverless! Which means your cost is proportional to your usage.
 
 ### Deploy Nodejs <a href="#deploy-nodejs" id="deploy-nodejs">#</a>
 
@@ -2051,7 +2056,7 @@ There is a [free tier](https://cloud.google.com/free/docs/gcp-free-tier#always-f
 
 ## Rich-text Editor <a href="#rte" id="rte">#</a>
 
-Building the rich-text editor in Sametable was the second most challenging thing for me. Now, I realized that I could have had it easy with those drop-in editors such as CKEditor and TinyMCE, but I wanted to be able to craft the writing experience in the editor, and there was nothing better than [**ProseMirror**](https://prosemirror.net/) in that regard. Sure, I had other options too, which I decided against for several reasons:
+Building the rich-text editor in Sametable was the second most challenging thing for me. I realized that I could have had it easy with those drop-in editors such as CKEditor and TinyMCE, but I wanted to be able to craft the writing experience in the editor, and nothing can do that better than [**ProseMirror**](https://prosemirror.net/). Sure, I had other options too, which I decided against for several reasons:
 
 1. [Quilljs](https://quilljs.com/)
    - Seemed many unaddressed [issues](https://github.com/quilljs/quill/issues).
@@ -2132,7 +2137,7 @@ To enable that possibility in Sametable, I use **Stripe** to handle both the pay
 There are two ways to implement them:
 
 1. [Very hands-on](https://stripe.com/docs/billing/subscriptions/fixed-price) that's great for customizing your UI.
-2. [**Checkout**](https://stripe.com/docs/payments/checkout/set-up-a-subscription). Fastest to implement. This was what I went for.
+2. [**Checkout**](https://stripe.com/docs/payments/checkout/set-up-a-subscription). Fastest to implement. This was what I did.
 
 ### Webhook <a href="#payment-subscription-webhook" id="payment-subscription-webhook">#</a>
 
@@ -2211,7 +2216,7 @@ T&C makes your SaaS legit. As far as I know, here are your options to come up wi
 
 ## Marketing <a href="#marketing" id="marketing">#</a>
 
-There is no shortage of marketing posts saying it was a bad idea to "_Let the product speaks for itself_". Well, not unless you are trying to 'hack growth' to win the game.
+There is no shortage of marketing posts saying it was a bad idea to "_Let the product speaks for itself_". Well, not unless you were trying to 'hack growth' to win the game.
 
 The following is the trajectory of existence I have in mind for Sametable:
 
