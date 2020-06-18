@@ -121,7 +121,7 @@ How your stack looks like will depend on how you will render your application. H
 - **Hybrid CSR; Both client-side and server-side rendering(SSR)**
   With this approach, you still build your SPA. But when a user requests your app, for example, the homepage, you would render the homepage's component into its static HTML **in your server** and serve it to the user. Then at the user's browser, [hydration](https://reactjs.org/docs/react-dom.html#hydrate) will happen so the whole thing becomes the intended SPA.
 
-  The main benefits of this approach are that you get good SEO and users can see your stuff sooner(faster 'First Meaningful Paint'). But there are downsides too. Apart from the extra maintainance costs, we will have to download the same payload twice&mdash;First, the HTML, and second, its Javascript counterpart for the 'hydration'.
+  The main benefits of this approach are that you get good SEO and users can see your stuff sooner(faster 'First Meaningful Paint'). But there are downsides too. Apart from the extra maintenance costs, we will have to download the same payload twice&mdash;First, the HTML, and second, its Javascript counterpart for the 'hydration'.
 
   The technologies that are adopted for this approach are [NextJs](https://nextjs.org/), [NuxtJs](https://nuxtjs.org/), and [GatsbyJs](https://www.gatsbyjs.org/).
 
@@ -497,7 +497,7 @@ You probably have configured your Webpack to build your app targeting both moder
 
 'Differential serving' will serve, on one hand, a much leaner code to users on modern browsers, and on the other, a properly polyfilled and transformed code to support users on legacy browsers such as IE11.
 
-Although this approach makes for an even more complex build setup and not without a [few caveats](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/#double-download-issue), the benefits gained(you can find in the resources below) certainly _outweigh_ the costs, unless majority of your user base was on IE11, in which case, you probably can skip this. But even so, this approach is future-proof as legacy browsers are being phased out.
+Although this approach makes for an even more complex build setup and not without a [few caveats](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/#double-download-issue), the benefits gained(you can find in the resources below) certainly _outweigh_ the costs, unless the majority of your user base was on IE11, in which case, you probably can skip this. But even so, this approach is future-proof as legacy browsers are being phased out.
 
 #### Repo
 
@@ -815,7 +815,7 @@ export function api(endPoint, userOptions = {}) {
 
 </details>
 
-There is almost nothing new to learn to start using this api module if you have used the native [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) before.
+There is almost nothing new to learn to start using this API module if you have used the native [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) before.
 
 #### Usage
 
@@ -843,7 +843,7 @@ async componentDidMount() {
 }
 ```
 
-But if you preferred to use a library to handle your http calls, I'd recommend ['redaxios'](https://github.com/developit/redaxios) which not only shares API with the popular [axios](https://www.npmjs.com/package/axios), it's much more lightweight.
+But if you preferred to use a library to handle your HTTP calls, I'd recommend ['redaxios'](https://github.com/developit/redaxios) which not only shares API with the popular [axios](https://www.npmjs.com/package/axios), it's much more lightweight.
 
 ### Test Production Build Locally <a href="#test-prod-build-locally" id="test-prod-build-locally">#</a>
 
@@ -1012,7 +1012,7 @@ Then I will define them as CSS Custom Properties again:
 
 ### CSS Reset <a href="#css-reset" id="css-reset">#</a>
 
-The purpose of a 'CSS reset' is to remove default styling of common browsers.
+The purpose of a 'CSS reset' is to remove the default styling of common browsers.
 
 There are quite a few of those out there. Beware that some can get quite opinionated and potentially gives you more headaches than its worth. Here is a popular one: [https://meyerweb.com/eric/tools/css/reset/reset.css](https://meyerweb.com/eric/tools/css/reset/reset.css)
 
@@ -1531,7 +1531,7 @@ To set the stage, we need two things in place first:
 
 ##### Handle input validation errors
 
-It's a [good practise](https://github.com/goldbergyoni/nodebestpractices#-610-validate-incoming-json-schemas) to validate a user's inputs both in the client and server side. At the server side, I use a library called ['express-validator'](https://express-validator.github.io/docs/) to do the job. If any input is invalid, I will handle it by responding with a http code and an error message to inform the user about it.
+It's a [good practise](https://github.com/goldbergyoni/nodebestpractices#-610-validate-incoming-json-schemas) to validate a user's inputs both in the client and server-side. At the server-side, I use a library called ['express-validator'](https://express-validator.github.io/docs/) to do the job. If any input is invalid, I will handle it by responding with an HTTP code and an error message to inform the user about it.
 
 For example, when an email provided by a user is invalid, we will exit early by creating an error object with the 'http-errors' library, and then pass it to the `next` function:
 
@@ -1618,14 +1618,14 @@ router.post(
 
 #### Logging
 
-When an error occured, it's a common practise to 1) Log it to a system for records, and 2) Automatically notify you about it.
+When an error occurred, it's a common practice to 1) Log it to a system for records, and 2) Automatically notify you about it.
 
 There are many tools out there in this area. But I ended up with two of them:
 
 - [**Sentry**](https://sentry.io/welcome/) for storing details(e.g. stack traces) of my errors, and display them on their web-based dashboard.
 - [**pino**](https://github.com/pinojs/pino) to enable logging in my Nodejs.
 
-**Why Sentry**? Well it was recommended by lots of devs and small startups. It offers 5000 errors you can send per month for free. For perspective, if you are operating a small side project and careful about it, I would say that'd last you until you can afford a more luxurous vendor or plan. Another option worth exploring is [honeybadger.io](https://www.honeybadger.io/) with more generous free-tier but without a [pino transport](https://getpino.io/#/docs/transports).
+**Why Sentry**? Well, it was recommended by lots of devs and small startups. It offers 5000 errors you can send per month for free. For perspective, if you are operating a small side project and careful about it, I would say that'd last you until you can afford a more luxurious vendor or plan. Another option worth exploring is [honeybadger.io](https://www.honeybadger.io/) with more generous free-tier but without a [pino transport](https://getpino.io/#/docs/transports).
 
 **Why Pino**- Why not the official SDK provided by Sentry? Because Pino has ['low overhead'](https://github.com/pinojs/pino#low-overhead), whereas, Sentry SDK, although it gives you a more complete picture of an error, seemed to have a complex [memory issue](https://github.com/getsentry/sentry-javascript/issues/1762) that I couldn't see myself being able to circumvent.
 
@@ -1698,7 +1698,7 @@ There are two ways to send emails in Nodejs:
 
 2. Choose one of the **email service providers**.
 
-   There are many email services who offer a free-tier plan offering a limited number of emails you can send per month/day for free. When I started exploring this space for Sametable in October 2019, Mailgun stood out to be a no-brainer&mdash;It offers 10,000 emails for free per month! But, sadly, as I was researching for this section write-up, I learned that it no longer offers that. Despite that, though, I would still stick to Mailgun, on their [pay-as-you-go](https://www.mailgun.com/pricing) plan: 1000 emails sent will cost you 80 cents.
+   Many email services offer a free-tier plan offering a limited number of emails you can send per month/day for free. When I started exploring this space for Sametable in October 2019, Mailgun stood out to be a no-brainer&mdash;It offers 10,000 emails for free per month! But, sadly, as I was researching for this section write-up, I learned that it no longer offers that. Despite that, though, I would still stick to Mailgun, on their [pay-as-you-go](https://www.mailgun.com/pricing) plan: 1000 emails sent will cost you 80 cents.
 
    If you would rather not pay a cent for whatever reason, here are two options for you that I could find:
 
@@ -1966,7 +1966,7 @@ This was the _only_ guide I relied on. It was my north star. It covers Nodejs, P
 
 Start with the ['Quick Start'](https://cloud.google.com/appengine/docs/standard/nodejs/quickstart) tutorial because it will set you up with the `gcloud cli` which you are going to need when following the rest of the guides, where you will find commands you can run to follow along. If you aren't comfortable with CLI environment, the guides will provide alternative steps to achieve the same thing on the GCP dashboard. I love it.
 
-I noticed that while going through GCP doc, I never had to open more than 4 tabs in my browser. It was the complete opposite with AWS doc- My browser would be _packed_ with it.
+I noticed that while going through the GCP doc, I never had to open more than 4 tabs in my browser. It was the complete opposite with AWS doc- My browser would be _packed_ with it.
 
 ### Deploy Postgresql <a href="#deploy-psql" id="deploy-psql">#</a>
 
@@ -2062,7 +2062,7 @@ Building the rich-text editor in Sametable was the second most challenging thing
    - Based on Web Component. I had issues integrating it in Preact.
    - It wasn't flexible to build a customized editing experience.
 
-**Prosemirror** is undoubtedly an _impeccable_ library. But learning it was not for the faint of heart as far as I'm concerned. I failed to build any encompassing mental models around it even after I'd read the [guide](https://prosemirror.net/docs/guide/) several times. The only way I could make progress from there was by cross-referencing existing code examples and the [manual](https://prosemirror.net/docs/ref/), and trial-and-error from there. And if I ever stuck, I would ask in the forum and it's always answered. I wouldn't bother with StackOverflow unless maybe for the popular Quilljs.
+**Prosemirror** is undoubtedly an _impeccable_ library. But learning it was not for the faint of heart as far as I'm concerned. I failed to build any encompassing mental models of it even after I'd read the [guide](https://prosemirror.net/docs/guide/) several times. The only way I could make progress from there was by cross-referencing existing code examples and the [manual](https://prosemirror.net/docs/ref/), and trial-and-error from there. And if I exhausted that too, then I would ask in the forum and it's always answered. I wouldn't bother with StackOverflow unless maybe for the popular Quilljs.
 
 These were the places I went scrounging for code samples:
 
@@ -2071,7 +2071,7 @@ These were the places I went scrounging for code samples:
 - 'Fork' [prosemirror-example-setup](https://github.com/prosemirror/prosemirror-example-setup)
 - An editor called [tiptap](https://tiptap.scrumpy.io/) that's based on Prosemirror but built for Vuejs. The codebase actually has very few bits of Vuejs. So you can find lots of helpful Prosemirror-specific snippets there(thanks guys!).
 
-So in keeping with the spirit of this learning journey, I have extracted the rich-text editor of Sametable in a CodeSandBox:
+In keeping with the spirit of this learning journey, I have extracted the rich-text editor of Sametable in a CodeSandBox:
 
 [https://codesandbox.io/s/compassionate-montalcini-gcgwc](https://codesandbox.io/s/compassionate-montalcini-gcgwc)
 
@@ -2184,7 +2184,7 @@ Here is a code snippet of a webhook:
 
 ### Building <a href="#building-landing-page" id="building-landing-page">#</a>
 
-I use [**Eleventy**](https://www.11ty.dev/) to build the landing page of Sametable. I [wouldn't](https://twitter.com/devongovett/status/1222953655722110981) recommend Gatsby or Nextjs. They are an overkill for this job.
+I use [**Eleventy**](https://www.11ty.dev/) to build the landing page of Sametable. I [wouldn't](https://twitter.com/devongovett/status/1222953655722110981) recommend Gatsby or Nextjs. They are overkill for this job.
 
 I started with one of the [starter projects](https://www.11ty.dev/docs/starter/) as I was impatient to get my page off the ground. But I struggled working in them. Although Eleventy claims to be a simple SSG, there are actually quite a few concepts to grasp if you are new to [static site generators](https://www.staticgen.com/)(SSG). Coupled with the tools introduced by the starter kits, things can get complex. So I decided to start from zero and take my time reading the doc from start to finish, slowly building up. Quiet and easy.
 
