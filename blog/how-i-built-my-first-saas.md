@@ -126,7 +126,7 @@ How your stack looks like will depend on how you will render your application. H
 
   The technologies that are adopted for this approach are [NextJs](https://nextjs.org/), [NuxtJs](https://nuxtjs.org/), and [GatsbyJs](https://www.gatsbyjs.org/).
 
-- **Server-side rendering and 'sprinkle :sparkles: it with Javascript'**
+- **Server-side rendering and 'sprinkle ✨ it with Javascript'**
   This was the old-school way of building on the web!&mdash;Use PHP to build your templates with data in your server, then bind events handlers to the DOM with jQuery in the browser. This approach might have been ill-suited to build the increasingly complex app that businesses have asked for on the web, but some technologies have emerged to warrant a reconsideration:
 
   - [https://stimulusjs.org/](https://stimulusjs.org/)
