@@ -67,7 +67,7 @@ description: From first principles
 
 ## Introduction <a href="#introduction" id="introduction">#</a>
 
-I switched my career to web development back in 2013. I did it for two reasons. First, I noticed I could get lost in building customer-facing products among all the colors and endless possibilities for interactivity; so while being reminded of the trite "_Find a job you enjoy doing, and you will never have to work a day in your life._", I thought "_Why not make this a job???_". And second, I wanted to make something for myself having spent my teenage years inspired by Web 2.0(Digg.com circa 2005 opened the world for me). The plan was to work on the latter while working in the former.
+I switched my career to web development back in 2013. I did it for two reasons. First, I noticed I could get lost in building customer-facing products among all the colors and endless possibilities for interactivity; so while being reminded of the trite "_Find a job you enjoy doing, and you will never have to work a day in your life._", I thought "_Why not make this a job???_". And second, I wanted to make something of myself having spent my teenage years inspired by Web 2.0(Digg.com circa 2005 opened the world for me). The plan was to work on the latter while working in the former.
 
 Turns out, though, the job and the 'Javascript fatigue' ensued to wholly consume me. It also didn't help that I was reckless in my pursue of my ambition having been influenced by the rhetoric from the 'Silicon Valley'. I read Paul Graham's _Hackers & Painters_ and Peter Thiel's _Zero to One_. I'm properly fired up! I'm hustling. I can do this too!
 
