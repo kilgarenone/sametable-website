@@ -1,6 +1,7 @@
 ---
 layout: post.njk
 title: How I built my first SaaS
+description: From first principles
 ---
 
 # How I Built My First SaaS
