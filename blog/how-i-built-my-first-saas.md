@@ -47,6 +47,7 @@ description: From first principles
   - <a href="#email-templates">Email Templates</a>
 - <a href="#tenancy">Tenancy</a>
 - <a href="#domain-name">Domain Name</a>
+  - <a href="#app-domain-name">How to get one of those <code><strong>app.example.com</strong></code></a>
 - <a href="#deployment">Deployment</a>
   - <a href="#deploy-nodejs">Deploy Nodejs</a>
   - <a href="#deploy-psql">Deploy Postgresql</a>
@@ -899,7 +900,9 @@ Finally, make sure you get an **A** [here](https://observatory.mozilla.org/) and
 
 ## Design <a href="#design" id="design">#</a>
 
-I will explore a few concepts that helped structure my design to be coherent.
+Before I start to code anything up, I would have a mental reel of how I would want to **on-board** a new user to my app. Then I would sketch on a notebook of what it might look like doing it, and re-iterate the sketches while playing and rehashing the reel in my head. I will consider that as my very first 'sprint' that's primarily to build a 'UI/UX framework' upon which I will add pieces over time. However, it's important to always be mindful that every decision you make during this process is one that's open-ended and easily undo because it was always a 'small'&mdash; but careful&mdash;decision that won't spell doom due to getting carried away with any over-confident and romantic convictions.
+
+Not sure if that made any sense, but let's explore a few concepts that helped structure my design to be coherent in practise.
 
 ### Modular Scale <a href="#modular-scale" id="modular-scale">#</a>
 
@@ -1908,6 +1911,10 @@ Here are three instrumental resources about 'multi-tenancy' I bookmarked before:
 Sametable.app domain and all its DNS records are hosted in [**NameCheap**](https://www.namecheap.com/). I was on [hover](https://www.hover.com/) before(it still hosts my personal website's domain). But I hit a limitation there when I tried to enter my Mailgun's DKIM value. Namecheap also has more competitive prices in my experience.
 
 At which stage in your SaaS development should you get a domain name? Well, I would say not until when the lack of a DNS registrar is blocking your development. In my case, I deferred it until I had to integrate Mailgun which requires creating a bunch of DNS records in a domain.
+
+### How to get one of those `app.example.com` <a href="#app-domain-name" id="app-domain-name">#</a>
+
+You know those URLs that has a `app` in front of it like `app.example.io`? Yea, that's a 'custom domain' with the 'app' as its 'subdomain'. And it all started with having a domain name. So go ahead and get one in Namecheap or whatever. Then, in my case with Firebase, just [follow this tutorial](https://firebase.google.com/docs/hosting/custom-domain) and you will be fine.
 
 ## Deployment <a href="#deployment" id="deployment">#</a>
 

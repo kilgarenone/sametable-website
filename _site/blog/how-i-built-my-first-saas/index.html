@@ -218,7 +218,11 @@
 </ul>
 </li>
 <li><a href="#tenancy">Tenancy</a></li>
-<li><a href="#domain-name">Domain Name</a></li>
+<li><a href="#domain-name">Domain Name</a>
+<ul>
+<li><a href="#app-domain-name">How to get one of those <code><strong>app.example.com</strong></code></a></li>
+</ul>
+</li>
 <li><a href="#deployment">Deployment</a>
 <ul>
 <li><a href="#deploy-nodejs">Deploy Nodejs</a></li>
@@ -540,7 +544,8 @@
 <a href="https://stripe.com/docs/security/guide#content-security-policy">https://stripe.com/docs/security/guide#content-security-policy</a></p>
 <p>Finally, make sure you get an <strong>A</strong> <a href="https://observatory.mozilla.org/">here</a> and pat yourself on the back!</p>
 <h2>Design <a href="#design" id="design">#</a></h2>
-<p>I will explore a few concepts that helped structure my design to be coherent.</p>
+<p>Before I start to code anything up, I would have a mental reel of how I would want to <strong>on-board</strong> a new user to my app. Then I would sketch on a notebook of what it might look like doing it, and re-iterate the sketches while playing and rehashing the reel in my head. I will consider that as my very first 'sprint' that's primarily to build a 'UI/UX framework' upon which I will add pieces over time. However, it's important to always be mindful that every decision you make during this process is one that's open-ended and easily undo because it was always a 'small'— but careful—decision that won't spell doom due to getting carried away with any over-confident and romantic convictions.</p>
+<p>Not sure if that made any sense, but let's explore a few concepts that helped structure my design to be coherent in practise.</p>
 <h3>Modular Scale <a href="#modular-scale" id="modular-scale">#</a></h3>
 <p>Your design will demand less effort from your users to make sense of when it flows according to a 'modular scale' that specifies a scale of spaces or sizes that each increment with a certain ratio.</p>
 <figure>
@@ -844,6 +849,8 @@
 <h2>Domain name <a href="#domain-name" id="domain-name">#</a></h2>
 <p>Sametable.app domain and all its DNS records are hosted in <a href="https://www.namecheap.com/"><strong>NameCheap</strong></a>. I was on <a href="https://www.hover.com/">hover</a> before(it still hosts my personal website's domain). But I hit a limitation there when I tried to enter my Mailgun's DKIM value. Namecheap also has more competitive prices in my experience.</p>
 <p>At which stage in your SaaS development should you get a domain name? Well, I would say not until when the lack of a DNS registrar is blocking your development. In my case, I deferred it until I had to integrate Mailgun which requires creating a bunch of DNS records in a domain.</p>
+<h3>How to get one of those <code>app.example.com</code> <a href="#app-domain-name" id="app-domain-name">#</a></h3>
+<p>You know those URLs that has a <code>app</code> in front of it like <code>app.example.io</code>? Yea, that's a 'custom domain' with the 'app' as its 'subdomain'. And it all started with having a domain name. So go ahead and get one in Namecheap or whatever. Then, in my case with Firebase, just <a href="https://firebase.google.com/docs/hosting/custom-domain">follow this tutorial</a> and you will be fine.</p>
 <h2>Deployment <a href="#deployment" id="deployment">#</a></h2>
 <p>Ugh. This was a stage where I struggled for the longest time 😣. It was one hell of a journey where I found myself doubling down on a cloud platform but end up bailing out as I found out their downsides to optimize for developer experience, costs, quota, and performance(latency).</p>
 <p>The journey started with me jumping head-first(bad idea) into Digital Ocean since I saw it recommended a lot in the IndieHackers forum. And sure enough, I managed to get my Nodejs up and running in a VM by following <a href="https://coderrocketfuel.com/article/create-and-deploy-an-express-rest-api-to-a-digitalocean-server#configure-and-deploy-your-node-js-app">closely</a> the <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-18-04">tutorials</a>. Then I found out that the <a href="https://www.digitalocean.com/products/spaces/">DO Space</a> wasn't exactly AWS S3—It <a href="https://ideas.digitalocean.com/ideas/DO-I-318">can't</a> host my SPA. Although I <a href="https://coderrocketfuel.com/article/deploy-a-create-react-app-website-to-digitalocean">could have</a> hosted it in my droplet and <a href="https://www.youtube.com/watch?v=2X_Tp_G7aTs">hook up</a> a third-party CDN like CloudFlare to the droplet, it seemed to me unnecessarily convoluted compared to the S3+Cloudfront setup. I was also using a DO's Managed Database(Postgresql) because I didn't want to manage my DB and tweak in the <code>*.config</code> files myself. That costs a fixed $15/month.</p>
