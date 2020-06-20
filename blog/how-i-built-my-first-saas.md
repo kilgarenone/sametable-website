@@ -68,7 +68,7 @@ description: From first principles
 
 ## Introduction <a href="#introduction" id="introduction">#</a>
 
-I switched my career to web development back in 2013. I did it for two reasons. First, I noticed I could get lost in building customer-facing products among all the colors and endless possibilities for interactivity; so while being reminded of the trite "_Find a job you enjoy doing, and you will never have to work a day in your life._", I thought "_Why not make this a job???_". And second, I wanted to make something of myself having spent my teenage years inspired by Web 2.0(Digg.com circa 2005 opened the world for me). The plan was to work on the latter while working in the former.
+I switched my career to web development back in 2013. I did it for two reasons. First, I noticed I could get lost in building customer-facing products among all the colors and endless possibilities for interactivity; so while being reminded of the trite "_Find a job you enjoy doing, and you will never have to work a day in your life._", I thought "_Why not make this a job???_". And second, I wanted to make something of myself having spent my teenage years inspired by Web 2.0(Digg.com circa 2005 opened the world for me!). The plan was to work on the latter while working in the former.
 
 Turns out, though, the job and the 'Javascript fatigue' ensued to wholly consume me. It also didn't help that I was reckless in my pursue of my ambition having been influenced by the rhetoric from the 'Silicon Valley'. I read Paul Graham's _Hackers & Painters_ and Peter Thiel's _Zero to One_. I'm properly fired up! I'm hustling. I can do this too!
 
@@ -107,7 +107,7 @@ So what follows is everything I'd learned when developing the first project I ev
 
 ## Finding Ideas <a href="#finding-ideas" id="finding-ideas">#</a>
 
-Well, first of all, you need to know what you want to build. I used to lose sleep over this; thinking and remixing thoughts, hoping for eureka &mdash; Until I started to look inward:
+Well, first of all, you need to know what you want to build. I used to lose sleep over this; thinking and remixing ideas, hoping for eureka &mdash; Until I started to look inward:
 
 - Build things that solve problems that you encounter and piss you off frequently.
 - Solving the so-called 'pain points' or 'frictions'. Go outside, don't stop listening to people and learn from them.
@@ -123,7 +123,7 @@ How your stack looks like will depend on how you will render your application. H
 - **Hybrid CSR; Both client-side and server-side rendering(SSR)** &mdash;
   With this approach, you still build your SPA. But when a user requests your app, for example, the homepage, you would render the homepage's component into its static HTML **in your server** and serve it to the user. Then at the user's browser, [hydration](https://reactjs.org/docs/react-dom.html#hydrate) will happen so the whole thing becomes the intended SPA.
 
-  The main benefits of this approach are that you get good SEO and users can see your stuff sooner(faster 'First Meaningful Paint'). But there are downsides too. Apart from the extra maintenance costs, we will have to download the same payload twice&mdash;First, the HTML, and second, its Javascript counterpart for the 'hydration'.
+  The main benefits of this approach are that you get good SEO and users can see your stuff sooner(faster 'First Meaningful Paint'). But there are downsides too. Apart from the extra maintenance costs, we will have to download the same payload twice&mdash;First, the HTML, and second, its Javascript counterpart for the 'hydration' which will exert significant work on the browser's main thread, prolonging the 'First time to interactive', and hence diminishing the benefits gained from a faster 'First meaningful paint'.
 
   The technologies that are adopted for this approach are [NextJs](https://nextjs.org/), [NuxtJs](https://nuxtjs.org/), and [GatsbyJs](https://www.gatsbyjs.org/).
 
@@ -293,7 +293,16 @@ Although web perf is a huge subject that's [well documented](https://web.dev/fas
 
 #### Critical rendering path
 
-We mentioned before that 'html-webpack-plugin' automatically injects references of all Webpack-generated `.js` and `.css` files for us in our `index.html`. But we don't want to do that now to have full control over placement and setting the resource hints. So let's disable the auto-injection:
+We mentioned before that 'html-webpack-plugin' automatically injects references of all Webpack-generated `.js` and `.css` files for us in our `index.html`. But we don't want to do that now to have full control over their placement and applying the [resource hints](https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content), both of which are a factor in how efficient a browser discovers and downloads them as chronicled [in this article](https://timkadlec.com/remembers/2020-02-13-when-css-blocks/).
+
+Now, there are Webpack [plugins](https://github.com/jantimon/html-webpack-plugin#plugins) that seem to help us in this respect, but:
+
+- There was no intuitive way to control the ordering of my `<script`. Well, there is [this method](https://github.com/jantimon/html-webpack-plugin/issues/140#issuecomment-376316414), but how about ordering among my `<link>` too?
+- There was no plugin that `preload` my CSS the way I wanted as we will see later. Well, there is [this](https://github.com/GoogleChrome/preload-webpack-plugin)(no control over attributes), [this](https://github.com/jantimon/resource-hints-webpack-plugin)(same), and [this](https://github.com/numical/style-ext-html-webpack-plugin)(no clear support for MiniCssExtractPlugin).
+
+Even if I could somehow hack them all together, I would have decided against it in a heartbeat if I'd known I could do it in a much intuitive and controlled way. So let's see about that.
+
+Go ahead and disable the auto-injection:
 
 ```javascript
 // webpack.production.js
@@ -998,7 +1007,7 @@ export function Button({children, className, ...props}) {
 
 ### Colors <a href="#colors" id="colors">#</a>
 
-There are many color palette tools out there. But the one from [Material](https://material.io/design/color/the-color-system.html#tools-for-picking-colors) is the one I always go to for my colors.
+There are many color palette tools out there. But the one from [Material](https://material.io/design/color/the-color-system.html#tools-for-picking-colors) is the one I always go to for my colors simply because they are laid out in all their glories! 🌈
 
 Then I will define them as CSS Custom Properties again:
 
