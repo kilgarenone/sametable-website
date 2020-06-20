@@ -86,15 +86,6 @@ article summary {
   display: list-item;
 }
 
-article a {
-  background-color: initial;
-}
-
-article a:active,
-article a:hover {
-  outline-width: 0;
-}
-
 article code,
 article kbd,
 article pre {
@@ -105,6 +96,7 @@ article pre {
 article a {
   color: #0366d6;
   text-decoration: none;
+  background-color: initial;
 }
 
 article a:hover {
@@ -126,11 +118,6 @@ article hr:before {
   content: "";
   clear: both;
 }
-
-/* article td,
-article th {
-  padding: 0;
-} */
 
 article details summary {
   cursor: pointer;
@@ -177,11 +164,6 @@ article h5 {
   margin-bottom: var(--s-1);
 }
 
-article h5,
-article h6 {
-  font-weight: 600;
-}
-
 article h6 {
   font-size: 12px;
 }
@@ -222,19 +204,26 @@ article blockquote > :last-child {
   margin-bottom: 0;
 }
 
-article h1,
-article h2,
-article h3,
-article h4,
-article h5,
-article h6 {
-  font-weight: 600;
+article h1 {
+  font-weight: 800;
+  line-height: 1.25;
+}
+article h2 {
+  font-weight: 700;
   line-height: 1.25;
 }
 
 article h2 {
   padding-bottom: 0.3em;
   border-bottom: 1px solid #eaecef;
+}
+
+article h3,
+article h4,
+article h5,
+article h6 {
+  font-weight: 600;
+  line-height: 1.25;
 }
 
 article ol,
