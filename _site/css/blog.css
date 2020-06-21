@@ -1,14 +1,11 @@
-/* Box sizing rules */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   overflow-wrap: break-word;
   margin: 0;
-  padding: 0;
   border: 0 solid;
   font-family: inherit;
-  color: inherit;
 }
 
 img {
@@ -17,19 +14,13 @@ img {
 
 :root {
   --black-100: #17181a;
-  --black-60: #6c757d;
   --font-plain: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial,
     sans-serif;
   --font-special: "Times New Roman", Times, serif;
+  --font-code: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
   --ratio: 1.5;
-  --s-5: calc(
-    var(--s1) / var(--ratio) / var(--ratio) / var(--ratio) / var(--ratio) /
-      var(--ratio)
-  );
-  --s-4: calc(
-    var(--s1) / var(--ratio) / var(--ratio) / var(--ratio) / var(--ratio)
-  );
   --s-3: calc(var(--s1) / var(--ratio) / var(--ratio) / var(--ratio));
   --s-2: calc(var(--s1) / var(--ratio) / var(--ratio));
   --s-1: calc(var(--s1) / var(--ratio));
@@ -38,7 +29,6 @@ img {
   --s3: 1.5em;
   --s4: 2.05em;
   --s5: 2.7em;
-  --line-height: var(--ratio);
 
   line-height: var(--ratio);
   font-size: calc(0.333vw + 1em);
@@ -78,32 +68,15 @@ article {
   }
 }
 
-article details {
-  display: block;
-}
-
-article summary {
-  display: list-item;
-}
-
-article code,
-article kbd,
-article pre {
-  font-family: monospace, monospace;
-  font-size: 1em;
-}
-
-article a {
-  color: #0366d6;
+a {
   text-decoration: none;
-  background-color: initial;
 }
 
-article a:hover {
+a:hover {
   text-decoration: underline;
 }
 
-article hr {
+hr {
   height: 0.25em;
   margin: 15px 0;
   overflow: hidden;
@@ -112,21 +85,20 @@ article hr {
   border-bottom: 1px solid #dfe2e5;
 }
 
-article hr:after,
-article hr:before {
+hr:after,
+hr:before {
   display: table;
   content: "";
   clear: both;
 }
 
-article details summary {
+details summary {
   cursor: pointer;
 }
 
-article kbd {
+kbd {
   display: inline-block;
   padding: 3px 5px;
-  font: 11px SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
   line-height: 10px;
   color: #444d56;
   vertical-align: middle;
@@ -136,110 +108,100 @@ article kbd {
   box-shadow: inset 0 -1px 0 #d1d5da;
 }
 
-article h1 {
+h1 {
+  font-weight: 800;
+  line-height: 1.25;
+}
+h2 {
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+h2 {
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #eaecef;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+h1 {
   font-size: var(--s5);
 }
 
-article h2 {
+h2 {
   font-size: var(--s4);
   margin-top: var(--s4);
   margin-bottom: var(--s1);
 }
 
-article h3 {
+h3 {
   font-size: var(--s3);
   margin-top: var(--s3);
   margin-bottom: var(--s-1);
 }
 
-article h4 {
+h4 {
   font-size: var(--s2);
   margin-top: var(--s3);
   margin-bottom: var(--s-1);
 }
 
-article h5 {
+h5 {
   font-size: var(--s1);
   margin-top: var(--s3);
   margin-bottom: var(--s-1);
 }
 
-article h6 {
+h6 {
   font-size: 12px;
 }
 
-article ol ol,
-article ul ol {
-  list-style-type: lower-roman;
-}
-
-article ol ol ol,
-article ol ul ol,
-article ul ol ol,
-article ul ul ol {
-  list-style-type: lower-alpha;
-}
-
-article dd {
+dd {
   margin-left: 0;
 }
 
-article code,
-article pre {
-  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
-  font-size: 12px;
+code,
+kbd,
+pre {
+  font-family: var(--font-code);
+  font-size: 82%;
 }
 
-article blockquote {
+code {
+  padding: 0.2em 0.4em;
+  background-color: rgba(27, 31, 35, 0.05);
+  border-radius: 3px;
+}
+
+blockquote {
   padding: 0 1em;
   color: #6a737d;
   border-left: 0.25em solid #dfe2e5;
 }
 
-article blockquote > :first-child {
+blockquote > :first-child {
   margin-top: 0;
 }
 
-article blockquote > :last-child {
+blockquote > :last-child {
   margin-bottom: 0;
 }
 
-article h1 {
-  font-weight: 800;
-  line-height: 1.25;
-}
-article h2 {
-  font-weight: 700;
-  line-height: 1.25;
-}
-
-article h2 {
-  padding-bottom: 0.3em;
-  border-bottom: 1px solid #eaecef;
-}
-
-article h3,
-article h4,
-article h5,
-article h6 {
-  font-weight: 600;
-  line-height: 1.25;
-}
-
-article ol,
-article ul {
-  padding-left: 2em;
-}
-
-article li > p {
+li > p {
   margin-top: 16px;
 }
 
-article li + li {
+li + li {
   margin-top: 0.25em;
 }
 
-article dl dt {
+dl dt {
   padding: 0;
   margin-top: 16px;
   font-size: 1em;
@@ -247,12 +209,12 @@ article dl dt {
   font-weight: 600;
 }
 
-article dl dd {
+dl dd {
   padding: 0 16px;
   margin-bottom: 16px;
 }
 
-article table {
+table {
   display: block;
   width: 100%;
   overflow: auto;
@@ -260,31 +222,23 @@ article table {
   border-collapse: collapse;
 }
 
-article table th {
+table th {
   font-weight: 600;
 }
 
-article table td,
-article table th {
+table td,
+table th {
   padding: 6px 13px;
   border: 1px solid #dfe2e5;
 }
 
-article table tr {
+table tr {
   background-color: #fff;
   border-top: 1px solid #c6cbd1;
 }
 
-article table tr:nth-child(2n) {
+table tr:nth-child(2n) {
   background-color: #f6f8fa;
-}
-
-article code {
-  padding: 0.2em 0.4em;
-  margin: 0;
-  font-size: 85%;
-  background-color: rgba(27, 31, 35, 0.05);
-  border-radius: 3px;
 }
 
 pre[class*="language-"] {

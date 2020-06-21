@@ -18,14 +18,14 @@ title: Blog | Sametable
         d="M10 10.02h5V21h-5V10.02zM17 21h3c1.1 0 2-.9 2-2v-9h-5v11zm3-18H5c-1.1 0-2 .9-2 2v3h19V5c0-1.1-.9-2-2-2zM3 19c0 1.1.9 2 2 2h3V10H3v9z"
       /></svg
   ></a>
-  <h1>Blog</h1>
+  <h1 style="margin-bottom:1rem;">Blog</h1>
   <ul>
     {% for post in collections.post | reverse %}
     <li>
       <a href="{{ post.url | url }}">
         {{ post.data.title }}
       </a>
-      <small>
+      <small style="margin-left: 0.5rem">
         <time datetime="{{ post.date | dateIso }}">{{
           post.date | dateReadable
         }}</time>
