@@ -45,6 +45,7 @@ description: From first principles
 - <a href="#email">Email</a>
   - <a href="#implement-email">Implementation</a>
   - <a href="#email-templates">Email Templates</a>
+  - <a href="#business-email">How to get one of those <code><strong>hi@example.com</strong></code></a>
 - <a href="#tenancy">Tenancy</a>
 - <a href="#domain-name">Domain Name</a>
   - <a href="#app-domain-name">How to get one of those <code><strong>app.example.com</strong></code></a>
@@ -293,6 +294,8 @@ Although web perf is a huge subject that's [well documented](https://web.dev/fas
 
 #### Critical rendering path
 
+The goal of optimizing for the 'critical rendering path' in your page is to have it rendered and be interactive the soonest possible to your users. Let's do that.
+
 We mentioned before that 'html-webpack-plugin' automatically injects references of all Webpack-generated `.js` and `.css` files for us in our `index.html`. But we don't want to do that now to have full control over their placement and applying the [resource hints](https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content), both of which are a factor in how efficient a browser discovers and downloads them as chronicled [in this article](https://timkadlec.com/remembers/2020-02-13-when-css-blocks/).
 
 Now, there are Webpack [plugins](https://github.com/jantimon/html-webpack-plugin#plugins) that seem to help us in this respect, but:
@@ -300,9 +303,9 @@ Now, there are Webpack [plugins](https://github.com/jantimon/html-webpack-plugin
 - There was no intuitive way to control the ordering of my `<script`. Well, there is [this method](https://github.com/jantimon/html-webpack-plugin/issues/140#issuecomment-376316414), but how about ordering among my `<link>` too?
 - There was no plugin that `preload` my CSS the way I wanted as we will see later. Well, there is [this](https://github.com/GoogleChrome/preload-webpack-plugin)(no control over attributes), [this](https://github.com/jantimon/resource-hints-webpack-plugin)(same), and [this](https://github.com/numical/style-ext-html-webpack-plugin)(no clear support for MiniCssExtractPlugin).
 
-Even if I could somehow hack them all together, I would have decided against it in a heartbeat if I'd known I could do it in a much intuitive and controlled way. So let's see about that.
+Even if I could somehow hack them all together, I would have decided against it in a heartbeat if I'd known I could do it in an intuitive and controlled way. And I did.
 
-Go ahead and disable the auto-injection:
+So go ahead and disable the auto-injection:
 
 ```javascript
 // webpack.production.js
@@ -1781,9 +1784,9 @@ Each type of email you send could have its own email template whose content can 
 
 #### Tool
 
-[**mjml**](https://mjml.io/) is the tool I use to build my email templates.
+[**mjml**](https://mjml.io/) is the tool I use to build my email templates. Sure, there are many drag-and-drop email builders out there that don't intimidate with the sight of 'codes'. But if you know just basic React/HTML/CSS, mjml would give you great usability and maximum flexibility.
 
-It's easy to [get started](https://mjml.io/getting-started/1). It's quite similar to React: You compose a template with a bunch of reusable components with props.
+It's easy to [get started](https://mjml.io/getting-started/1). Like the email builders, you compose a template with a bunch of reusable components, and you customize them by providing values to their props.
 
 Here are the places where I would write my templates:
 
@@ -1893,6 +1896,16 @@ mailer.send(data);
 ```
 
 Notice that, to associate a value with a placeholder name in a template: `"v:project_title":'Project Mario'`.
+
+### How to get one of those `hi@example.com` <a href="#business-email" id="business-email">#</a>
+
+It's an email address people use to contact you about your SaaS, rather than with a `lola887@hotmail.com`.
+
+There are three options on my radar:
+
+1. If you are on Mailgun, follow [this guide](https://renzo.lucioni.xyz/mail-forwarding-with-mailgun/). However, the new pay-as-you-go tier has excluded the feature(`Inbound Email Routing`) that makes this possible. So perhaps the next option.
+2. If I ever get kicked out of my '10,000' free-tier in Mailgun, I would give this a shot https://forwardemail.net/en
+3. If all else failed, pay for ['Gmail on G Suite'](https://gsuite.google.com.my/intl/en_my/products/gmail/).
 
 ## Tenancy <a href="#tenancy" id="tenancy">#</a>
 
