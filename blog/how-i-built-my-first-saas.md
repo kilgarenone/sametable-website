@@ -6,7 +6,7 @@ description: From first principles
 
 # How I Built My First SaaS
 
-## Content
+## Table of Contents
 
 - <a href="#introduction">Introduction</a>
 - <a href="#finding-ideas">Finding Ideas</a>
