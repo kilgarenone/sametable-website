@@ -28,10 +28,10 @@ img {
   --s2: 1.2em;
   --s3: 1.5em;
   --s4: 2.05em;
-  --s5: 2.7em;
+  --s5: 4em;
 
   line-height: var(--ratio);
-  font-size: calc(0.333vw + 1em);
+  font-size: 1.26em;
   font-family: var(--font-plain);
   color: var(--black-100);
 }
@@ -109,15 +109,13 @@ kbd {
 }
 
 h1 {
-  font-weight: 800;
-  line-height: 1.25;
-}
-h2 {
-  font-weight: 700;
-  line-height: 1.25;
+  font-family: var(--font-special);
+  line-height: 1.15;
 }
 
 h2 {
+  font-weight: 700;
+  line-height: 1.25;
   padding-bottom: 0.3em;
   border-bottom: 1px solid #eaecef;
 }
