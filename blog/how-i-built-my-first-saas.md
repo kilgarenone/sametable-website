@@ -276,7 +276,7 @@ Webpack is used to lump all my UI components and its dependencies(npm libraries,
 
 When Webpack has done its job, it will have generated one(or [several](https://webpack.js.org/concepts/entry-points/#multi-page-application)) `.js` and `.css` files. Then by [using](https://github.com/kilgarenone/boileroom/blob/master/client/config/webpack.production.js#L189-L202) a webpack plugin called ['html-webpack-plugin'](https://github.com/jantimon/html-webpack-plugin), references to those JS and CSS files are automatically(default behaviour) injected respectively as `<script>` and `<link` in your `index.html`. Then when a user requests your app in a browser, the 'index.html' is fetched and parsed. When it sees `<script>` and `<link>`, it will fetch and execute the referenced assets, and finally your app is [rendered](https://preactjs.com/guide/v10/api-reference/#render)(i.e. client-side rendering) in all its glories to the user.
 
-If you are new to Webpack/Babel, I'd suggest learning them from their first principles to slowly build up your configuration of them, instead of copy/paste bits from the web. Nothing wrong with copy/paste configs, but I find it makes more sense doing it once I have the mental models of how things work.
+If you are new to Webpack/Babel, I'd suggest learning them from their first principles to slowly build up your configuration of them, instead of copy/paste bits from the web. Nothing wrong with that, but I find it makes more sense doing it once I have the mental models of how things work.
 
 I wrote about the basics here:
 
