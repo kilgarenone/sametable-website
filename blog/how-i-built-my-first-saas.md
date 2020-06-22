@@ -2268,7 +2268,6 @@ The following is the trajectory of existence I have in mind for Sametable:
 ### Resources
 
 - [https://stripe.com/en-my/atlas/guides/starting-sales](https://stripe.com/en-my/atlas/guides/starting-sales)
-- [https://github.com/LisaDziuba/Marketing-for-Engineers](https://github.com/LisaDziuba/Marketing-for-Engineers)
 - [https://www.coryzue.com/writing/seo-for-developers/](https://github.com/LisaDziuba/Marketing-for-Engineers)
 
 ## Well-being <a href="#well-being" id="well-being">#</a>
