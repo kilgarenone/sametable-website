@@ -162,7 +162,9 @@
 <main>
   <article class="markdown-body" role="article">
     <h1>How I Built My First SaaS</h1>
-<h2>Table of Contents</h2>
+<p><a class="skip-main" href="#introduction">Skip to main content</a></p>
+<p><a class="back-to-top" href="#table-of-contents">ᐱ Back to top</a></p>
+<h2>Table of Contents <a href="#table-of-contents" id="table-of-contents">#</a></h2>
 <ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#finding-ideas">Finding Ideas</a></li>
@@ -230,6 +232,7 @@
 <ul>
 <li><a href="#deploy-nodejs">Deploy Nodejs</a></li>
 <li><a href="#deploy-psql">Deploy Postgresql</a></li>
+<li><a href="#setup-schemas-production-db">Setup schemas in production database</a></li>
 <li><a href="#deploy-redis">Deploy Redis</a></li>
 <li><a href="#deploy-file-storage">File Storage</a></li>
 </ul>
@@ -253,7 +256,7 @@
 <li><a href="#marketing">Marketing</a></li>
 <li><a href="#well-being">Well-being</a></li>
 </ul>
-<h2>Introduction <a href="#introduction" id="introduction">#</a></h2>
+<h2>Introduction <a tabindex=”-1″ href="#introduction" id="introduction">#</a></h2>
 <p>I switched my career to web development back in 2013. I did it for two reasons. First, I noticed I could get lost in building customer-facing products among all the colors and endless possibilities for interactivity; so while being reminded of the trite &quot;<em>Find a job you enjoy doing, and you will never have to work a day in your life.</em>&quot;, I thought &quot;<em>Why not make this a job???</em>&quot;. And second, I wanted to make something of myself having spent my teenage years inspired by Web 2.0(Digg.com circa 2005 opened the world for me!). The plan was to work on the latter while working in the former.</p>
 <p>Turns out, though, the job and the 'Javascript fatigue' ensued to wholly consume me. It also didn't help that I was reckless in my pursue of my ambition having been influenced by the rhetoric from the 'Silicon Valley'. I read Paul Graham's <em>Hackers &amp; Painters</em> and Peter Thiel's <em>Zero to One</em>. I'm properly fired up! I'm hustling. I can do this too!</p>
 <p>But nope, I can't. At least not alone. I always was beat after work. I couldn't find a team that share the dreams and values. So meanwhile, I rinse and repeat less than half-baked projects in my free time. I was chronically anxious and depressed. I mellowed out as the years go by. And I began to cultivate a personal philosophy on entrepreneurship and technology that align better with my personality and life circumstances— Until September 2019.</p>
@@ -686,7 +689,7 @@ With this approach, you still build your SPA. But when a user requests your app,
 <p>Finally, to get all the projects that are assigned to a particular user, we will do what relational database do best: <a href="https://www.postgresqltutorial.com/postgresql-joins/"><code>join</code></a>.</p>
 </li>
 </ol>
-<p>I would put all my schemas in a <code>.sql</code> file at my project's root:</p>
+<p>I would put all my schemas in a <code>.sql</code> file at my project's root <a href="#schemas-file" id="schemas-file">#</a>:</p>
 <pre class="language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> EXTENSION <span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span> <span class="token string">"uuid-ossp"</span><span class="token punctuation">;</span><br><br><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> users<span class="token punctuation">(</span><br>  user_id BIGSERIAL <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span><span class="token punctuation">,</span><br>  fullname <span class="token keyword">TEXT</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span><br>  pwd <span class="token keyword">TEXT</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span><br>  email <span class="token keyword">TEXT</span> <span class="token keyword">UNIQUE</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span><br>  created_on TIMESTAMPTZ <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">DEFAULT</span> <span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><br><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>Then, I would copy, paste, and run them in pgAdmin:</p>
 <img src="https://i.imgur.com/gm9YFZF.png" alt="create table schemas in pgadmin" loading="lazy" />
@@ -978,6 +981,12 @@ With this approach, you still build your SPA. But when a user requests your app,
 <p>It's pay-as-you-use as opposed to the fixed $15/mo you find in Lightsail and DO.</p>
 <p>Sample cost:
 <a href="https://cloud.google.com/products/calculator/#id=dd6b78da-1215-4366-b7b4-afefe5472ee6">https://cloud.google.com/products/calculator/#id=dd6b78da-1215-4366-b7b4-afefe5472ee6</a></p>
+<h3>Setup schemas in production database <a href="#setup-schemas-production-db" id="setup-schemas-production-db">#</a></h3>
+<p>Now that I have got a database deployed for production, it's time to dress it up with all my schemas from the <code>.sql</code> <a href="#schemas-file">file</a>. To do that, I need to connect to the database from pgAdmin:</p>
+<ol>
+<li><a href="https://cloud.google.com/sql/docs/postgres/external-connection-methods">https://cloud.google.com/sql/docs/postgres/external-connection-methods</a></li>
+<li>There you will find a table with a list of options for connecting from an external application. I went with the first one: <strong>Public IP address with SSL</strong>. Follow all the guides in the 'More information' column and you will have all the information needed to create a server in your pgAdmin. You will be fine. If not, <a href="mailto:oldjoy@protonmail.com">email me</a> and I will provide assistance.</li>
+</ol>
 <h3>Deploy Redis <a href="#deploy-redis" id="deploy-redis">#</a></h3>
 <p>If you were following the main guide about Nodejs, you can't miss <a href="https://cloud.google.com/appengine/docs/standard/nodejs/using-memorystore">this guide</a> about setting up your Redis in MemoryStore. But I figured it would be more cost-effective to <strong>host my Redis in a Google Compute Engine</strong>(GCE) which has, unlike MemoryStore, free quota. (Also <a href="https://github.com/ripienaar/free-for-dev#major-cloud-providers">see this</a> for comparison of free quota across different cloud platforms)</p>
 <h4>Guide</h4>

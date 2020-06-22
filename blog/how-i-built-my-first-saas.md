@@ -6,7 +6,11 @@ description: From first principles
 
 # How I Built My First SaaS
 
-## Table of Contents
+<a class="skip-main" href="#introduction">Skip to main content</a>
+
+<a class="back-to-top" href="#table-of-contents">&#5169; Back to top</a>
+
+## Table of Contents <a href="#table-of-contents" id="table-of-contents">#</a>
 
 - <a href="#introduction">Introduction</a>
 - <a href="#finding-ideas">Finding Ideas</a>
@@ -52,6 +56,7 @@ description: From first principles
 - <a href="#deployment">Deployment</a>
   - <a href="#deploy-nodejs">Deploy Nodejs</a>
   - <a href="#deploy-psql">Deploy Postgresql</a>
+  - <a href="#setup-schemas-production-db">Setup schemas in production database</a>
   - <a href="#deploy-redis">Deploy Redis</a>
   - <a href="#deploy-file-storage">File Storage</a>
 - <a href="#rte">Rich-text Editor</a>
@@ -67,7 +72,7 @@ description: From first principles
 - <a href="#marketing">Marketing</a>
 - <a href="#well-being">Well-being</a>
 
-## Introduction <a href="#introduction" id="introduction">#</a>
+## Introduction <a tabindex=”-1″ href="#introduction" id="introduction">#</a>
 
 I switched my career to web development back in 2013. I did it for two reasons. First, I noticed I could get lost in building customer-facing products among all the colors and endless possibilities for interactivity; so while being reminded of the trite "_Find a job you enjoy doing, and you will never have to work a day in your life._", I thought "_Why not make this a job???_". And second, I wanted to make something of myself having spent my teenage years inspired by Web 2.0(Digg.com circa 2005 opened the world for me!). The plan was to work on the latter while working in the former.
 
@@ -1364,7 +1369,7 @@ Before you can start querying a database, you need to create tables. Each table 
 
 4. Finally, to get all the projects that are assigned to a particular user, we will do what relational database do best: [`join`](https://www.postgresqltutorial.com/postgresql-joins/).
 
-I would put all my schemas in a `.sql` file at my project's root:
+I would put all my schemas in a `.sql` file at my project's root <a href="#schemas-file" id="schemas-file">#</a>:
 
 ```sql
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
@@ -2017,6 +2022,13 @@ It's pay-as-you-use as opposed to the fixed \$15/mo you find in Lightsail and DO
 
 Sample cost:
 [https://cloud.google.com/products/calculator/#id=dd6b78da-1215-4366-b7b4-afefe5472ee6](https://cloud.google.com/products/calculator/#id=dd6b78da-1215-4366-b7b4-afefe5472ee6)
+
+### Setup schemas in production database <a href="#setup-schemas-production-db" id="setup-schemas-production-db">#</a>
+
+Now that I have got a database deployed for production, it's time to dress it up with all my schemas from the `.sql` <a href="#schemas-file">file</a>. To do that, I need to connect to the database from pgAdmin:
+
+1. [https://cloud.google.com/sql/docs/postgres/external-connection-methods](https://cloud.google.com/sql/docs/postgres/external-connection-methods)
+2. There you will find a table with a list of options for connecting from an external application. I went with the first one: **Public IP address with SSL**. Follow all the guides in the 'More information' column and you will have all the information needed to create a server in your pgAdmin. You will be fine. If not, <a href="mailto:oldjoy@protonmail.com">email me</a> and I will provide assistance.
 
 ### Deploy Redis <a href="#deploy-redis" id="deploy-redis">#</a>
 
