@@ -109,7 +109,7 @@ Also keep in mind that:
 - If I had to ship something the soonest possible, unless it's a matter of life and death, then I probably wasn't solving a unique and hard problem, in which case&mdash;assuming I was still on my day job and had zero debt took on&mdash;What is the rush?
 - And second-guessing from the ethical perspective: Was it even a problem needs solving? What will be the second-order consequences if I solved it? Could my good intentions have been better directed elsewhere?
 
-So what follows is everything I'd learned when developing the first project I ever launched called **Sametable** that helps [managing your work in spreadsheets](https://www.sametable.app). From implementing favicon to deploying to a cloud platform, I will share extensive code snippets, best practices, lessons, guides, and key resources. I hope something here would be useful to you. Thanks for reading. ❤️
+So what follows is everything I'd learned when developing the first project I ever launched called **Sametable** that helps [managing your work in spreadsheets](https://www.sametable.app). This extensive write-up covers how all the main pieces came together&mdash;From implementing favicon to deploying to a cloud platform, I will share extensive code snippets, best practices, lessons, guides, and key resources. I hope something here would be useful to you. Thanks for reading. ❤️
 
 ## Finding Ideas <a href="#finding-ideas" id="finding-ideas">#</a>
 
@@ -2104,7 +2104,7 @@ Building the rich-text editor in Sametable was the second most challenging thing
    - Shaped specifically by a special-interest group.
    - Involves hacky workaround once you ventured out from the set of standard use cases.
 2. [Draftjs](https://draftjs.org/)
-   - It's for React. Sametable is on Preact.
+   - It's tightly coupled with React. Sametable is on Preact.
 3. [trix](https://trix-editor.org/)
    - Based on Web Component. I had issues integrating it in Preact.
    - It wasn't flexible to build a customized editing experience.
@@ -2123,6 +2123,8 @@ In keeping with the spirit of this learning journey, I have extracted the rich-t
 [https://codesandbox.io/s/compassionate-montalcini-gcgwc](https://codesandbox.io/s/compassionate-montalcini-gcgwc)
 
 🙌
+
+Note: Prosemirror is framework-agnostic; the CodeSandBox demo only uses 'create-react-app' for bundling ES6 modules.
 
 ## CORS <a href="#cors" id="cors">#</a>
 

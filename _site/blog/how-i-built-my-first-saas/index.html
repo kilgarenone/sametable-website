@@ -286,7 +286,7 @@
 <li>If I had to ship something the soonest possible, unless it's a matter of life and death, then I probably wasn't solving a unique and hard problem, in which case—assuming I was still on my day job and had zero debt took on—What is the rush?</li>
 <li>And second-guessing from the ethical perspective: Was it even a problem needs solving? What will be the second-order consequences if I solved it? Could my good intentions have been better directed elsewhere?</li>
 </ul>
-<p>So what follows is everything I'd learned when developing the first project I ever launched called <strong>Sametable</strong> that helps <a href="https://www.sametable.app">managing your work in spreadsheets</a>. From implementing favicon to deploying to a cloud platform, I will share extensive code snippets, best practices, lessons, guides, and key resources. I hope something here would be useful to you. Thanks for reading. ❤️</p>
+<p>So what follows is everything I'd learned when developing the first project I ever launched called <strong>Sametable</strong> that helps <a href="https://www.sametable.app">managing your work in spreadsheets</a>. This extensive write-up covers how all the main pieces came together—From implementing favicon to deploying to a cloud platform, I will share extensive code snippets, best practices, lessons, guides, and key resources. I hope something here would be useful to you. Thanks for reading. ❤️</p>
 <h2>Finding Ideas <a href="#finding-ideas" id="finding-ideas">#</a></h2>
 <p>Well, first of all, you need to know what you want to build. I used to lose sleep over this; thinking and remixing ideas, hoping for eureka — Until I started to look inward:</p>
 <ul>
@@ -1038,7 +1038,7 @@ With this approach, you still build your SPA. But when a user requests your app,
 </li>
 <li><a href="https://draftjs.org/">Draftjs</a>
 <ul>
-<li>It's for React. Sametable is on Preact.</li>
+<li>It's tightly coupled with React. Sametable is on Preact.</li>
 </ul>
 </li>
 <li><a href="https://trix-editor.org/">trix</a>
@@ -1059,6 +1059,7 @@ With this approach, you still build your SPA. But when a user requests your app,
 <p>In keeping with the spirit of this learning journey, I have extracted the rich-text editor of Sametable in a CodeSandBox:</p>
 <p><a href="https://codesandbox.io/s/compassionate-montalcini-gcgwc">https://codesandbox.io/s/compassionate-montalcini-gcgwc</a></p>
 <p>🙌</p>
+<p>Note: Prosemirror is framework-agnostic; the CodeSandBox demo only uses 'create-react-app' for bundling ES6 modules.</p>
 <h2>CORS <a href="#cors" id="cors">#</a></h2>
 <p>To stop your browser from complaining about CORS issues, it's <a href="https://medium.com/@kilgarenone/deploy-your-nodejs-app-to-digital-ocean-1de40797666f#4aa4">all about</a> getting your backend to send those <code>Access-Control-Allow-*</code> headers back per request. (Apologies for oversimplification is in order)</p>
 <p>But, correct me if I'm wrong, there's <a href="https://stackoverflow.com/a/60502433/73323">no way</a> to configure CORS in GAE itself. So I had to do it with the <a href="https://www.npmjs.com/package/cors">cors</a> npm package:</p>
@@ -1122,7 +1123,6 @@ With this approach, you still build your SPA. But when a user requests your app,
 <h3>Resources</h3>
 <ul>
 <li><a href="https://stripe.com/en-my/atlas/guides/starting-sales">https://stripe.com/en-my/atlas/guides/starting-sales</a></li>
-<li><a href="https://github.com/LisaDziuba/Marketing-for-Engineers">https://github.com/LisaDziuba/Marketing-for-Engineers</a></li>
 <li><a href="https://github.com/LisaDziuba/Marketing-for-Engineers">https://www.coryzue.com/writing/seo-for-developers/</a></li>
 </ul>
 <h2>Well-being <a href="#well-being" id="well-being">#</a></h2>
