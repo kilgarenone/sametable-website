@@ -2123,7 +2123,7 @@ In keeping with the spirit of this learning journey, I have extracted the rich-t
 
 🙌
 
-Note: Prosemirror is framework-agnostic; the CodeSandBox demo only uses 'create-react-app' for bundling ES6 modules.
+(**Note**: Prosemirror is framework-agnostic; the CodeSandBox demo only uses 'create-react-app' for bundling ES6 modules.)
 
 ## CORS <a href="#cors" id="cors">#</a>
 
