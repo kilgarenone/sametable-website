@@ -1154,12 +1154,11 @@ Let's see how to build a common layout in Flexbox with a minimal amount of CSS:
 
 <img src="https://i.imgur.com/PTCrd0K.png" alt="sidebar and content layout" loading="lazy"/>
 
-<p class="codepen" data-height="265" data-theme-id="dark" data-default-tab="html,result" data-user="kilgarenone" data-slug-hash="mdeLwvx" data-preview="true" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="Sidebar/Content layout">
+<p class="codepen" data-height="265" data-theme-id="light" data-default-tab="css,result" data-user="kilgarenone" data-slug-hash="mdeLwvx" data-preview="true" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="Sidebar/Content layout">
   <span>See the Pen <a href="https://codepen.io/kilgarenone/pen/mdeLwvx">
-  Sidebar/Content layout</a> by Ahwei (<a href="https://codepen.io/kilgarenone">@kilgarenone</a>)
+  Sidebar/Content layout</a>
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
-<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
 
 #### Resources
 
