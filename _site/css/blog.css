@@ -10,6 +10,7 @@
 
 img {
   max-width: 100%;
+  padding: 0.7em 0;
 }
 
 :root {
@@ -191,7 +192,7 @@ blockquote > :last-child {
   margin-bottom: 0;
 }
 
-li > p {
+li > * {
   margin-top: 16px;
 }
 

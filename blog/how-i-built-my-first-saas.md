@@ -2005,7 +2005,7 @@ This was the _only_ guide I relied on. It was my north star. It covers Nodejs, P
 
 Start with the ['Quick Start'](https://cloud.google.com/appengine/docs/standard/nodejs/quickstart) tutorial because it will set you up with the `gcloud cli` which you are going to need when following the rest of the guides, where you will find commands you can run to follow along. If you aren't comfortable with CLI environment, the guides will provide alternative steps to achieve the same thing on the GCP dashboard. I love it.
 
-I noticed that while going through the GCP doc, I never had to open more than 4 tabs in my browser. It was the complete opposite with AWS doc- My browser would be _packed_ with it.
+I noticed that while going through the GCP doc, I never had to open more than 4 tabs in my browser. It was the complete opposite with AWS doc&mdash;My browser would be _packed_ with it.
 
 ### Deploy Postgresql <a href="#deploy-psql" id="deploy-psql">#</a>
 
