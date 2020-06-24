@@ -44,6 +44,7 @@ description: From first principles
   - <a href="#crafting-sql-queries">Crafting SQL Queries</a>
   - <a href="#redis">Redis</a>
   - <a href="#error-handling-and-logging">Error Handling & Logging</a>
+  - <a href="#permalink">Permalink for URL Sharing</a>
 - <a href="#user-authentication-system">User Authentication System</a>
   - <a href="#user-authentication-system-guide">Guide</a>
 - <a href="#email">Email</a>
@@ -1698,6 +1699,44 @@ app.use(function (err, req, res, next) {
 ```
 
 That's it! And don't forget to enable email **notification** in your Sentry dashboard to get an alert when your Sentry receives an error! ❤️
+
+### Permalink for URL Sharing <a href="#permalink" id="permalink">#</a>
+
+We have seen URLs consist of cryptic alphanumeric string such as those on Youtube: `https://youtube.com/watch?v=upyjlOLBv5o`. This URL points to a specific video, which can be shared with someone by sharing the URL. The key component in the URL representing the video is the unique ID at the end: `upyjlOLBv5o`. We see this kind of ID in other sites too: `vimeo.com/259411563` and subscription's ID in Stripe `sub_aH2s332nm04`.
+
+As far as I know, there are three ways to achieve this outcome:
+
+1. [Generate the ID when inserting data in your database](https://stackoverflow.com/a/41988979/73323). The generated ID will be the ID in your `id` column rather than the auto-increment ones:
+
+   | id         | title        |
+   | ---------- | ------------ |
+   | owmCAx552Q | How to cry   |
+   | ZIofD6l3X9 | How to smile |
+
+   Then you will expose these IDs in public-facing URLs: `https://example.com/task/owmCAx552Q`. Given this URL to your backend, you can retrieve the respective resource from the database:
+
+   ```javascript
+   router.get("/task/:taskId", (req, res, next) => {
+     const { taskId } = req.params;
+     // SELECT * FROM tasks WHERE id=<taskId>
+   });
+   ```
+
+   The downsides to this method that I know of:
+
+   - The IDs might be sensitive information to be exposed publicly like that.
+   - These IDs are detrimental to the performance of indexing and 'joining' on your tables.
+
+2. You keep auto-incrementing your IDs in your tables, but you will represent them by [generating their alphanumeric counterpart during database operations](https://hashids.org/postgresql/):
+
+   ```sql
+     SELECT hash_encode(123, 'this is my salt', 10); -- Result: 4xpAYDx0mQ
+     SELECT hash_decode('4xpAYDx0mQ', 'this is my salt', 10); -- Result: 123
+   ```
+
+   I had trouble integrating this library on my Windows machine. So I went with the next option.
+
+3. [Similar to the second option above but different approach](https://old.reddit.com/r/PostgreSQL/comments/6gw866/best_practice_for_id_system_that_is_obscure_for/diu8cr1/). This will generate numeric ID: `https://example.com/task/2013732563294762`
 
 ## User Authentication System <a href="#user-authentication-system" id="user-authentication-system">#</a>
 
