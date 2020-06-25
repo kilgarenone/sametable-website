@@ -236,11 +236,16 @@
 <li><a href="#setup-schemas-production-db">Setup schemas in production database</a></li>
 <li><a href="#deploy-redis">Deploy Redis</a></li>
 <li><a href="#deploy-file-storage">File Storage</a></li>
+<li><a href="#deploy-server">Deploy New Changes in Back-end</a></li>
+</ul>
+</li>
+<li><a href="#hosting-spa">Hosting Your SPA</a>
+<ul>
+<li><a href="#deploy-client">Deploy New Changes in Front-end</a></li>
 </ul>
 </li>
 <li><a href="#rte">Rich-text Editor</a></li>
 <li><a href="#cors">CORS</a></li>
-<li><a href="#hosting-spa">Hosting Your SPA</a></li>
 <li><a href="#payment-subscription">Payment &amp; Subscription</a>
 <ul>
 <li><a href="#payment-subscription-guide">Guide</a></li>
@@ -825,7 +830,7 @@ With this approach, you still build your SPA. But when a user requests your app,
 <li>
 <p>You keep auto-incrementing your IDs in your tables, but you will represent them by <a href="https://hashids.org/postgresql/">generating their alphanumeric counterpart during database operations</a>:</p>
 <pre class="language-sql"><code class="language-sql">  <span class="token keyword">SELECT</span> hash_encode<span class="token punctuation">(</span><span class="token number">123</span><span class="token punctuation">,</span> <span class="token string">'this is my salt'</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">-- Result: 4xpAYDx0mQ</span><br>  <span class="token keyword">SELECT</span> hash_decode<span class="token punctuation">(</span><span class="token string">'4xpAYDx0mQ'</span><span class="token punctuation">,</span> <span class="token string">'this is my salt'</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">-- Result: 123</span></code></pre>
-<p>I had trouble integrating this library on my Windows machine. So I went with the next option.</p>
+<p>I had trouble integrating this library on my Windows machine. So I went with the next option;</p>
 </li>
 <li>
 <p><a href="https://old.reddit.com/r/PostgreSQL/comments/6gw866/best_practice_for_id_system_that_is_obscure_for/diu8cr1/">Similar to the second option above but different approach</a>. This will generate numeric ID: <code>https://example.com/task/2013732563294762</code></p>
@@ -891,7 +896,7 @@ With this approach, you still build your SPA. But when a user requests your app,
 <p>It's an email address people use to contact you about your SaaS, rather than with a <code>lola887@hotmail.com</code>.</p>
 <p>There are three options on my radar:</p>
 <ol>
-<li>If you are on Mailgun, follow <a href="https://renzo.lucioni.xyz/mail-forwarding-with-mailgun/">this guide</a>. However, the new pay-as-you-go tier has excluded the feature(<code>Inbound Email Routing</code>) that makes this possible. So perhaps the next option.</li>
+<li>If you are on Mailgun, follow <a href="https://renzo.lucioni.xyz/mail-forwarding-with-mailgun/">this guide</a>. However, the new pay-as-you-go tier has excluded the feature(<code>Inbound Email Routing</code>) that makes this possible. So perhaps the next option;</li>
 <li>If I ever get kicked out of my '10,000' free-tier in Mailgun, I would give this a shot https://forwardemail.net/en</li>
 <li>If all else failed, pay for <a href="https://gsuite.google.com.my/intl/en_my/products/gmail/">'Gmail on G Suite'</a>.</li>
 </ol>
@@ -1067,6 +1072,32 @@ With this approach, you still build your SPA. But when a user requests your app,
 <li>You will be fine:
 <a href="https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-storage">https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-storage</a></li>
 </ul>
+<h3>Deploy New Changes in Back-end <a href="#deploy-server" id="deploy-server">#</a></h3>
+<p>I have a npm script in the root's <code>package.json</code> to publish new changes on my back-end to GCP:</p>
+<pre class="language-json"><code class="language-json"><span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    <span class="token property">"deploy-server"</span><span class="token operator">:</span> <span class="token string">"gcloud app deploy ./server/app.yaml"</span><br><span class="token punctuation">}</span></code></pre>
+<p>Then run it in a terminal at your project's root:</p>
+<pre class="language-json"><code class="language-json">npm run deploy-server</code></pre>
+<h2>Hosting Your SPA <a href="#hosting-spa" id="hosting-spa">#</a></h2>
+<p>When I was still on Lightsail, my SPA was <a href="https://medium.com/@kilgarenone/deploy-spa-to-aws-9302796acd88">hosted</a> on S3+Cloudfront because I assumed it's better to keep them under the same platform for better latency. Then I found GCP. As a beat refugee from AWS landing in GCP, I first explored the 'Cloud Storage' to host my SPA, and turns out it wasn't ideal for SPA. It's rather convoluted. So you can skip that.</p>
+<p>Then I tried hosting my SPA in <a href="https://firebase.google.com/docs/hosting/quickstart"><strong>Firebase</strong></a>. Easily done in minutes even when it was my first time there. I love it.</p>
+<p>Another option you can consider is <a href="https://netlify.com">Netlify</a> which is super easy to get started too.</p>
+<h3>Deploy New Changes in Front-end <a href="#deploy-client" id="deploy-client">#</a></h3>
+<p>Similarly to deploying back-end changes, I have another npm script in the root's <code>package.json</code> to publish new changes on my front-end to Firebase:</p>
+<pre class="language-json"><code class="language-json"><span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    <span class="token property">"deploy-client"</span><span class="token operator">:</span> <span class="token string">"npm run build-client &amp;&amp; firebase deploy"</span><span class="token punctuation">,</span><br>    <span class="token property">"build-client"</span><span class="token operator">:</span> <span class="token string">"npm run test &amp;&amp; cd client &amp;&amp; npm i &amp;&amp; npm run build"</span><span class="token punctuation">,</span><br>    <span class="token property">"test"</span><span class="token operator">:</span> <span class="token string">"npm run lint"</span><span class="token punctuation">,</span><br>    <span class="token property">"lint"</span><span class="token operator">:</span> <span class="token string">"npm run lint:js &amp;&amp; npm run lint:css"</span><span class="token punctuation">,</span><br>    <span class="token property">"lint:js"</span><span class="token operator">:</span> <span class="token string">"eslint 'client/src/**/*.js' --fix"</span><span class="token punctuation">,</span><br>    <span class="token property">"lint:css"</span><span class="token operator">:</span> <span class="token string">"stylelint '**/*.{scss,css}' '!client/dist/**/*'"</span><br><span class="token punctuation">}</span></code></pre>
+<p><em>&quot;Whoa hold on, where all that stuff come from??&quot;</em></p>
+<p>They are a chain of scripts that each runs sequentially upon triggered by the <code>deploy-client</code> script. The <code>&amp;&amp;</code> character is what glues them together.</p>
+<p>Let's hold each other's hands and walk through it from start to finish:</p>
+<ol>
+<li>First, we do <code>npm run deploy-client</code>,</li>
+<li>which runs <code>build-client</code> first,</li>
+<li>which runs <code>test</code> first, (see, we are just following where the <code>&amp;&amp;</code> leads us, which is why <code>firebase deploy</code> won't run just yet)</li>
+<li>which runs <code>lint</code>,</li>
+<li>which brings us to <code>lint:js</code> first, and next, <code>lint:css</code>,</li>
+<li>then back to <code>cd client</code>, followed by <code>npm i</code> and <code>npm run build</code>,</li>
+<li>and finally, <code>firebase deploy</code>'s turn to run.</li>
+</ol>
+<p><strong>Tip</strong>: If the changes you made are full-stack, you could have a script that deploys 'client' and 'server' together:</p>
+<pre class="language-json"><code class="language-json"><span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    <span class="token property">"deploy-all"</span><span class="token operator">:</span> <span class="token string">"npm run deploy-server &amp;&amp; npm run deploy-client"</span><span class="token punctuation">,</span><br><span class="token punctuation">}</span></code></pre>
 <h2>Rich-text Editor <a href="#rte" id="rte">#</a></h2>
 <p>Building the rich-text editor in Sametable was the second most challenging thing for me. I realized that I could have had it easy with those drop-in editors such as CKEditor and TinyMCE, but I wanted to be able to craft the writing experience in the editor, and nothing can do that better than <a href="https://prosemirror.net/"><strong>ProseMirror</strong></a>. Sure, I had other options too, which I decided against for several reasons:</p>
 <ol>
@@ -1105,10 +1136,6 @@ With this approach, you still build your SPA. But when a user requests your app,
 <p>To stop your browser from complaining about CORS issues, it's <a href="https://medium.com/@kilgarenone/deploy-your-nodejs-app-to-digital-ocean-1de40797666f#4aa4">all about</a> getting your backend to send those <code>Access-Control-Allow-*</code> headers back per request. (Apologies for oversimplification is in order)</p>
 <p>But, correct me if I'm wrong, there's <a href="https://stackoverflow.com/a/60502433/73323">no way</a> to configure CORS in GAE itself. So I had to do it with the <a href="https://www.npmjs.com/package/cors">cors</a> npm package:</p>
 <pre class="language-js"><code class="language-js"><span class="token keyword">const</span> express <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"express"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token function">express</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token keyword">const</span> cors <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"cors"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><span class="token keyword">const</span> <span class="token constant">ALLOWED_ORIGINS</span> <span class="token operator">=</span> <span class="token punctuation">[</span><br>  <span class="token string">"http://localhost:8008"</span><span class="token punctuation">,</span><br>  <span class="token string">"https://web.sametable.app"</span><span class="token punctuation">,</span> <span class="token comment">// your SPA's domain</span><br><span class="token punctuation">]</span><span class="token punctuation">;</span><br><br>app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><br>  <span class="token function">cors</span><span class="token punctuation">(</span><span class="token punctuation">{</span><br>    credentials<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// include Access-Control-Allow-Credentials: true. remember set xhr.withCredentials = true;</span><br>    <span class="token function">origin</span><span class="token punctuation">(</span><span class="token parameter">origin<span class="token punctuation">,</span> callback</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>      <span class="token comment">// allow requests with no origin</span><br>      <span class="token comment">// (like mobile apps or curl requests)</span><br>      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>origin<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token function">callback</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token constant">ALLOWED_ORIGINS</span><span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>origin<span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>        <span class="token keyword">const</span> msg <span class="token operator">=</span><br>          <span class="token string">"The CORS policy for this site does not "</span> <span class="token operator">+</span><br>          <span class="token string">"allow access from the specified Origin."</span><span class="token punctuation">;</span><br>        <span class="token keyword">return</span> <span class="token function">callback</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>      <span class="token punctuation">}</span><br>      <span class="token keyword">return</span> <span class="token function">callback</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><span class="token punctuation">,</span><br>  <span class="token punctuation">}</span><span class="token punctuation">)</span><br><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<h2>Hosting Your SPA <a href="#hosting-spa" id="hosting-spa">#</a></h2>
-<p>When I was still on Lightsail, my SPA was <a href="https://medium.com/@kilgarenone/deploy-spa-to-aws-9302796acd88">hosted</a> on S3+Cloudfront because I assumed it's better to keep them under the same platform for better latency. Then I found GCP. As a beat refugee from AWS landing in GCP, I first explored the 'Cloud Storage' to host my SPA, and turns out it wasn't ideal for SPA. It's rather convoluted. So you can skip that.</p>
-<p>Then I tried hosting my SPA in <a href="https://firebase.google.com/docs/hosting/quickstart"><strong>Firebase</strong></a>. Easily done in minutes even when it was my first time there. I love it.</p>
-<p>Another option you can consider is <a href="https://netlify.com">Netlify</a> which is super easy to get started too.</p>
 <h2>Payment &amp; Subscription <a href="#payment-subscription" id="payment-subscription">#</a></h2>
 <p>A SaaS usually allows users to pay and subscribe to access the paid features you have designated.</p>
 <p>To enable that possibility in Sametable, I use <strong>Stripe</strong> to handle both the payment and subscription flows.</p>

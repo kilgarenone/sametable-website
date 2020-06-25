@@ -60,9 +60,11 @@ description: From first principles
   - <a href="#setup-schemas-production-db">Setup schemas in production database</a>
   - <a href="#deploy-redis">Deploy Redis</a>
   - <a href="#deploy-file-storage">File Storage</a>
+  - <a href="#deploy-server">Deploy New Changes in Back-end</a>
+- <a href="#hosting-spa">Hosting Your SPA</a>
+  - <a href="#deploy-client">Deploy New Changes in Front-end</a>
 - <a href="#rte">Rich-text Editor</a>
 - <a href="#cors">CORS</a>
-- <a href="#hosting-spa">Hosting Your SPA</a>
 - <a href="#payment-subscription">Payment & Subscription</a>
   - <a href="#payment-subscription-guide">Guide</a>
   - <a href="#payment-subscription-webhook">Webhook</a>
@@ -1734,7 +1736,7 @@ As far as I know, there are three ways to achieve this outcome:
      SELECT hash_decode('4xpAYDx0mQ', 'this is my salt', 10); -- Result: 123
    ```
 
-   I had trouble integrating this library on my Windows machine. So I went with the next option.
+   I had trouble integrating this library on my Windows machine. So I went with the next option;
 
 3. [Similar to the second option above but different approach](https://old.reddit.com/r/PostgreSQL/comments/6gw866/best_practice_for_id_system_that_is_obscure_for/diu8cr1/). This will generate numeric ID: `https://example.com/task/2013732563294762`
 
@@ -1946,7 +1948,7 @@ It's an email address people use to contact you about your SaaS, rather than wit
 
 There are three options on my radar:
 
-1. If you are on Mailgun, follow [this guide](https://renzo.lucioni.xyz/mail-forwarding-with-mailgun/). However, the new pay-as-you-go tier has excluded the feature(`Inbound Email Routing`) that makes this possible. So perhaps the next option.
+1. If you are on Mailgun, follow [this guide](https://renzo.lucioni.xyz/mail-forwarding-with-mailgun/). However, the new pay-as-you-go tier has excluded the feature(`Inbound Email Routing`) that makes this possible. So perhaps the next option;
 2. If I ever get kicked out of my '10,000' free-tier in Mailgun, I would give this a shot https://forwardemail.net/en
 3. If all else failed, pay for ['Gmail on G Suite'](https://gsuite.google.com.my/intl/en_my/products/gmail/).
 
@@ -2133,6 +2135,67 @@ There is a [free tier](https://cloud.google.com/free/docs/gcp-free-tier#always-f
 - You will be fine:
   [https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-storage](https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-storage)
 
+### Deploy New Changes in Back-end <a href="#deploy-server" id="deploy-server">#</a>
+
+I have a npm script in the root's `package.json` to publish new changes on my back-end to GCP:
+
+```json
+"scripts": {
+    "deploy-server": "gcloud app deploy ./server/app.yaml"
+}
+```
+
+Then run it in a terminal at your project's root:
+
+```json
+npm run deploy-server
+```
+
+## Hosting Your SPA <a href="#hosting-spa" id="hosting-spa">#</a>
+
+When I was still on Lightsail, my SPA was [hosted](https://medium.com/@kilgarenone/deploy-spa-to-aws-9302796acd88) on S3+Cloudfront because I assumed it's better to keep them under the same platform for better latency. Then I found GCP. As a beat refugee from AWS landing in GCP, I first explored the 'Cloud Storage' to host my SPA, and turns out it wasn't ideal for SPA. It's rather convoluted. So you can skip that.
+
+Then I tried hosting my SPA in [**Firebase**](https://firebase.google.com/docs/hosting/quickstart). Easily done in minutes even when it was my first time there. I love it.
+
+Another option you can consider is [Netlify](https://netlify.com) which is super easy to get started too.
+
+### Deploy New Changes in Front-end <a href="#deploy-client" id="deploy-client">#</a>
+
+Similarly to deploying back-end changes, I have another npm script in the root's `package.json` to publish new changes on my front-end to Firebase:
+
+```json
+"scripts": {
+    "deploy-client": "npm run build-client && firebase deploy",
+    "build-client": "npm run test && cd client && npm i && npm run build",
+    "test": "npm run lint",
+    "lint": "npm run lint:js && npm run lint:css",
+    "lint:js": "eslint 'client/src/**/*.js' --fix",
+    "lint:css": "stylelint '**/*.{scss,css}' '!client/dist/**/*'"
+}
+```
+
+_"Whoa hold on, where all that stuff come from??"_
+
+They are a chain of scripts that each runs sequentially upon triggered by the `deploy-client` script. The `&&` character is what glues them together.
+
+Let's hold each other's hands and walk through it from start to finish:
+
+1. First, we do `npm run deploy-client`,
+2. which runs `build-client` first,
+3. which runs `test` first, (see, we are just following where the `&&` leads us, which is why `firebase deploy` won't run just yet)
+4. which runs `lint`,
+5. which brings us to `lint:js` first, and next, `lint:css`,
+6. then back to `cd client`, followed by `npm i` and `npm run build`,
+7. and finally, `firebase deploy`'s turn to run.
+
+**Tip**: If the changes you made are full-stack, you could have a script that deploys 'client' and 'server' together:
+
+```json
+"scripts": {
+    "deploy-all": "npm run deploy-server && npm run deploy-client",
+}
+```
+
 ## Rich-text Editor <a href="#rte" id="rte">#</a>
 
 Building the rich-text editor in Sametable was the second most challenging thing for me. I realized that I could have had it easy with those drop-in editors such as CKEditor and TinyMCE, but I wanted to be able to craft the writing experience in the editor, and nothing can do that better than [**ProseMirror**](https://prosemirror.net/). Sure, I had other options too, which I decided against for several reasons:
@@ -2198,14 +2261,6 @@ app.use(
   })
 );
 ```
-
-## Hosting Your SPA <a href="#hosting-spa" id="hosting-spa">#</a>
-
-When I was still on Lightsail, my SPA was [hosted](https://medium.com/@kilgarenone/deploy-spa-to-aws-9302796acd88) on S3+Cloudfront because I assumed it's better to keep them under the same platform for better latency. Then I found GCP. As a beat refugee from AWS landing in GCP, I first explored the 'Cloud Storage' to host my SPA, and turns out it wasn't ideal for SPA. It's rather convoluted. So you can skip that.
-
-Then I tried hosting my SPA in [**Firebase**](https://firebase.google.com/docs/hosting/quickstart). Easily done in minutes even when it was my first time there. I love it.
-
-Another option you can consider is [Netlify](https://netlify.com) which is super easy to get started too.
 
 ## Payment & Subscription <a href="#payment-subscription" id="payment-subscription">#</a>
 
