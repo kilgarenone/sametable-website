@@ -2058,10 +2058,20 @@ Just follow it and you will be fine.
 
 #### Cost
 
-It's pay-as-you-use as opposed to the fixed \$15/mo you find in Lightsail and DO.
+An instance of Cloud SQL runs a full virtual machine. And once a VM has been provisioned, it won't automatically turn itself off when, for example, it has not seen any usage for 15 minutes. So you will be billed for every hour an instance is running for an entire month unless it'd been manually stopped.
 
-Sample cost:
-[https://cloud.google.com/products/calculator/#id=dd6b78da-1215-4366-b7b4-afefe5472ee6](https://cloud.google.com/products/calculator/#id=dd6b78da-1215-4366-b7b4-afefe5472ee6)
+The primary factor that will affect your cost here, particularly in the early days, is the grade of the [machine type](https://cloud.google.com/sql/pricing#2nd-gen-instance-pricing). The default machine type for a Cloud SQL is a `db-n1-standard-1`, and the 'cheapest' one you can get is a `db-f1-micro`:
+
+| db-n1-standard-1                                                                                    | db-f1-micro                                                                | Digital Ocean Managed DB                                             |
+| --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| 1 vCPU                                                                                              | 1 shared vCPU                                                              | 1 vCPU                                                               |
+| 3.75GB Memory                                                                                       | 0.6GB Memory                                                               | 1GB Memory                                                           |
+| 10GB SSD Storage                                                                                    | 10GB SSD Storage                                                           | 10GB SSD Storage                                                     |
+| [~USD 51.01](https://cloud.google.com/products/calculator/#id=c0040a15-933d-4dc3-8022-1428fc210050) | [~USD 9.37](https://cloud.google.com/sql/pricing#2nd-gen-instance-pricing) | [USD 15.00](https://www.digitalocean.com/pricing/#managed-databases) |
+
+The other two cost factors are [storage and network egress](https://cloud.google.com/sql/pricing#pg-storage-networking-prices). But they are charged monthly, so they probably won't have as big of an impact on the bill of your nascent SaaS.
+
+If you find the price tags to be too hefty to your liking, keep in mind that they are a _managed_ database. You are paying for all the times and anxiety saved from doing devops on your database. For me, it's worth it.
 
 ### Setup schemas in production database <a href="#setup-schemas-production-db" id="setup-schemas-production-db">#</a>
 
@@ -2072,7 +2082,7 @@ Now that I have got a database deployed for production, it's time to dress it up
 
 ### Deploy Redis <a href="#deploy-redis" id="deploy-redis">#</a>
 
-If you were following the main guide about Nodejs, you can't miss [this guide](https://cloud.google.com/appengine/docs/standard/nodejs/using-memorystore) about setting up your Redis in MemoryStore. But I figured it would be more cost-effective to **host my Redis in a Google Compute Engine**(GCE) which has, unlike MemoryStore, free quota. (Also [see this](https://github.com/ripienaar/free-for-dev#major-cloud-providers) for comparison of free quota across different cloud platforms)
+If you were following the main guide about Nodejs, you can't miss [this guide](https://cloud.google.com/appengine/docs/standard/nodejs/using-memorystore) about setting up your Redis in MemoryStore. But I figured it would be more cost-effective to **host my Redis in a Google Compute Engine**(GCE) which has, unlike MemoryStore, free quota in certain aspects. ([See this](https://github.com/ripienaar/free-for-dev#major-cloud-providers) for comparison of free quota across different cloud platforms)
 
 #### Guide
 
@@ -2137,7 +2147,7 @@ There is a [free tier](https://cloud.google.com/free/docs/gcp-free-tier#always-f
 
 ### Deploy New Changes in Back-end <a href="#deploy-server" id="deploy-server">#</a>
 
-I have a npm script in the root's `package.json` to publish new changes on my back-end to GCP:
+I have a npm script in the root's `package.json` to publish new changes in my back-end to GCP:
 
 ```json
 "scripts": {
@@ -2161,7 +2171,7 @@ Another option you can consider is [Netlify](https://netlify.com) which is super
 
 ### Deploy New Changes in Front-end <a href="#deploy-client" id="deploy-client">#</a>
 
-Similarly to deploying back-end changes, I have another npm script in the root's `package.json` to publish new changes on my front-end to Firebase:
+Similarly to deploying back-end changes, I have another npm script in the root's `package.json` to publish new changes in my front-end to Firebase:
 
 ```json
 "scripts": {
@@ -2182,11 +2192,11 @@ Let's hold each other's hands and walk through it from start to finish:
 
 1. First, we do `npm run deploy-client`,
 2. which runs `build-client` first,
-3. which runs `test` first, (see, we are just following where the `&&` leads us, which is why `firebase deploy` won't run just yet)
+3. which runs `test` first, (see, we are just following where a script and its `&&` lead us, which is why `firebase deploy` won't run just yet)
 4. which runs `lint`,
 5. which brings us to `lint:js` first, and next, `lint:css`,
 6. then back to `cd client`, followed by `npm i` and `npm run build`,
-7. and finally, `firebase deploy`'s turn to run.
+7. and finally, it's `firebase deploy`'s turn to run.
 
 **Tip**: If the changes you made are full-stack, you could have a script that deploys 'client' and 'server' together:
 
@@ -2204,8 +2214,9 @@ Building the rich-text editor in Sametable was the second most challenging thing
    - Seemed many unaddressed [issues](https://github.com/quilljs/quill/issues).
    - Shaped specifically by a special-interest group.
    - Involves hacky workaround once you ventured out from the set of standard use cases.
-2. [Draftjs](https://draftjs.org/)
-   - It's tightly coupled with React. Sametable is on Preact.
+2. [Draftjs](https://draftjs.org/) & [Slatejs](https://github.com/ianstormtaylor/slate)
+   - They are tightly coupled with React.
+   - With the overhead of virtual DOM, they won't perform as well as Prosemirror.
 3. [trix](https://trix-editor.org/)
    - Based on Web Component. I had issues integrating it in Preact.
    - It wasn't flexible to build a customized editing experience.

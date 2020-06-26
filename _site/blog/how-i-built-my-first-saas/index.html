@@ -1024,9 +1024,41 @@ With this approach, you still build your SPA. But when a user requests your app,
 <p><a href="https://cloud.google.com/sql/docs/postgres/connect-app-engine-standard">https://cloud.google.com/sql/docs/postgres/connect-app-engine-standard</a></p>
 <p>Just follow it and you will be fine.</p>
 <h4>Cost</h4>
-<p>It's pay-as-you-use as opposed to the fixed $15/mo you find in Lightsail and DO.</p>
-<p>Sample cost:
-<a href="https://cloud.google.com/products/calculator/#id=dd6b78da-1215-4366-b7b4-afefe5472ee6">https://cloud.google.com/products/calculator/#id=dd6b78da-1215-4366-b7b4-afefe5472ee6</a></p>
+<p>An instance of Cloud SQL runs a full virtual machine. And once a VM has been provisioned, it won't automatically turn itself off when, for example, it has not seen any usage for 15 minutes. So you will be billed for every hour an instance is running for an entire month unless it'd been manually stopped.</p>
+<p>The primary factor that will affect your cost here, particularly in the early days, is the grade of the <a href="https://cloud.google.com/sql/pricing#2nd-gen-instance-pricing">machine type</a>. The default machine type for a Cloud SQL is a <code>db-n1-standard-1</code>, and the 'cheapest' one you can get is a <code>db-f1-micro</code>:</p>
+<table>
+<thead>
+<tr>
+<th>db-n1-standard-1</th>
+<th>db-f1-micro</th>
+<th>Digital Ocean Managed DB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 vCPU</td>
+<td>1 shared vCPU</td>
+<td>1 vCPU</td>
+</tr>
+<tr>
+<td>3.75GB Memory</td>
+<td>0.6GB Memory</td>
+<td>1GB Memory</td>
+</tr>
+<tr>
+<td>10GB SSD Storage</td>
+<td>10GB SSD Storage</td>
+<td>10GB SSD Storage</td>
+</tr>
+<tr>
+<td><a href="https://cloud.google.com/products/calculator/#id=c0040a15-933d-4dc3-8022-1428fc210050">~USD 51.01</a></td>
+<td><a href="https://cloud.google.com/sql/pricing#2nd-gen-instance-pricing">~USD 9.37</a></td>
+<td><a href="https://www.digitalocean.com/pricing/#managed-databases">USD 15.00</a></td>
+</tr>
+</tbody>
+</table>
+<p>The other two cost factors are <a href="https://cloud.google.com/sql/pricing#pg-storage-networking-prices">storage and network egress</a>. But they are charged monthly, so they probably won't have as big of an impact on the bill of your nascent SaaS.</p>
+<p>If you find the price tags to be too hefty to your liking, keep in mind that they are a <em>managed</em> database. You are paying for all the times and anxiety saved from doing devops on your database. For me, it's worth it.</p>
 <h3>Setup schemas in production database <a href="#setup-schemas-production-db" id="setup-schemas-production-db">#</a></h3>
 <p>Now that I have got a database deployed for production, it's time to dress it up with all my schemas from the <code>.sql</code> <a href="#schemas-file">file</a>. To do that, I need to connect to the database from pgAdmin:</p>
 <ol>
@@ -1073,7 +1105,7 @@ With this approach, you still build your SPA. But when a user requests your app,
 <a href="https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-storage">https://cloud.google.com/appengine/docs/standard/nodejs/using-cloud-storage</a></li>
 </ul>
 <h3>Deploy New Changes in Back-end <a href="#deploy-server" id="deploy-server">#</a></h3>
-<p>I have a npm script in the root's <code>package.json</code> to publish new changes on my back-end to GCP:</p>
+<p>I have a npm script in the root's <code>package.json</code> to publish new changes in my back-end to GCP:</p>
 <pre class="language-json"><code class="language-json"><span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    <span class="token property">"deploy-server"</span><span class="token operator">:</span> <span class="token string">"gcloud app deploy ./server/app.yaml"</span><br><span class="token punctuation">}</span></code></pre>
 <p>Then run it in a terminal at your project's root:</p>
 <pre class="language-json"><code class="language-json">npm run deploy-server</code></pre>
@@ -1082,7 +1114,7 @@ With this approach, you still build your SPA. But when a user requests your app,
 <p>Then I tried hosting my SPA in <a href="https://firebase.google.com/docs/hosting/quickstart"><strong>Firebase</strong></a>. Easily done in minutes even when it was my first time there. I love it.</p>
 <p>Another option you can consider is <a href="https://netlify.com">Netlify</a> which is super easy to get started too.</p>
 <h3>Deploy New Changes in Front-end <a href="#deploy-client" id="deploy-client">#</a></h3>
-<p>Similarly to deploying back-end changes, I have another npm script in the root's <code>package.json</code> to publish new changes on my front-end to Firebase:</p>
+<p>Similarly to deploying back-end changes, I have another npm script in the root's <code>package.json</code> to publish new changes in my front-end to Firebase:</p>
 <pre class="language-json"><code class="language-json"><span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    <span class="token property">"deploy-client"</span><span class="token operator">:</span> <span class="token string">"npm run build-client &amp;&amp; firebase deploy"</span><span class="token punctuation">,</span><br>    <span class="token property">"build-client"</span><span class="token operator">:</span> <span class="token string">"npm run test &amp;&amp; cd client &amp;&amp; npm i &amp;&amp; npm run build"</span><span class="token punctuation">,</span><br>    <span class="token property">"test"</span><span class="token operator">:</span> <span class="token string">"npm run lint"</span><span class="token punctuation">,</span><br>    <span class="token property">"lint"</span><span class="token operator">:</span> <span class="token string">"npm run lint:js &amp;&amp; npm run lint:css"</span><span class="token punctuation">,</span><br>    <span class="token property">"lint:js"</span><span class="token operator">:</span> <span class="token string">"eslint 'client/src/**/*.js' --fix"</span><span class="token punctuation">,</span><br>    <span class="token property">"lint:css"</span><span class="token operator">:</span> <span class="token string">"stylelint '**/*.{scss,css}' '!client/dist/**/*'"</span><br><span class="token punctuation">}</span></code></pre>
 <p><em>&quot;Whoa hold on, where all that stuff come from??&quot;</em></p>
 <p>They are a chain of scripts that each runs sequentially upon triggered by the <code>deploy-client</code> script. The <code>&amp;&amp;</code> character is what glues them together.</p>
@@ -1090,11 +1122,11 @@ With this approach, you still build your SPA. But when a user requests your app,
 <ol>
 <li>First, we do <code>npm run deploy-client</code>,</li>
 <li>which runs <code>build-client</code> first,</li>
-<li>which runs <code>test</code> first, (see, we are just following where the <code>&amp;&amp;</code> leads us, which is why <code>firebase deploy</code> won't run just yet)</li>
+<li>which runs <code>test</code> first, (see, we are just following where a script and its <code>&amp;&amp;</code> lead us, which is why <code>firebase deploy</code> won't run just yet)</li>
 <li>which runs <code>lint</code>,</li>
 <li>which brings us to <code>lint:js</code> first, and next, <code>lint:css</code>,</li>
 <li>then back to <code>cd client</code>, followed by <code>npm i</code> and <code>npm run build</code>,</li>
-<li>and finally, <code>firebase deploy</code>'s turn to run.</li>
+<li>and finally, it's <code>firebase deploy</code>'s turn to run.</li>
 </ol>
 <p><strong>Tip</strong>: If the changes you made are full-stack, you could have a script that deploys 'client' and 'server' together:</p>
 <pre class="language-json"><code class="language-json"><span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    <span class="token property">"deploy-all"</span><span class="token operator">:</span> <span class="token string">"npm run deploy-server &amp;&amp; npm run deploy-client"</span><span class="token punctuation">,</span><br><span class="token punctuation">}</span></code></pre>
@@ -1108,9 +1140,10 @@ With this approach, you still build your SPA. But when a user requests your app,
 <li>Involves hacky workaround once you ventured out from the set of standard use cases.</li>
 </ul>
 </li>
-<li><a href="https://draftjs.org/">Draftjs</a>
+<li><a href="https://draftjs.org/">Draftjs</a> &amp; <a href="https://github.com/ianstormtaylor/slate">Slatejs</a>
 <ul>
-<li>It's tightly coupled with React. Sametable is on Preact.</li>
+<li>They are tightly coupled with React.</li>
+<li>With the overhead of virtual DOM, they won't perform as well as Prosemirror.</li>
 </ul>
 </li>
 <li><a href="https://trix-editor.org/">trix</a>
