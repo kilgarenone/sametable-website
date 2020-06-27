@@ -1,6 +1,7 @@
 ---
 layout: post.njk
-title: How I built my first SaaS
+title: How to Build Your First SaaS
+date: 26-06-2020
 description: From first principles
 ---
 
