@@ -5,7 +5,7 @@ date: 26-06-2020
 description: From first principles
 ---
 
-# How I Built My First SaaS
+# How to Build Your First SaaS
 
 <a class="skip-main" href="#introduction">Skip to main content</a>
 
